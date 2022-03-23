@@ -1,8 +1,9 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React from "react";
 import { useTheme } from "@emotion/react";
-import FireboltLogo from "../common/icons/fireboltLogo";
+import FireboltLogo from "../common/icons/FireboltLogo";
 import HamburgerMenu from "@/components/common/HamburgerButton";
-import { Layout, Image, Menu, Breadcrumb } from "antd";
+import { Layout, Image, Menu, Breadcrumb, Avatar } from "antd";
+import { QuestionCircleOutlined, UserOutlined } from "@ant-design/icons";
 
 interface HeaderProps {
   toggleMenu(...args: any): any;
@@ -12,31 +13,16 @@ const { Header } = Layout;
 
 const HeaderInternal: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
   const theme = useTheme();
-  const [positionHeader, setPositionHeader]:
-    | [string, Dispatch<SetStateAction<string>>]
-    | any = useState("sticky");
-
-  useEffect(() => {
-    window.onscroll = () => {
-      if (window.pageYOffset > 50) {
-        return setPositionHeader("fixed");
-      }
-      if (window.pageYOffset < 50) {
-        return setPositionHeader("sticky");
-      }
-    };
-  }, [positionHeader]);
 
   return (
     <Header
       css={{
         color: theme?.colors?.["white"],
-        // backgroundColor: theme?.colors?.["blue-teal"],
         backgroundColor: "#001529",
         width: "100%",
         height: "48px",
         fontWeight: 500,
-        position: positionHeader,
+        position: "fixed",
         top: 0,
         zIndex: 2,
         display: "flex",
@@ -55,8 +41,33 @@ const HeaderInternal: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
         <FireboltLogo />
         Firebolt creator
       </div>
+
+      <div
+       css={{
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
+      }}>
+        <a
+        css={{
+          color: "white",
+          textDecoration: "none",
+          cursor: "pointer"
+        }}
+          href="https://iq-tech.github.io/firebolt-docs/en/introduction/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <QuestionCircleOutlined />
+        </a>
+       
+        <Avatar shape="square" size="small" icon={<UserOutlined />} />
+        <p>Serati Ma</p>
+
+
       <div>
         <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} />
+      </div>
       </div>
     </Header>
   );

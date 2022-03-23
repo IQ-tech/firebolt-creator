@@ -14,6 +14,7 @@ function App() {
           backgroundColor: theme?.colors?.["cream-tusk"],
           width: "100vw",
           height: "100vh",
+          paddingTop: "48px"
         })}
       >
         <BaseStyles />
