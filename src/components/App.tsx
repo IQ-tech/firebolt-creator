@@ -2,14 +2,10 @@ import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
 import BaseStyles from "./BaseStyles";
 import theme from "@/theme";
-
-import useApp from "./App.hook";
-
-import Header from "./layout/Header";
-import MainMenu from "./layout/MainMenu";
+import EditorPage from "@/pages/EditorPage";
+import InternalLayouts from "./layout/InternalLayouts";
 
 function App() {
-  const { isMenuOpen, toggleMenu } = useApp();
 
   return (
     <ThemeProvider theme={theme}>
@@ -18,15 +14,24 @@ function App() {
           backgroundColor: theme?.colors?.["cream-tusk"],
           width: "100vw",
           height: "100vh",
+          paddingTop: "48px"
         })}
       >
-        <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-        <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <BaseStyles />
         <Routes>
-          <Route path="/" element={<p>primeira página</p>} />
-          <Route path="/second-page" element={<p>segunda página</p>} />
-          <Route path="*" element={<p>not found</p>} />
+          <Route
+            path="/"
+            element={<p style={{ fontSize: "40px" }}>HOME<a href="/app"> Click GO /app </a></p>}
+          />
+
+          <Route path="/app" element={<InternalLayouts />}>
+            <Route path="editor" element={<EditorPage />} />
+          </Route>
+
+          <Route
+            path="*"
+            element={<p style={{ fontSize: "40px" }}>NOT FOUND</p>}
+          />
         </Routes>
       </div>
     </ThemeProvider>
