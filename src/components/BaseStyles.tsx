@@ -34,6 +34,33 @@ const BaseStyles = () => {
         a {
           text-decoration: none;
         }
+
+        .flex {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .label__input {
+          max-width: 240px;
+          margin: 8px 0;
+
+          label {
+            margin-bottom: 4px;
+          }
+        }
+        
+        .label__select {
+          margin: 8px 0;
+        }
+
+        .column {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            margin-bottom: 4px;
+          }
+        }
       `}
     />
   );

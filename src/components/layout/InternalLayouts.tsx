@@ -13,61 +13,6 @@ const InternalLayouts = () => {
       <p>1outro PARANAUE</p>
       <p>2outro PARANAUE</p>
       <p>3outro PARANAUE</p>
-      <p>54outro PARANAUE</p>
-      <p>6outro PARANAUE</p>
-      <p>7outro PARANAUE</p>
-      <p>8outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-      <p>outro PARANAUE</p>
-
-
       <Outlet />
     </>
   );
