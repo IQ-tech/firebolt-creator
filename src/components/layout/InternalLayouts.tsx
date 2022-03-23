@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Outlet } from "react-router-dom";
 import useApp from "../App.hook";
-import HeaderInternal from "./HeaderInternal";
+import HeaderInternal from "./InternalHeader";
 import MainMenu from "./MainMenu";
 
 const InternalLayouts = () => {
