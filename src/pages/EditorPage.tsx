@@ -1,9 +1,13 @@
-import React from "react";
+import React from "react"
+
+import StepModal from '../components/StepModal'
 
 const EditorPage = () => {
 
     return (
-        <p>EDITOR PAGE</p>
+        <>
+        <StepModal />
+    </>
     )
 }
 
