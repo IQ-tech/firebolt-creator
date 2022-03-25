@@ -4,13 +4,7 @@ import BigFireboltLogo from '@/components/common/icons/bigFireboltLogo';
 import GlobalIocn from '@/components/common/icons/globalIcon';
 import GithubIcon from '@/components/common/icons/githubIcon';
 
-import { contentStyles } from './styles';
-import { globalIconStyles } from './styles';
-import { bigLogoStyles } from './styles';
-import { contentButtonsStyles } from './styles';
-import { buttonsStyles } from './styles';
-import { footerStyles } from './styles';
-import { copyrightStyles } from './styles';
+import * as S from './styles'
 
 const { Text } = Typography;
 
@@ -19,10 +13,10 @@ const RegisterPage = () => {
     <Space
       align="center"
       direction="vertical"          
-      css={contentStyles}
+      css={S.contentStyles}
     >
       <a  
-        css={globalIconStyles}
+        css={S.globalIconStyles}
         href="https://iq-tech.github.io/firebolt-docs/en/introduction/"
         target="_blank"
         rel="noopener noreferrer"
@@ -32,27 +26,27 @@ const RegisterPage = () => {
       <Space 
         align="center"
         direction="vertical"  
-        css={bigLogoStyles}
+        css={S.bigLogoStyles}
         size="large"
       >
         <BigFireboltLogo />
         <Text type="secondary">Firebolt is a multistep form experiences creator</Text>
       </Space>
-      <Space size="large" css={contentButtonsStyles}>
+      <Space size="large" css={S.contentButtonsStyles}>
         <Link to="/app">
-          <Button css={buttonsStyles} type="primary" size="large"> Create Form </Button>
+          <Button css={S.buttonsStyles} type="primary" size="large"> Create Form </Button>
         </Link>
         <Link to="/app">
-          <Button css={buttonsStyles} type="link" size="large">Load JSON Schema</Button>
+          <Button css={S.buttonsStyles} type="link" size="large">Load JSON Schema</Button>
         </Link>
       </Space>
-      <Space align="center" direction="vertical" css={footerStyles}>
+      <Space align="center" direction="vertical" css={S.footerStyles}>
         <Space size="large">
           <Text type="secondary">Firebolt</Text>
           <GithubIcon />
           <Text type="secondary">iq tech</Text>
         </Space>
-        <p css={copyrightStyles}>Copyright ©2022 Produced by iq tech team</p>      
+        <p css={S.copyrightStyles}>Copyright ©2022 Produced by iq tech team</p>      
       </Space>
     </Space>
   )
