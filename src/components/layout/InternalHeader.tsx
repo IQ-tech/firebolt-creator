@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "@emotion/react";
-import FireboltLogo from "../common/icons/FireboltLogo";
+import FireboltLogo from "../common/icons/fireboltLogo";
 import HamburgerMenu from "@/components/common/HamburgerButton";
 import { Layout, Image, Menu, Breadcrumb, Avatar } from "antd";
 import { QuestionCircleOutlined, UserOutlined } from "@ant-design/icons";

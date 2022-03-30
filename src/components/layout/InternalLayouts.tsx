@@ -8,12 +8,21 @@ const InternalLayouts = () => {
   const { isMenuOpen, toggleMenu } = useApp();
   return (
     <>
-      <HeaderInternal isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      <p>1outro PARANAUE</p>
-      <p>2outro PARANAUE</p>
-      <p>3outro PARANAUE</p>
-      <Outlet />
+      <div
+        css={(theme) => ({
+          backgroundColor: theme?.colors?.["cream-tusk"],
+          width: "100vw",
+          height: "100vh",
+          paddingTop: "48px"
+        })}
+      >
+        <HeaderInternal isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <p>1outro PARANAUE</p>
+        <p>2outro PARANAUE</p>
+        <p>3outro PARANAUE</p>
+        <Outlet />
+      </div>
     </>
   );
 };

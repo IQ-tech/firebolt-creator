@@ -4,11 +4,11 @@ import StepModal from '../components/StepModal'
 
 const EditorPage = () => {
 
-    return (
-        <>
-        <StepModal />
+  return (
+    <>
+      <StepModal />
     </>
-    )
+  )
 }
 
 export default EditorPage

@@ -5,6 +5,7 @@ const theme = {
     "orange-casablanca": "#f3ba4f",
     "cream-tusk": "#f5f2c7",
     white: "#fff",
+    "grey": "#F0F2F5",
   },
 };
 
