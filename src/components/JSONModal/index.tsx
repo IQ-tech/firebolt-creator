@@ -1,10 +1,9 @@
-import useJSONModal from './hook'
-
 import 'antd/dist/antd.css'
-
 import { Button } from 'antd'
 
 import ModalContent from './components/ModalContent'
+import useJSONModal from './hook'
+import * as S from './styles'
 
 function JSONModal() {
   const modalProps = useJSONModal()
@@ -12,9 +11,7 @@ function JSONModal() {
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Load JSON Schema
-      </Button>
+      <Button css={S.buttonsStyles} type="link" size="large" onClick={showModal}>Load JSON Schema</Button>
 
       <ModalContent {...modalProps} />
     </>

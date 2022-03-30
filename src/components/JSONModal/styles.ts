@@ -1,0 +1,1 @@
+export const buttonsStyles = {width: "172.27px"}
