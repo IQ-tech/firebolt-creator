@@ -3,6 +3,7 @@ import { Button, Space, Typography } from 'antd';
 import BigFireboltLogo from '@/components/common/icons/bigFireboltLogo';
 import GlobalIocn from '@/components/common/icons/globalIcon';
 import GithubIcon from '@/components/common/icons/githubIcon';
+import JSONModal from '@/components/JSONModal';
 
 import * as S from './styles'
 
@@ -36,9 +37,7 @@ const RegisterPage = () => {
         <Link to="/app/editor">
           <Button css={S.buttonsStyles} type="primary" size="large"> Create Form </Button>
         </Link>
-        <Link to="/app/editor">
-          <Button css={S.buttonsStyles} type="link" size="large">Load JSON Schema</Button>
-        </Link>
+       <JSONModal />
       </Space>
       <Space align="center" direction="vertical" css={S.footerStyles}>
         <Space size="large">
