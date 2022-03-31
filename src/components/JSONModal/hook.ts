@@ -1,5 +1,7 @@
-import { useState } from 'react';
+{/* @ts-ignore */}
 import AJV from 'ajv';
+import { useState } from 'react';
+
 
 import { JSONSchema } from "./schema"
 
@@ -10,7 +12,8 @@ interface IHandleEditor {
 }
 
 export default function useJSONModal() {
-  const [ json, setJson ] = useState([])
+  const [ json, setJson ] = useState({})
+  const [ jsonError, setJsonError ] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [disableButton, setDisableButton] = useState(true)
 
@@ -29,11 +32,16 @@ export default function useJSONModal() {
   };
 
   const handleUpload = (event: object) => {
+    {/* @ts-ignore */}
     const [ file ] : [ object ] = event?.fileList
     const reader = new FileReader();
     
+    {/* @ts-ignore */}
     reader.readAsText(file?.originFileObj);
+
+    {/* @ts-ignore */}
     setJson(event?.fileList)
+    setJsonError('')
     
     setTimeout(() => {
       if (reader.result) {
@@ -45,7 +53,9 @@ export default function useJSONModal() {
 
   const handleEditor = ({ error, json, plainText } : IHandleEditor) => {
     const jsonValue = json ? json : plainText
+    
     setJson(jsonValue)
+    setJsonError('')
 
     if (!error && json)
       validateJSON(json)
@@ -58,21 +68,24 @@ export default function useJSONModal() {
     const uploadedJSON = typeof json === "string" ?  JSON.parse(json) : json
     const isValid = validate(uploadedJSON)
     
-    console.log('isValid', isValid)
-
     setDisableButton(!isValid)
 
     if (!isValid) {
-      validate?.errors.map((error:object) => console.log('ops, ', `${error.instancePath} ${error.message}`))
+      validate?.errors.map((error:object) => {
+        {/* @ts-ignore */}
+        setJsonError(`${error.instancePath} ${error.message}`)
+      })
     }
   }
 
   function handleTabChange(): void {
     setJson([])
+    setJsonError('')
   }
 
   return {
     json,
+    jsonError,
     isModalVisible,
     disableButton,
     showModal,

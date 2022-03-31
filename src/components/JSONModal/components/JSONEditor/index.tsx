@@ -1,4 +1,5 @@
 import JSONInput from 'react-json-editor-ajrm';
+{/* @ts-ignore */}
 import locale    from 'react-json-editor-ajrm/locale/pt';
 
 interface IJSONEditor {

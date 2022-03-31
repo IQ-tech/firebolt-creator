@@ -11,23 +11,22 @@ interface IModalContent {
 function ModalContent ( { value, onChange } : IModalContent ) {
 	const props = {
 		accept: "application/JSON",
-		openFileDialogOnClick: true,
-		action: onChange,
+		openFileDialogOnClick: false,
 		onChange,
 		name: 'json-file',
 		showUploadList: true,
 	  };
 
 	return (
-		<Upload fileList={value as object}>
+		<Upload>
 			<Dragger {...props}>
 				<p className="ant-upload-drag-icon">
-				<InboxOutlined />
+					<InboxOutlined />
 				</p>
 				<p className="ant-upload-text">Click or drag file to this area to upload</p>
 				<p className="ant-upload-hint">
-				Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-				band files
+					Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+					band files
 				</p>
 			</Dragger>
 		</Upload>
