@@ -7,7 +7,6 @@ import RegisterPage from "@/pages/RegisterPage";
 import InternalLayouts from "./layout/InternalLayouts";
 
 function App() {
-
   return (
     <ThemeProvider theme={theme}>
         <BaseStyles />
@@ -15,6 +14,8 @@ function App() {
           <Route path="/" element={<RegisterPage />}/>
           <Route path="/app" element={<InternalLayouts />}>
             <Route path="editor" element={<EditorPage />} />
+            <Route path="tracks" element={<p>Tracks</p>} />
+            <Route path="jschema" element={<p>Json Schema</p>} />
           </Route>
           <Route
             path="*"
