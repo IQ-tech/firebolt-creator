@@ -59,28 +59,31 @@ function AddPropsModal() {
         <div className="table-container">
           <Table locale={locale} dataSource={[]} columns={columns} pagination={false} />
 
-          <div className="flex">
-            <div className="label__input">
-              { fieldProps.map((field) => (
-                <>
+          <div className="flex column lines">
+            { fieldProps.map((field) => (
+              <div className="table__line">
+                <div className="label__input">
                   <Input 
                     onChange={(e) => handleStepData("slug", e.currentTarget.value)}
                   />
+                </div>
+                  
+                <div className="label__input">
                   <Input 
                     onChange={(e) => handleStepData("slug", e.currentTarget.value)}
                   />
+                </div>
 
-                  <Button type="link" onClick={() => deleteProp(1)}>
-                    Delete
-                  </Button>
-                </>
-              )) }
-            </div>
+                <Button type="link" onClick={() => deleteProp(1)}>
+                  Delete
+                </Button>
+              </div>
+            )) }
           </div>
         </div>
 
-        <div>
-          <Button style={{ width: '100%', marginTop: '16px' }} type="dashed" onClick={addNewProp}>
+        <div className="button-container">
+          <Button style={{ width: '100%', marginTop: '24px' }} type="dashed" onClick={addNewProp}>
             + Add props
           </Button>
         </div>

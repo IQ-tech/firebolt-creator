@@ -28,16 +28,19 @@ export default function useAddPropsModal(InputComponent: any, ButtonComponent: a
       title: 'Prop Name',
       dataIndex: 'propName',
       key: 'propName',
+      width: 200
     },
     {
       title: 'Value',
       dataIndex: 'value',
       key: 'value',
+      width: 200
     },
     {
       title: 'Action',
       dataIndex: 'action',
       key: 'action',
+      width: 72
     }
   ]
 
