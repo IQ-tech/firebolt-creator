@@ -24,7 +24,7 @@ function JSONEditor ( { value, onChange } : IJSONEditor ) {
 		<JSONInput
 			id = 'a_unique_id'
 			locale = { locale }
-			height = '550px'
+			height = '400px'
 			colors = {theme}
 			onChange = {onChange}
 			reset = {!(!!value)}
