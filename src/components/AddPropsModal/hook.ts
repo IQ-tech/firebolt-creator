@@ -56,23 +56,19 @@ export default function useAddPropsModal(InputComponent: any, ButtonComponent: a
     setIsModalVisible(false);
   };
 
-  function handleStepData(name: string, value: string) {
-    // setStep((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     [name]: value
-    //   }
-    // })
+  function handlePropsData(index: number, name: string, value: string) {
+    
   }
 
   function deleteProp(key: number) {
-    fieldProps.find((field, index) => {
-      // if(field.key === key) {
-      //   console.log('if')
-      //   console.log(index)
-      // }
-      console.log(fieldProps)
+    const itemToDelete = fieldProps.find((field, index) => {
+      if(field && field.key === key) {
+        const fields = [...fieldProps]
+        const updatedFieldProps = fields.splice(index, 1)
+        setFieldProps(fields)
+      }
     })
+    
   }
 
   function getNewKey() {

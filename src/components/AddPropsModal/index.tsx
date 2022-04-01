@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import useAddPropsModal from './hook'
 
 import 'antd/dist/antd.css'
@@ -49,6 +50,10 @@ function AddPropsModal() {
     setFieldProps([...current, updatedFieldProps])
   }
 
+  useEffect(() => {
+    console.log(fieldProps)
+  }, [fieldProps])
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -61,7 +66,7 @@ function AddPropsModal() {
 
           <div className="flex column lines">
             { fieldProps.map((field) => (
-              <div className="table__line">
+              <div className="table__line" key={field.key}>
                 <div className="label__input">
                   <Input 
                     onChange={(e) => handleStepData("slug", e.currentTarget.value)}
@@ -74,7 +79,7 @@ function AddPropsModal() {
                   />
                 </div>
 
-                <Button type="link" onClick={() => deleteProp(1)}>
+                <Button type="link" onClick={() => deleteProp(field.key)}>
                   Delete
                 </Button>
               </div>
