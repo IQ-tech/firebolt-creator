@@ -11,7 +11,7 @@ const EditorPage = () => {
         
         <AddPropsModal />
     </>
-    )
+  )
 }
 
 export default EditorPage
