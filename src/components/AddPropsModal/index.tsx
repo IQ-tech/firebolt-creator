@@ -1,7 +1,5 @@
 import useAddPropsModal from './hook'
 
-import 'antd/dist/antd.css'
-
 import { Modal, Button, Input, Table } from 'antd'
 
 function AddPropsModal() {

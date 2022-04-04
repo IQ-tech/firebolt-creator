@@ -1,7 +1,7 @@
 import { useState } from 'react'
 interface IFieldProps {
-  propName: any;
-  value: any;
+  propName: string;
+  value: string;
 }
 
 export default function useAddPropsModal() {
