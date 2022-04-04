@@ -6,12 +6,13 @@ interface IFieldProps {
 
 export default function useAddPropsModal() {
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const defaultField = {
+    propName: "",
+    value: "",
+  }
 
   const [fieldProps, setFieldProps] = useState<IFieldProps[]>([
-    {
-      propName: "",
-      value: ""
-    }  
+    defaultField
   ])
 
   const columns = [
@@ -58,19 +59,13 @@ export default function useAddPropsModal() {
   function addNewProp() {
     const currentFields = [...fieldProps]
 
-    currentFields.push({
-      propName: "",
-      value: "",
-    })
+    currentFields.push(defaultField)
 
     setFieldProps(currentFields)
   }
 
   function deleteProp(index: number) {
     const currentFields = [...fieldProps]
-
-    console.log(index)
-    console.log(currentFields[index])
 
     currentFields.splice(index, 1)
 
