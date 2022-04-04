@@ -1,25 +1,16 @@
-import { useState, useEffect } from 'react'
-interface IStep {
-  slug: string;
-  friendlyName: string;
-  type: string
-}
+import { useState } from 'react'
 interface IFieldProps {
-  key: number;
   propName: any;
   value: any;
-  action: any;
 }
 
-export default function useAddPropsModal(InputComponent: any, ButtonComponent: any) {
+export default function useAddPropsModal() {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const [fieldProps, setFieldProps] = useState<IFieldProps[]>([
     {
-      key: 1,
-      propName: InputComponent,
-      value: InputComponent,
-      action: ButtonComponent
+      propName: "",
+      value: ""
     }  
   ])
 
@@ -57,25 +48,33 @@ export default function useAddPropsModal(InputComponent: any, ButtonComponent: a
   };
 
   function handlePropsData(index: number, name: string, value: string) {
-    
+    const currentFields = [...fieldProps]
+
+    currentFields[index][name as keyof IFieldProps] = value
+
+    setFieldProps(currentFields)
   }
 
-  function deleteProp(key: number) {
-    const itemToDelete = fieldProps.find((field, index) => {
-      if(field && field.key === key) {
-        const fields = [...fieldProps]
-        const updatedFieldProps = fields.splice(index, 1)
-        setFieldProps(fields)
-      }
+  function addNewProp() {
+    const currentFields = [...fieldProps]
+
+    currentFields.push({
+      propName: "",
+      value: "",
     })
-    
+
+    setFieldProps(currentFields)
   }
 
-  function getNewKey() {
-    const lastKey = fieldProps.length > 0 ? fieldProps[fieldProps.length - 1].key : 0
-    const newKey = lastKey + 1
+  function deleteProp(index: number) {
+    const currentFields = [...fieldProps]
 
-    return newKey
+    console.log(index)
+    console.log(currentFields[index])
+
+    currentFields.splice(index, 1)
+
+    setFieldProps(currentFields)
   }
 
   return {
@@ -83,12 +82,11 @@ export default function useAddPropsModal(InputComponent: any, ButtonComponent: a
     fieldProps, 
     columns,
 
-    setFieldProps,
     showModal,
     handleOk,
     handleCancel,
-    handleStepData,
-    getNewKey,
+    handlePropsData,
+    addNewProp,
     deleteProp
   }
 

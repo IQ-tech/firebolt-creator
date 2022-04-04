@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import useAddPropsModal from './hook'
 
 import 'antd/dist/antd.css'
@@ -6,53 +5,22 @@ import 'antd/dist/antd.css'
 import { Modal, Button, Input, Table } from 'antd'
 
 function AddPropsModal() {
-
-  const inputComponent = <Input 
-    onChange={(e) => handleStepData("slug", e.currentTarget.value)}
-  />
-
-  const buttonComponent = <Button type="link" onClick={() => deleteProp(1)}>
-    Delete
-  </Button>
-
   const {
     isModalVisible,
     fieldProps, 
     columns,
     
-    setFieldProps,
     showModal,
     handleOk,
     handleCancel,
-    handleStepData,
-    getNewKey,
+    handlePropsData,
+    addNewProp,
     deleteProp
-  } = useAddPropsModal(inputComponent, buttonComponent)
+  } = useAddPropsModal()
 
   let locale = {
     emptyText: '.',
   };
-
-  function addNewProp() {
-    const newKey = getNewKey()
-
-    const updatedFieldProps = {
-      key: newKey,
-      propName: inputComponent,
-      value: inputComponent,
-      action: <Button type="link" onClick={() => deleteProp(newKey)}>
-        Delete
-      </Button>
-    }
-
-    const current = [...fieldProps]
-
-    setFieldProps([...current, updatedFieldProps])
-  }
-
-  useEffect(() => {
-    console.log(fieldProps)
-  }, [fieldProps])
 
   return (
     <>
@@ -65,21 +33,23 @@ function AddPropsModal() {
           <Table locale={locale} dataSource={[]} columns={columns} pagination={false} />
 
           <div className="flex column lines">
-            { fieldProps.map((field) => (
-              <div className="table__line" key={field.key}>
+            { fieldProps.map((field, index) => (
+              <div className="table__line" key={index}>
                 <div className="label__input">
                   <Input 
-                    onChange={(e) => handleStepData("slug", e.currentTarget.value)}
+                    value={field.propName}
+                    onChange={(e) => handlePropsData(index, "propName", e.currentTarget.value)}
                   />
                 </div>
                   
                 <div className="label__input">
                   <Input 
-                    onChange={(e) => handleStepData("slug", e.currentTarget.value)}
+                    value={field.value}
+                    onChange={(e) => handlePropsData(index, "value", e.currentTarget.value)}
                   />
                 </div>
 
-                <Button type="link" onClick={() => deleteProp(field.key)}>
+                <Button type="link" onClick={() => deleteProp(index)}>
                   Delete
                 </Button>
               </div>
