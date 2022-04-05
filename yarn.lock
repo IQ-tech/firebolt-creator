@@ -789,6 +789,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-json-editor-ajrm@^2.5.3":
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/@types/react-json-editor-ajrm/-/react-json-editor-ajrm-2.5.3.tgz#9859cabb73a5dda74faa9ecf8bfcaf3c1ef6da35"
+  integrity sha512-hHf3FU1HjL6Lm3rK2iWUJtoYpZ1qDCSffnLAQXCf++TP1Ms18rnB06gBK3psQ8NEW6CfrfRNlirIL3D/P80QVg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@^4.2.0":
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.4.tgz#acd4cceaa2be6b757db61ed7b432e103242d163e"
