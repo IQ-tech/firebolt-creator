@@ -22,8 +22,8 @@ const HeaderInternal: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
         width: "100%",
         height: "48px",
         fontWeight: 500,
-        position: "fixed",
-        top: 0,
+        // position: "fixed",
+        // top: 0,
         zIndex: 2,
         display: "flex",
         alignItems: "center",
@@ -47,6 +47,7 @@ const HeaderInternal: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
         display: "flex",
         alignItems: "center",
         gap: "12px",
+        maxHeight: "48px"
       }}>
         <a
         css={{
@@ -65,9 +66,9 @@ const HeaderInternal: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
         <p>Serati Ma</p>
 
 
-      <div>
+      {/* <div>
         <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} />
-      </div>
+      </div> */}
       </div>
     </Header>
   );

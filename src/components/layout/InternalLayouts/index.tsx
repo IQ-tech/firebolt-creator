@@ -70,7 +70,7 @@ const InternalLayouts = () => {
   }
 
   return (
-    <div>
+    <Layout>
       <HeaderInternal isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       {/* <MainMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />     */}
       <Layout className="layout" css={S.layoutStyles}>
@@ -108,7 +108,7 @@ const InternalLayouts = () => {
         </Content>
       </Layout>
       <Outlet />
-    </div>
+    </Layout>
   );
 };
 

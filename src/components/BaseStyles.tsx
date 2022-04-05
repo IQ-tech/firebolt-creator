@@ -4,6 +4,7 @@ const BaseStyles = () => {
   return (
     <Global
       styles={(theme) => css`
+        p,
         *,
         *::before,
         *::after {

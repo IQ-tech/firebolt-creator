@@ -4,6 +4,7 @@ import BaseStyles from "./BaseStyles";
 import theme from "@/theme";
 import EditorPage from "@/pages/EditorPage";
 import RegisterPage from "@/pages/RegisterPage";
+import TracksPage from "@/pages/MainPage"
 import InternalLayouts from "./layout/InternalLayouts";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
           <Route path="/" element={<RegisterPage />}/>
           <Route path="/app" element={<InternalLayouts />}>
             <Route path="editor" element={<EditorPage />} />
-            <Route path="tracks" element={<p>Tracks</p>} />
+            <Route path="tracks" element={<TracksPage />} />
             <Route path="jschema" element={<p>Json Schema</p>} />
           </Route>
           <Route

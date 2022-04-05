@@ -1,6 +1,8 @@
-export const layoutStyles = { padding: '28px 0'}
+export const layoutStyles = { padding: '28px'}
 
-export const contentStyles = { padding: '50px 28px'}
+export const contentStyles = { 
+    // padding: '50px 28px'
+}
 
 export const pageHeaderStyles = {padding: "16px 24px 0"}
 
