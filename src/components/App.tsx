@@ -4,7 +4,7 @@ import BaseStyles from "./BaseStyles";
 import theme from "@/theme";
 import EditorPage from "@/pages/EditorPage";
 import RegisterPage from "@/pages/RegisterPage";
-import TracksPage from "@/pages/MainPage"
+import TracksPage from "@/pages/TracksPage"
 import InternalLayouts from "./layout/InternalLayouts";
 
 function App() {

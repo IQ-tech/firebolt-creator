@@ -15,8 +15,9 @@ const BaseStyles = () => {
 
         body {
           width: 100%;
-          height: 100vh;
-          background-color: ${theme?.colors?.["grey"]}
+          height: 100%;
+          background-color: ${theme?.colors?.["grey"]};
+          
         }
 
         /* Remove blue highlight on touch elements on mobile chrome */

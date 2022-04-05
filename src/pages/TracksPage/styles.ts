@@ -1,5 +1,6 @@
 export const contentStyles: any = {
-  padding: "0 28px",
+  padding: "28px",
+  paddingTop: 0,
   flexDirection: "row",
   justifyContent: "center",
 };
@@ -16,6 +17,6 @@ export const sidebarTitleStyles = {
 
 export const dividerStyles = { margin: "0" };
 
-export const menuContentStyles = { width: "240px" };
+export const menuContentStyles = { width: "240px",  height: `${document.body.clientHeight/1.9}px` };
 
 export const addLinkStyles = {color: "#148EFF" };
