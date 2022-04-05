@@ -1,10 +1,11 @@
-import { Layout, Menu, Collapse, Card, Divider, Input, Space, Switch, Button } from 'antd'
+import { Layout, Menu, Collapse, Card, Divider, Input, Space, Switch, Button, Select } from 'antd'
 import {  FormOutlined, PlusOutlined, ZoomInOutlined  } from '@ant-design/icons';
 
 import * as S from './styles'
 
 const { SubMenu } = Menu;
 const { Panel } = Collapse;
+const { Option } = Select;
 
 const Sidebar = () => (
   <div css={S.contentSidebarStyles}>
@@ -90,11 +91,26 @@ const MainContent = () => (
   </Card>
 )
 
+const Preview = () => (
+  <div css={{paddingLeft: "19px"}}>
+    <Card 
+      css={{width: "470px"}} 
+      title="Preview" 
+      extra={
+        <Select placeholder="Theme">
+          <Option value="theme">Theme</Option>
+        </Select>
+      }>
+    </Card>
+  </div>
+)
+
 const MainPage = () => {
   return (
     <Layout css={S.contentStyles}> 
       <Sidebar />
       <MainContent />
+      <Preview />
     </Layout>
   )
 }
