@@ -1,7 +1,7 @@
 export const contentStyles = {
   padding: "0 28px",
   flexDirection: "row",
-  justifyContent: "space-between",
+  justifyContent: "center",
 }
 
 export const contentSidebarStyles = {paddingRight: "19px"}
