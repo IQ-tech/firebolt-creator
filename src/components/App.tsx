@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
+import 'antd/dist/antd.css'
+import "iq-blueberry/dist/styles.css"
 import RegisterPage from "@/pages/RegisterPage";
 import MainPage from "@/pages/MainPage";
 import InternalLayouts from "./layout/InternalLayouts";

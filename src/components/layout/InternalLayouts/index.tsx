@@ -2,7 +2,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import useApp from "../../App.hook";
 import HeaderInternal from "../InternalHeader"
 import MainMenu from "../MainMenu";
-import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb,PageHeader, Button, Tabs, Dropdown } from 'antd';
 import { UserOutlined, HomeOutlined, SisternodeOutlined, FileOutlined, EllipsisOutlined } from '@ant-design/icons';
 import * as S from './styles'

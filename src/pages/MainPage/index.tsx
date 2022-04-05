@@ -1,8 +1,10 @@
 import { Layout, Menu, Collapse, Card, Divider, Input, Space, Switch, Button, Select } from 'antd'
 import {  FormOutlined, PlusOutlined, ZoomInOutlined  } from '@ant-design/icons';
-
+import { FireboltForm } from "@iq-firebolt/client"
+// @ts-ignore
+import BlueberryTheme from "@iq-firebolt/blueberry-theme"
+import { mockFields } from './mock';
 import * as S from './styles'
-
 const { SubMenu } = Menu;
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -101,6 +103,7 @@ const Preview = () => (
           <Option value="theme">Theme</Option>
         </Select>
       }>
+        <FireboltForm theme={BlueberryTheme} schema={mockFields} />
     </Card>
   </div>
 )

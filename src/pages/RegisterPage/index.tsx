@@ -33,10 +33,10 @@ const RegisterPage = () => {
         <Text type="secondary">Firebolt is a multistep form experiences creator</Text>
       </Space>
       <Space size="large" css={S.contentButtonsStyles}>
-        <Link to="/app/editor">
+        <Link to="/app/main">
           <Button css={S.buttonsStyles} type="primary" size="large"> Create Form </Button>
         </Link>
-        <Link to="/app/editor">
+        <Link to="/app/main">
           <Button css={S.buttonsStyles} type="link" size="large">Load JSON Schema</Button>
         </Link>
       </Space>

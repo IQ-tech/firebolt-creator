@@ -1,7 +1,5 @@
 import useStepModal from './hook'
 
-import 'antd/dist/antd.css'
-
 import { Modal, Button, Input, Select } from 'antd'
 
 function ModalEditStep() {
