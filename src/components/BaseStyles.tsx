@@ -62,6 +62,30 @@ const BaseStyles = () => {
             margin-bottom: 4px;
           }
         }
+
+        .table-containe {
+          position: relative;
+        }
+
+        .table__line {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          height: 56px;
+          border-bottom: 1px solid #ebeaea;
+        }
+
+        .lines {
+          position: relative;
+          top: -30px;
+          background-color: #fff;
+        }
+
+        .button-container {
+          position: relative;
+          top: -30px;
+        }
       `}
     />
   );
