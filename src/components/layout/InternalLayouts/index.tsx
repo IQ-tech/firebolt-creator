@@ -1,4 +1,4 @@
-import { Route, Outlet, Link, useNavigate, Navigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useApp from "../../App.hook";
 import HeaderInternal from "../InternalHeader"
 import MainMenu from "../MainMenu";
@@ -6,7 +6,6 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb,PageHeader, Button, Tabs, Dropdown } from 'antd';
 import { UserOutlined, HomeOutlined, SisternodeOutlined, FileOutlined, EllipsisOutlined } from '@ant-design/icons';
 import * as S from './styles'
-
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -57,7 +56,7 @@ const InternalLayouts = () => {
     let tabPath
 
     if(key === '1') {
-      tabPath = 'editor'
+      tabPath = 'main'
     }
     if(key === '2') {
       tabPath = 'tracks'
@@ -68,6 +67,7 @@ const InternalLayouts = () => {
     
     navigate(`/app/${tabPath}`)
   }
+
 
   return (
     <div>
