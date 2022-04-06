@@ -4,6 +4,10 @@ const BaseStyles = () => {
   return (
     <Global
       styles={(theme) => css`
+        .react-flow__attribution {
+          display: none;
+        }
+
         p,
         *,
         *::before,
@@ -17,7 +21,6 @@ const BaseStyles = () => {
           width: 100%;
           height: 100%;
           background-color: ${theme?.colors?.["grey"]};
-          
         }
 
         /* Remove blue highlight on touch elements on mobile chrome */
@@ -51,7 +54,7 @@ const BaseStyles = () => {
             margin-bottom: 4px;
           }
         }
-        
+
         .label__select {
           margin: 8px 0;
         }
