@@ -1,17 +1,13 @@
 import React from "react";
 import { useTheme } from "@emotion/react";
-import FireboltLogo from "../common/icons/fireboltLogo";
-import HamburgerMenu from "@/components/common/HamburgerButton";
+import FireboltLogo from "../../../common/icons/fireboltLogo";
 import { Layout, Image, Menu, Breadcrumb, Avatar } from "antd";
 import { QuestionCircleOutlined, UserOutlined } from "@ant-design/icons";
 
-interface HeaderProps {
-  toggleMenu(...args: any): any;
-  isMenuOpen: boolean;
-}
+
 const { Header } = Layout;
 
-const HeaderInternal: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
+const HeaderInternal = () => {
   const theme = useTheme();
 
   return (
@@ -64,12 +60,7 @@ const HeaderInternal: React.FC<HeaderProps> = ({ toggleMenu, isMenuOpen }) => {
        
         <Avatar shape="square" size="small" icon={<UserOutlined />} />
         <p>Serati Ma</p>
-
-
-      {/* <div>
-        <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu} />
-      </div> */}
-      </div>
+    </div>
     </Header>
   );
 };
