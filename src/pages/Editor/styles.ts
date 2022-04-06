@@ -4,10 +4,15 @@ export const contentStyles = {
     // padding: '50px 28px'
 }
 
+// export const layoutStyles = { padding: '28px 0 0', display: "flex", alignItems: "center"} // todo
+
+// export const contentStyles = { padding: '50px 28px 22px', width: "1452px"} // todo
+
+
 export const pageHeaderStyles = {padding: "16px 24px 0"}
 
-export const breadcrumbContent = {padding: '1px 24px 0', backgroundColor: "#fff",}
+export const breadcrumbContent = (theme) => ({padding: '1px 24px 0', backgroundColor: theme?.colors?.white,})
 
 export const breadcrumbStyles = { marginTop: '16px' }
 
-export const moreButton = {borderColor: "#D9D9D9"}
+export const moreButton = (theme) => ({borderColor: theme?.colors?.["grey85"]})
