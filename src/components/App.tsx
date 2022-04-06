@@ -1,21 +1,23 @@
 import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
-import BaseStyles from "./BaseStyles";
-import theme from "@/theme";
-import EditorPage from "@/pages/EditorPage";
+import 'antd/dist/antd.css'
+import "iq-blueberry/dist/styles.css"
 import RegisterPage from "@/pages/RegisterPage";
+import MainPage from "@/pages/MainPage";
 import InternalLayouts from "./layout/InternalLayouts";
+import theme from "@/theme";
+import BaseStyles from "./BaseStyles";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
         <BaseStyles />
         <Routes>
-          <Route path="/" element={<RegisterPage />}/>
-          <Route path="/app" element={<InternalLayouts />}>
-            <Route path="editor" element={<EditorPage />} />
-            <Route path="tracks" element={<p>Tracks</p>} />
-            <Route path="jschema" element={<p>Json Schema</p>} />
+          <Route path="/" element={<RegisterPage/>}/>
+          <Route path="/app" element={<InternalLayouts/>}>
+            <Route path="main" element={<MainPage/>} />
+            <Route path="tracks" element={<p>Tracks</p>}/>
+            <Route path="jschema" element={<p>Json Schema</p>}/>
           </Route>
           <Route
             path="*"
