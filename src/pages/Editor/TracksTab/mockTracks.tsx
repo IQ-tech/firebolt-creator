@@ -113,3 +113,37 @@ export const edges = [
     labelStyle: { fill: '#f6ab6c', fontWeight: 700 },
   },
 ];
+
+
+
+// "tracks": [
+//   {
+//     "slug": "default",
+//     "steps": [
+//       "personal_data",
+//       "address",
+//       "occupation",
+//       "personal_documents",
+//       "invoice_expiration"
+//     ]
+//   }
+// ],
+
+
+// "tracks": [
+//   {
+//     "slug": "alternative",
+//     "steps": [
+//       "personal_data",
+//       "occupation",
+//       "address",
+//       "address1",
+//       "address2",
+//       "personal_documents",
+//       "invoice_expiration"
+//     ]
+//   }
+],
+
+
+

@@ -186,7 +186,7 @@ const MainContent = () => {
       <div
         css={{
           width: "100%",
-          height: `${document.body.clientHeight / 2.2}px`,
+          height: `${document.body.clientHeight / 1.45}px`,
           background: "#FFFFFF",
           flexDirection: "row",
           display: "flex",
