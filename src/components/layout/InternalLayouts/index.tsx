@@ -53,6 +53,16 @@ const InternalLayouts = () => {
   const { isMenuOpen, toggleMenu } = useApp();
   const navigate = useNavigate()
 
+function validActiveKey () {
+  const URL_CURRENT = window.location.href;
+
+  if(URL_CURRENT.includes("editor")) return "1";
+  if(URL_CURRENT.includes("tracks")) return "2";
+  if(URL_CURRENT.includes("jschema")) return "3";
+
+  return "1"
+}
+
   function tabsCallback(key: string) {
     let tabPath
 
@@ -84,7 +94,7 @@ const InternalLayouts = () => {
             subTitle="Form description"
             extra={ButtonsHeader}
           >
-          <Tabs defaultActiveKey="1" onTabClick={tabsCallback} onChange={() => console.log('s')} >
+          <Tabs defaultActiveKey={validActiveKey()} onTabClick={tabsCallback} onChange={() => console.log('s')} >
             <TabPane
               tab={
                 <span><HomeOutlined />Main</span>
