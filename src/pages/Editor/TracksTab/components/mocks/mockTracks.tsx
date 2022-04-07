@@ -162,17 +162,16 @@ export const mockTracks = {
   ],
 };
 
-// "tracks": [
-//   {
-//     "slug": "alternative",
-//     "steps": [
-//       "personal_data",
-//       "occupation",
-//       "address",
-//       "address1",
-//       "address2",
-//       "personal_documents",
-//       "invoice_expiration"
-//     ]
-//   }
-// ],
+export const mockTracks1 = {
+    "slug": "alternative",
+    "steps": [
+      "personal_data",
+      "occupation",
+      "address",
+      "address1",
+      "address2",
+      "personal_documents",
+      "invoice_expiration"
+    ]
+  }
+

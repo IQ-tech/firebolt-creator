@@ -43,7 +43,7 @@ const Sidebar = () => (
   </div>
 );
 
-const TracksPage = () => {
+const TracksTab = () => {
   return (
     <Layout css={S.contentStyles}>
       <Sidebar />
@@ -52,4 +52,4 @@ const TracksPage = () => {
   );
 };
 
-export default TracksPage;
+export default TracksTab;

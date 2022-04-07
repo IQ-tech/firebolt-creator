@@ -10,86 +10,11 @@ import ReactFlow, {
   MiniMap,
 } from "react-flow-renderer";
 
-import * as mockFlow from "./mockTracks";
-import * as configsFlow from "./configsFlow";
+import useFlow from "./hook"
+import SideBarFlow from "./SideBarFlow";
 
-
-
-
-
-const SideBarFlow = () => {
-
-
-  const onDragStart = (event: any, nodeType: string) => {
-    console.log(event.target.innerHTML, nodeType)
-    event.dataTransfer.setData("application/reactflow", nodeType);
-    event.dataTransfer.effectAllowed = "move";
-  };
-
-  const dndnode = {
-    height: "28px",
-    padding: "4px",
-    border: "1px solid #1a192b",
-    borderRadius: "2px",
-    marginBottom: "10px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    cursor: "grab",
-  };
-
-  return (
-    <aside
-      css={{
-        maxWidth: "250px",
-        borderRight: "1px solid #eee",
-        padding: "15px 10px",
-        fontSize: "12px",
-        background: "#fcfcfc",
-      }}
-    >
-      <h2 css={{ fontSize: "12px", fontWeight: 700 }}>
-        You can chose any of the available steps
-      </h2>
-      {mockFlow.mockTracks.steps.map((step, i) => {
-        console.log(step,i)
-      })}
-       <div
-        css={[dndnode, { borderColor: "#0041d0" }]}
-        onDragStart={(event) => onDragStart(event, "input")}
-        draggable
-      >
-        Basic data
-      </div>
-
-      {/* <div
-        css={[dndnode, { borderColor: "#0041d0" }]}
-        onDragStart={(event) => onDragStart(event, "input")}
-        draggable
-      >
-        Basic data
-      </div>
-      <div
-        css={[dndnode]}
-        onDragStart={(event) => onDragStart(event, "default")}
-        draggable
-      >
-        Extra data
-      </div>
-      <div
-        css={[dndnode, { borderColor: "#ff0072" }]}
-        onDragStart={(event) =>{
-         // console.log(event)
-           onDragStart(event, "output")}
-          }
-        draggable
-      >
-        Address
-      </div> */}
-    </aside>
-  );
-};
-
+import * as mockFlow from "./mocks/mockTracks";
+import * as configsFlow from "./mocks/configsFlow";
 
 
 let id = 0;
@@ -108,19 +33,17 @@ const Flow = () => {
 
   const onDragOver = useCallback((event) => {
     event.preventDefault();
-    console.log("........",event.target.innerHTML)
-   // console.log("....MOVE....",event.currentTarget)
-    event.dataTransfer
+    event.dataTransfer;
     event.dataTransfer.dropEffect = "move";
   }, []);
 
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
-      console.log("........",event.target.innerHTML)
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
       const type = event.dataTransfer.getData("application/reactflow");
+      const stepCurrent = event.dataTransfer.getData("stepCurrent");
 
       if (typeof type === "undefined" || !type) return;
 
@@ -137,7 +60,9 @@ const Flow = () => {
             type === "input" ? "#0041d0" : type === "output" ? "#ff0072" : null
           }`,
         },
-        data: { label: `${type} node` },
+        data: { label: stepCurrent },
+        sourcePosition: "right",
+        targetPosition: "left",
       };
 
       setNodes((nds: any[]) => nds.concat(newNode));
@@ -160,8 +85,6 @@ const Flow = () => {
         <ReactFlowProvider>
           <div css={{ flexGrow: "1" }} ref={reactFlowWrapper}>
             <ReactFlow
-              // defaultNodes={defaultNodes}
-              // defaultEdges={defaultEdges}
               defaultEdgeOptions={configsFlow.edgeOptions}
               connectionLineStyle={configsFlow.connectionLineStyle}
               nodes={nodes}
@@ -194,7 +117,7 @@ const Flow = () => {
               />
             </ReactFlow>
           </div>
-          <SideBarFlow />
+          <SideBarFlow stepsTracks={mockFlow.mockTracks.steps} />
         </ReactFlowProvider>
       </div>
     </Card>
