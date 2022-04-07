@@ -1,6 +1,13 @@
-export const layoutStyles = { padding: '28px 0 0', display: "flex", alignItems: "center"}
+export const layoutStyles = { padding: '28px'}
 
-export const contentStyles = { padding: '50px 28px 22px', width: "1452px"}
+export const contentStyles = { 
+    // padding: '50px 28px'
+}
+
+// export const layoutStyles = { padding: '28px 0 0', display: "flex", alignItems: "center"} // todo
+
+// export const contentStyles = { padding: '50px 28px 22px', width: "1452px"} // todo
+
 
 export const pageHeaderStyles = {padding: "16px 24px 0"}
 
