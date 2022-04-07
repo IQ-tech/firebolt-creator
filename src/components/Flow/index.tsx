@@ -52,13 +52,13 @@ const Flow = ({ currentTracks }: any) => {
             <MiniMapFlow />
 
             <div css={S.controlsSave}>
-              <button css={S.buttonsSaveRestore} onClick={onSave}>
+              <button css={S.buttonsSRC} onClick={onSave}>
                 Save
               </button>
-              <button css={S.buttonsSaveRestore} onClick={onRestore}>
+              <button css={S.buttonsSRC} onClick={onRestore}>
                 Restore
               </button>
-              <button css={S.buttonsSaveRestore} onClick={onClean}>
+              <button css={S.buttonsSRC} onClick={onClean}>
                 Clean
               </button>
             </div>

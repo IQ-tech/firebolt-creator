@@ -21,7 +21,7 @@ export const controlsSave = css({
   fontSize: "12px",
 });
 
-export const buttonsSaveRestore = {
+export const buttonsSRC = {
   marginLeft: "10px",
   padding: "3px 5px",
   cursor: "pointer",
