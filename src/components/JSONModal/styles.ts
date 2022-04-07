@@ -1,6 +1,8 @@
-export const buttonsStyles = {width: "172.27px"}
+import {css} from "@emotion/react"
 
-export const errorContainerStyle = {
+export const buttonsStyles = css({width: "172.27px"})
+
+export const errorContainerStyle = css({
 	display: "flex", 
 	alignItems: "center",
 	overflow: "hidden", 
@@ -10,9 +12,9 @@ export const errorContainerStyle = {
 	backgroundColor: "rgb(254, 236, 235)", 
 	transitionDuration: "0.2s", 
 	transitionTimingFunction: "cubic-bezier(0, 1, 0.5, 1)"
-}
+})
 
-export const errorMessageStyle = {
+export const errorMessageStyle = css({
 	display: "flex",
 	color: "red",
 	fontSize: "12px",
@@ -24,9 +26,9 @@ export const errorMessageStyle = {
 	overflowWrap: "break-word",
 	flexDirection: "column",
 	justifyContent: "center"
-}
+})
 
-export const errorIconStyle = {
+export const errorIconStyle = css({
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
@@ -36,4 +38,4 @@ export const errorIconStyle = {
 	overflow: "hidden",
 	verticalAlign: "top",
 	pointerEvents: "none"
-}
+})

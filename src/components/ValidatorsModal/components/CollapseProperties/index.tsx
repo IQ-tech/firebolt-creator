@@ -9,7 +9,7 @@ const { Option } = Select;
 const { Panel } = Collapse;
 
 interface ICollapseProperties {
-	data: Array;
+	data: any[] ;
 	remove: (index : number) => void;
 }
 
