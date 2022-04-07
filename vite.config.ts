@@ -5,6 +5,7 @@ import path from "path";
 export default defineConfig({
   root: "./src",
   base: "/firebolt-creator/",
+  publicDir: "public",
   plugins: [
     react({
       jsxImportSource: "@emotion/react",
