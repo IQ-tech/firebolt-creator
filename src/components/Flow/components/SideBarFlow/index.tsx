@@ -33,8 +33,9 @@ const SideBarFlow = ({ stepsTracks }: any) => {
         You can chose any of the available steps
       </h2>
 
-      {stepsTracks?.map((step: any, i: any) => (
+      {stepsTracks?.map((step: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined, i: React.Key | null | undefined) => (
         <div
+        key={i}
           css={[
             optionStepStyle,
             // {
