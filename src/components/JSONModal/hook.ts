@@ -71,8 +71,8 @@ export default function useJSONModal() {
     setDisableButton(!isValid)
 
     if (!isValid) {
-      validate?.errors.map((error:object) => {
-        {/* @ts-ignore */}
+      const errors = validate.errors || []
+      errors.map((error) => {
         setJsonError(`${error.instancePath} ${error.message}`)
       })
     }

@@ -12,8 +12,7 @@ import {
 } from "antd";
 import { FormOutlined, PlusOutlined, ZoomInOutlined } from "@ant-design/icons";
 import { FireboltForm } from "@iq-firebolt/client";
-// @ts-ignore
-import BlueberryTheme from "@iq-firebolt/blueberry-theme";
+import BlueberryTheme from "@iq-firebolt/blueberry-theme" ;
 import { mockFields } from "./mock";
 import * as S from "./styles";
 
@@ -126,7 +125,7 @@ const Preview = () => (
         </Select>
       }
     >
-      <FireboltForm theme={BlueberryTheme} schema={mockFields} />
+      <FireboltForm theme={BlueberryTheme} schema={mockFields as any} />
     </Card>
   </div>
 );
