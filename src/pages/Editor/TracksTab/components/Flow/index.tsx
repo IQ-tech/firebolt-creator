@@ -7,14 +7,13 @@ import ReactFlow, {
   useEdgesState,
   Controls,
   Background,
-  MiniMap,
 } from "react-flow-renderer";
 
-import useFlow from "./hook"
 import SideBarFlow from "./SideBarFlow";
+import MiniMapFlow from "./MiniMapFlow"
 
-import * as mockFlow from "./mocks/mockTracks";
-import * as configsFlow from "./mocks/configsFlow";
+import * as mockFlow from "../mocks/mockTracks";
+import * as configsFlow from "../mocks/configsFlow";
 
 
 let id = 0;
@@ -42,7 +41,7 @@ const Flow = () => {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const type = event.dataTransfer.getData("application/reactflow");
+      const type = event.dataTransfer.getData("nodeType");
       const stepCurrent = event.dataTransfer.getData("stepCurrent");
 
       if (typeof type === "undefined" || !type) return;
@@ -97,27 +96,14 @@ const Flow = () => {
               onDragOver={onDragOver}
               fitView
             >
+
               <Controls />
               <Background color="#aaa" gap={10} />
-              <MiniMap
-                nodeStrokeColor={(n: any) => {
-                  if (n.style?.background) return n.style.background;
-                  if (n.type === "input") return "#0041d0";
-                  if (n.type === "output") return "#ff0072";
-                  if (n.type === "default") return "#1a192b";
+              <MiniMapFlow />
 
-                  return "#eee";
-                }}
-                nodeColor={(n: any) => {
-                  if (n.style?.background) return n.style.background;
-
-                  return "#fff";
-                }}
-                nodeBorderRadius={2}
-              />
             </ReactFlow>
           </div>
-          <SideBarFlow stepsTracks={mockFlow.mockTracks.steps} />
+          <SideBarFlow stepsTracks={mockFlow?.mockTracks?.steps} />
         </ReactFlowProvider>
       </div>
     </Card>

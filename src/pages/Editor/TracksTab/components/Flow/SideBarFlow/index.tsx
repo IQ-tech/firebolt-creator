@@ -1,7 +1,10 @@
 import React from "react";
-import useFlow from "../hook";
 
-const { onDragStart } = useFlow();
+const onDragStart = (event: any, nodeType: string) => {
+  event.dataTransfer.setData("nodeType", nodeType);
+  event.dataTransfer.setData("stepCurrent", event.target.innerHTML);
+  event.dataTransfer.effectAllowed = "move";
+};
 
 const SideBarFlow = ({ stepsTracks }: any) => {
   const optionStepStyle = {
@@ -65,5 +68,4 @@ const SideBarFlow = ({ stepsTracks }: any) => {
   );
 };
 
-
-export default SideBarFlow
+export default SideBarFlow;
