@@ -8,7 +8,7 @@ import {
 import * as S from "./styles";
 import Flow from "../../../components/Flow";
 
-import { mockTracks, mockTracks1 } from "@/components/Flow/mocks/mockTracks";
+import * as M from "@/components/Flow/mocks/mockTracks";
 
 const { SubMenu } = Menu;
 
@@ -25,13 +25,13 @@ const Sidebar = ({setCurrentTrack}: any) => (
         key="Default"
         icon={<FormOutlined />}
         title="Default"
-        onTitleClick={() => setCurrentTrack(mockTracks)}
+        onTitleClick={() => setCurrentTrack(M.mockTracks)}
       />
       <SubMenu
         key="Alternative"
         icon={<FormOutlined />}
         title="Alternative"
-        onTitleClick={() => setCurrentTrack(mockTracks1)}
+        onTitleClick={() => setCurrentTrack(M.mockTracks1)}
       />
       <Menu.Item
         css={S.addLinkStyles}
@@ -47,7 +47,7 @@ const Sidebar = ({setCurrentTrack}: any) => (
 );
 
 const TracksTab = () => {
-  const [ currentTrack, setCurrentTrack ] = useState(mockTracks);
+  const [ currentTrack, setCurrentTrack ] = useState(M.mockTracks);
 
   return (
     <Layout css={S.contentStyles}>
