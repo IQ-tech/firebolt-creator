@@ -7,27 +7,30 @@ import ReactFlow, {
   useEdgesState,
   Controls,
   Background,
+  useReactFlow,
 } from "react-flow-renderer";
+import "./index.css";
 
 import SideBarFlow from "./components/SideBarFlow";
-import MiniMapFlow from "./components/MiniMapFlow"
+import MiniMapFlow from "./components/MiniMapFlow";
 
+import * as S from "./styles";
 import * as mockFlow from "./mocks/mockTracks";
 import * as configsFlow from "./configsFlow";
 
+const flowKey = "currentTracks";
 
-let id = 0;
-const getId = () => `dndnode_${id++}`;
-
-const Flow = ({currentTracks}: any) => {
-  const reactFlowWrapper: any = useRef(null);
+const Flow = ({ currentTracks }: any) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(mockFlow.initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(mockFlow.initialEdges);
   const [reactFlowInstance, setReactFlowInstance]: any = useState(null);
+  const reactFlowWrapper: any = useRef(null);
+
+  const { setViewport } = useReactFlow();
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    [setEdges]
   );
 
   const onDragOver = useCallback((event) => {
@@ -51,14 +54,9 @@ const Flow = ({currentTracks}: any) => {
         y: event.clientY - reactFlowBounds.top,
       });
       const newNode = {
-        id: getId(),
+        id: stepCurrent,
         type,
         position,
-        style: {
-          borderColor: `${
-            type === "input" ? "#0041d0" : type === "output" ? "#ff0072" : null
-          }`,
-        },
         data: { label: stepCurrent },
         sourcePosition: "right",
         targetPosition: "left",
@@ -69,45 +67,63 @@ const Flow = ({currentTracks}: any) => {
     [reactFlowInstance]
   );
 
+  const onSave = useCallback(() => {
+    if (reactFlowInstance) {
+      const flow = reactFlowInstance.toObject();
+      localStorage.setItem(flowKey, JSON.stringify(flow));
+    }
+  }, [reactFlowInstance]);
+
+  const onRestore = useCallback(() => {
+    const restoreFlow = async () => {
+      const flow = JSON.parse(localStorage.getItem(flowKey) as any);
+
+      if (flow) {
+        const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+        setNodes(flow.nodes || []);
+        setEdges(flow.edges || []);
+        setViewport({ x, y, zoom });
+      }
+    };
+
+    restoreFlow();
+  }, [setNodes, setViewport]);
+
   return (
-    <Card title={currentTracks?.slug} css={{ width: "100%" }}>
-      <div
-        css={{
-          width: "100%",
-          height: `${document.body.clientHeight / 1.45}px`,
-          background: "#FFFFFF",
-          flexDirection: "row",
-          display: "flex",
-          flexGrow: "1",
-        }}
-      >
-        <ReactFlowProvider>
-          <div css={{ flexGrow: "1" }} ref={reactFlowWrapper}>
-            <ReactFlow
-              defaultEdgeOptions={configsFlow.edgeOptions}
-              connectionLineStyle={configsFlow.connectionLineStyle}
-              nodes={nodes}
-              edges={edges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              onInit={setReactFlowInstance}
-              onDrop={onDrop}
-              onDragOver={onDragOver}
-              fitView
-            >
+    <Card title={currentTracks?.slug} css={S.styleCard}>
+      <div css={S.mainCard}>
+        <div css={S.styleReactFlow} ref={reactFlowWrapper}>
+          <ReactFlow
+            defaultEdgeOptions={configsFlow!.edgeOptions}
+            connectionLineStyle={configsFlow!.connectionLineStyle}
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onInit={setReactFlowInstance}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            fitView
+          >
+            <Controls />
+            <Background color="#aaa" gap={10} />
+            <MiniMapFlow />
 
-              <Controls />
-              <Background color="#aaa" gap={10} />
-              <MiniMapFlow />
-
-            </ReactFlow>
-          </div>
-          <SideBarFlow stepsTracks={currentTracks?.steps} />
-        </ReactFlowProvider>
+            <div css={S.controlsSave}>
+              <button css={S.buttonsSaveRestore} onClick={onSave}>Save</button>
+              <button css={S.buttonsSaveRestore} onClick={onRestore}>Restore</button>
+            </div>
+          </ReactFlow>
+        </div>
+        <SideBarFlow stepsTracks={currentTracks?.steps} />
       </div>
     </Card>
   );
 };
 
-export default Flow;
+export default ({ currentTracks }) => (
+  <ReactFlowProvider>
+    <Flow currentTracks={currentTracks} />
+  </ReactFlowProvider>
+);
