@@ -8,7 +8,7 @@ import App from "./components/App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/firebolt-creator">
       <App />
     </BrowserRouter>
   </React.StrictMode>,
