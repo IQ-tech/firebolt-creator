@@ -4,6 +4,7 @@ import path from "path";
 
 export default defineConfig({
   root: "./src",
+  base: "/firebolt-creator/",
   plugins: [
     react({
       jsxImportSource: "@emotion/react",
@@ -13,7 +14,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: "../dist",
+    outDir: "../dist/firebolt-creator",
   },
   resolve: {
     alias: {
