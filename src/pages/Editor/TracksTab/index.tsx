@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Layout, Menu, Divider } from "antd";
 import {
   FormOutlined,
@@ -5,11 +6,13 @@ import {
   EllipsisOutlined,
 } from "@ant-design/icons";
 import * as S from "./styles";
-import Flow from "./components/Flow";
+import Flow from "../../../components/Flow";
+
+import { mockTracks, mockTracks1 } from "@/components/Flow/mocks/mockTracks";
 
 const { SubMenu } = Menu;
 
-const Sidebar = () => (
+const Sidebar = ({setCurrentTrack}: any) => (
   <div css={S.contentSidebarStyles}>
     <h2 css={S.sidebarTitleStyles}>Tracks list</h2>
     <Divider css={S.dividerStyles} />
@@ -22,13 +25,13 @@ const Sidebar = () => (
         key="Default"
         icon={<FormOutlined />}
         title="Default"
-        onTitleClick={() => alert("Default")}
+        onTitleClick={() => setCurrentTrack(mockTracks)}
       />
       <SubMenu
         key="Alternative"
         icon={<FormOutlined />}
         title="Alternative"
-        onTitleClick={() => alert("Alternative")}
+        onTitleClick={() => setCurrentTrack(mockTracks1)}
       />
       <Menu.Item
         css={S.addLinkStyles}
@@ -44,10 +47,12 @@ const Sidebar = () => (
 );
 
 const TracksTab = () => {
+  const [ currentTrack, setCurrentTrack ] = useState(mockTracks);
+
   return (
     <Layout css={S.contentStyles}>
-      <Sidebar />
-      <Flow />
+      <Sidebar setCurrentTrack={setCurrentTrack}/>
+      <Flow currentTracks={currentTrack}/>
     </Layout>
   );
 };

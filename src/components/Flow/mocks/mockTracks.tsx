@@ -4,32 +4,34 @@ import { MarkerType } from "react-flow-renderer";
 export const initialNodes: any = [
   {
     id: "1",
-    type: "input",
-    data: { label: "Basic data" },
+    //type: "input",
+    type: "default",
+    data: { label: "personal_data" },
     position: { x: 0, y: 0 },
     sourcePosition: "right",
     targetPosition: "left",
-    style: {
-      borderColor: "#0041d0",
-    },
+    // style: {
+    //   borderColor: "#0041d0",
+    // },
   },
   {
     id: "2",
     type: "default",
-    data: { label: "default" },
+    data: { label: "addres" },
     position: { x: 200, y: 0 },
     sourcePosition: "right",
     targetPosition: "left",
   },
   {
     id: "3",
-    type: "output",
-    data: { label: "output" },
+    // type: "output",
+    type: "default",
+    data: { label: "invoice_expiration" },
     position: { x: 400, y: 0 },
     sourcePosition: "right",
     targetPosition: "left",
 
-    style: { borderColor: "#ff0072" },
+    // style: { borderColor: "#ff0072" },
   },
 ];
 
@@ -51,8 +53,8 @@ export const mockTracks = {
 };
 
 export const mockTracks1 = {
-    "slug": "alternative",
-    "steps": [
+    slug: "alternative",
+    steps: [
       "personal_data",
       "occupation",
       "address",

@@ -37,26 +37,26 @@ const SideBarFlow = ({ stepsTracks }: any) => {
         <div
           css={[
             optionStepStyle,
-            {
-              borderColor: `${
-                i === 0
-                  ? "#0041d0"
-                  : i === stepsTracks?.length - 1
-                  ? "#ff0072"
-                  : null
-              }`,
-            },
+            // {
+            //   borderColor: `${
+            //     i === 0
+            //       ? "#0041d0"
+            //       : i === stepsTracks?.length - 1
+            //       ? "#ff0072"
+            //       : null
+            //   }`,
+            // },
           ]}
           onDragStart={(event) =>
             onDragStart(
-              event,
-              `${
-                i === 0
-                  ? "input"
-                  : i === stepsTracks?.length - 1
-                  ? "output"
-                  : "default"
-              }`
+              event,"default"
+              // `${
+              //   i === 0
+              //     ? "input"
+              //     : i === stepsTracks?.length - 1
+              //     ? "output"
+              //     : "default"
+              // }`
             )
           }
           draggable
