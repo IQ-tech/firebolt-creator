@@ -64,6 +64,8 @@ const SidebarFlow = ({ setCurrentTrack, currentTrack }: any) => {
 const TracksTab = () => {
   const [currentTrack, setCurrentTrack] = useState(M.mockTracks);
 
+  useEffect(() =>  window.scrollTo({ top: 9999, behavior: "smooth" }))
+
   return (
     <Layout css={S.contentStyles}>
       <SidebarFlow setCurrentTrack={setCurrentTrack} currentTrack={currentTrack} />
