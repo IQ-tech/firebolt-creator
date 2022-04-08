@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, Divider } from "antd";
 import {
   FormOutlined,
@@ -10,49 +10,64 @@ import Flow from "../../../components/Flow";
 
 import * as M from "@/components/Flow/mocks/mockTracks";
 
-const { SubMenu } = Menu;
+const SidebarFlow = ({ setCurrentTrack, currentTrack }: any) => {
+ 
+  const [optionsFlowA, setOptionsFlowA] = useState(M.optionsFlow);
 
-const Sidebar = ({setCurrentTrack}: any) => (
-  <div css={S.contentSidebarStyles}>
-    <h2 css={S.sidebarTitleStyles}>Tracks list</h2>
-    <Divider css={S.dividerStyles} />
-    <Menu
-      css={S.menuContentStyles}
-      mode="vertical"
-      expandIcon={<EllipsisOutlined />}
-    >
-      <SubMenu
-        key="Default"
-        icon={<FormOutlined />}
-        title="Default"
-        onTitleClick={() => setCurrentTrack(M.mockTracks)}
-      />
-      <SubMenu
-        key="Alternative"
-        icon={<FormOutlined />}
-        title="Alternative"
-        onTitleClick={() => setCurrentTrack(M.mockTracks1)}
-      />
-      <Menu.Item
-        css={S.addLinkStyles}
-        key="add"
-        icon={<PlusOutlined />}
-        onClick={() => alert("Add")}
+  return (
+    <div css={S.contentSidebarStyles}>
+      <h2 css={S.sidebarTitleStyles}>Tracks list</h2>
+      <Divider css={S.dividerStyles} />
+      <Menu
+        css={S.menuContentStyles}
+        mode="vertical"
+        expandIcon={<EllipsisOutlined />}
+        defaultSelectedKeys={["default"]}
+        //onSelect={(e) => console.log(e)}
       >
-        {" "}
-        Add
-      </Menu.Item>
-    </Menu>
-  </div>
-);
+        {optionsFlowA.map((option, i) => (
+          <Menu.Item
+            key={option}
+            icon={<FormOutlined />}
+            //onClick={() => setCurrentTrack(M.mockTracks1)}
+          >
+            <span>
+              {" "}
+              {/* TODO: utilizar input  */}
+              {option}
+            </span>
+            <EllipsisOutlined
+              css={{ position: "absolute", left: "210px", top: "10px" }}
+            />
+          </Menu.Item>
+        ))}
+
+        <Menu.Item
+          css={S.addLinkStyles}
+          key="add"
+          icon={<PlusOutlined />}
+          onClick={() =>
+            setOptionsFlowA([
+              ...optionsFlowA,
+              `Flow Tracks ${optionsFlowA.length + 1}`,
+            ])
+          }
+        >
+          {" "}
+          Add
+        </Menu.Item>
+      </Menu>
+    </div>
+  );
+};
 
 const TracksTab = () => {
-  const [ currentTrack, setCurrentTrack ] = useState(M.mockTracks);
+  const [currentTrack, setCurrentTrack] = useState(M.mockTracks);
 
   return (
     <Layout css={S.contentStyles}>
-      <Sidebar setCurrentTrack={setCurrentTrack}/>
-      <Flow currentTracks={currentTrack}/>
+      <SidebarFlow setCurrentTrack={setCurrentTrack} currentTrack={currentTrack} />
+      <Flow currentTracks={currentTrack} />
     </Layout>
   );
 };
