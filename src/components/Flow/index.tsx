@@ -5,11 +5,10 @@ import ReactFlow, {
   Controls,
   Background,
 } from "react-flow-renderer";
-
 import useFlow from "./hook";
 import SideBarFlow from "./components/SideBarFlow";
 import MiniMapFlow from "./components/MiniMapFlow";
-
+import CustomLineConnection from './components/CustomLineConnection';
 import * as C from "./configsFlow";
 import * as M from "./mocks/mockTracks";
 import * as S from "./styles";
@@ -45,10 +44,11 @@ const Flow = ({ currentTracks }: any) => {
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
+           connectionLineComponent={CustomLineConnection}
             fitView
           >
             <Controls />
-            <Background color="#aaa" gap={10} />
+            <Background color="#aaa" gap={10}  />
             <MiniMapFlow />
 
             <div css={S.controlsSave}>
