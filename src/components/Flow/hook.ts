@@ -19,7 +19,14 @@ export default function useFlow() {
   const flowKey = "currentTracks";
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) =>
+      setEdges((eds) => {
+        const validConnection = eds.some((e) =>
+          e?.source?.includes(params.source)
+        );
+        if (!validConnection) return addEdge(params, eds);
+        return eds;
+      }),
     [setEdges]
   );
 
@@ -88,7 +95,7 @@ export default function useFlow() {
 
   useEffect(() => {
     restoreFlow();
-} ,[])
+  }, []);
 
   return {
     nodes,
