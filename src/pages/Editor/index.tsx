@@ -19,11 +19,11 @@ import {
   Dropdown,
 } from "antd";
 import {
-  UserOutlined,
   HomeOutlined,
   SisternodeOutlined,
   FileOutlined,
   EllipsisOutlined,
+  DownloadOutlined
 } from "@ant-design/icons";
 import * as S from "./styles";
 
@@ -32,31 +32,13 @@ const { TabPane } = Tabs;
 
 const tabsMenu = (
   <Menu>
-    <Menu.Item key="1" icon={<UserOutlined />}>
+    <Menu.Item key="1" icon={<DownloadOutlined />}>
       <a
         // target="_blank"
         rel="noopener noreferrer"
         href="/"
       >
-        1st menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item key="2" icon={<UserOutlined />}>
-      <a
-        // target="_blank"
-        rel="noopener noreferrer"
-        href="/"
-      >
-        2st menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item key="3" icon={<UserOutlined />}>
-      <a
-        // target="_blank"
-        rel="noopener noreferrer"
-        href="/"
-      >
-        3st menu item
+        Export form JSON
       </a>
     </Menu.Item>
   </Menu>

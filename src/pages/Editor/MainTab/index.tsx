@@ -10,7 +10,7 @@ import {
   Button,
   Select,
 } from "antd";
-import { FormOutlined, PlusOutlined, ZoomInOutlined } from "@ant-design/icons";
+import { FormOutlined, PlusOutlined, ZoomInOutlined, DeleteOutlined } from "@ant-design/icons";
 import { FireboltForm } from "@iq-firebolt/client";
 import BlueberryTheme from "@iq-firebolt/blueberry-theme" ;
 import { mockFields } from "./mock";
@@ -26,6 +26,14 @@ import * as S from "./styles";
 const { SubMenu } = Menu;
 const { Panel } = Collapse;
 const { Option } = Select;
+
+const widgetOptions = ["Text", "Select", "Radio", "Checkbox"]
+const presetsOptions = ["cep or br-addons:cep", "option 2"]
+
+function deleteForm(e) {
+  e.stopPropagation()
+  console.log('click')
+}
 
 const Sidebar = () => (
   <div css={S.contentSidebarStyles}>
@@ -57,7 +65,9 @@ const Sidebar = () => (
 const MainContent = () => (
   <Card title="Step fields" css={{ width: "60%" }}>
     <Collapse defaultActiveKey={["1"]} css={S.collapseContentStyles}>
-      <Panel header="Email" key="1">
+      <Panel header="Email" key="1" extra={
+        <button css={{background: "none", border: "none"}} onClick={deleteForm}><DeleteOutlined /></button>
+      }>
         <Space size="large" direction="vertical" css={S.widthStyles}>
           <div css={{ width: "100%", gap: "16px", display: "flex" }}>
             <div css={{ width: "49%", display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -72,11 +82,25 @@ const MainContent = () => (
           </div>
           <Space direction="vertical" css={S.widthStyles}>
             <span>Widget</span>
-            <Input placeholder="text" />
+            <Select
+              style={{ width: "100%" }}
+              placeholder="Please select"
+            >
+              {widgetOptions.map((option, index) => 
+                <Option key={index} value={option}>{option}</Option>
+              )}
+            </Select>
           </Space>
           <Space direction="vertical" css={S.widthStyles}>
             <span>Props preset</span>
-            <Input placeholder="cep or br-addons:cep" />
+            <Select
+              style={{ width: "100%" }}
+              placeholder={presetsOptions[0]}
+            >
+              {presetsOptions.map((option, index) => 
+                <Option key={index} value={option}>{option}</Option>
+              )}
+            </Select>
           </Space>
           <Space>
             <span>Half size</span>
