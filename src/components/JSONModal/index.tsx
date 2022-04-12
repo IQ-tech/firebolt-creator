@@ -1,4 +1,3 @@
-import 'antd/dist/antd.css'
 import { Button } from 'antd'
 
 import ModalContent from './components/ModalContent'

@@ -1,3 +1,6 @@
+// TODO - add css function
+
+
 export const contentStyles = (theme) => ({
     backgroundColor: theme?.colors?.["grey"],
     backgroundImage: "url('../components/common/icons/backgroundRegisterPage.png')",

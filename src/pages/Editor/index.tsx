@@ -1,14 +1,6 @@
+// Todo - separar em arquivos menores p/ components
 import React from "react";
-import {
-  Route,
-  Outlet,
-  Link,
-  useNavigate,
-  Navigate,
-  useLocation,
-} from "react-router-dom";
-
-import "antd/dist/antd.css";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
   Layout,
   Menu,
@@ -23,7 +15,7 @@ import {
   SisternodeOutlined,
   FileOutlined,
   EllipsisOutlined,
-  DownloadOutlined
+  DownloadOutlined,
 } from "@ant-design/icons";
 import * as S from "./styles";
 
@@ -53,15 +45,6 @@ const BreadcrumbComponent = () => (
   </div>
 );
 
-const ButtonsHeader = [
-  <Button key="1" type="primary">
-    Primary
-  </Button>,
-  <Dropdown key="more" overlay={tabsMenu} placement="bottomRight">
-    <Button css={S.moreButton} type="text" icon={<EllipsisOutlined />} />
-  </Dropdown>,
-];
-
 
 const tabs = [
   { path: "/app/editor/main", label: "Main", Icon: HomeOutlined },
@@ -74,7 +57,6 @@ const EditorPage = () => {
   const navigate = useNavigate();
 
   const tabsCallback = (path: string) => navigate(path);
-  
 
   return (
     <>
@@ -87,12 +69,22 @@ const EditorPage = () => {
             onBack={() => navigate("/")}
             title="My Form"
             subTitle="Form description"
-            extra={ButtonsHeader}
+            extra={
+              <>
+                <Button key="1" type="primary">
+                  Primary
+                </Button>
+                <Dropdown key="more" overlay={tabsMenu} placement="bottomRight">
+                  <Button
+                    css={S.moreButton}
+                    type="text"
+                    icon={<EllipsisOutlined />}
+                  />
+                </Dropdown>
+              </>
+            }
           >
-            <Tabs
-              activeKey={location.pathname}
-              onTabClick={tabsCallback}
-            >
+            <Tabs activeKey={location.pathname} onTabClick={tabsCallback}>
               {tabs.map(({ path, Icon, label }) => (
                 <TabPane
                   tab={
