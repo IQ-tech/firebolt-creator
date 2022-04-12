@@ -9,6 +9,7 @@ import InternalLayouts from "@/components/layout/InternalLayouts";
 import EditorPage from "@/pages/Editor";
 import MainTab from "@/pages/Editor/MainTab"
 import TracksTab from "@/pages/Editor/TracksTab";
+import JsonSchema from "@/pages/Editor/JSONTab";
 // import MainPage from "@/pages/MainPage";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             <Route path="editor" element={<EditorPage />}>
               <Route path="main" element={<MainTab />} />
               <Route path="tracks" element={<TracksTab />} />
-              <Route path="jschema" element={<p>Json Schema</p>} />
+              <Route path="jschema" element={<JsonSchema />} />
             </Route>
           </Route>
           <Route
