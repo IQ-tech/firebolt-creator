@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const styleCard = { width: "100%" };
+export const styleCard = css({ width: "100%" })
 
 export const mainCard = css({
   width: "100%",
@@ -9,9 +9,9 @@ export const mainCard = css({
   flexDirection: "row",
   display: "flex",
   flexGrow: "1",
-});
+})
 
-export const styleReactFlow = { flexGrow: "1" };
+export const styleReactFlow = css({ flexGrow: "1" })
 
 export const controlsSave = css({
   position: "absolute",
@@ -19,10 +19,10 @@ export const controlsSave = css({
   top: "10px",
   zIndex: 4,
   fontSize: "12px",
-});
+})
 
-export const buttonsSRC = {
+export const buttonsSRC = css({
   marginLeft: "10px",
   padding: "3px 5px",
   cursor: "pointer",
-};
+})
