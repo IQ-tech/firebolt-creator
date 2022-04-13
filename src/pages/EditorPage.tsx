@@ -5,13 +5,11 @@ import AddPropsModal from '../components/AddPropsModal'
 import ValidatorsModal from '../components/ValidatorsModal'
 
 const EditorPage = () => {
-
-    return (
-        <>
-        <StepModal />
-        
-        <AddPropsModal />
-        <ValidatorsModal />
+  return (
+    <>
+      <StepModal />
+      <AddPropsModal />
+      <ValidatorsModal />
     </>
   )
 }

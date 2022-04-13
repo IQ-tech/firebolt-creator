@@ -896,7 +896,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-antd@^4.19.5:
+antd@^4.19.3:
   version "4.19.5"
   resolved "https://registry.yarnpkg.com/antd/-/antd-4.19.5.tgz#38d08f3e1391a7a69c2ca76f50968bb12ec2ac93"
   integrity sha512-C4H/VJqlVO5iMvHZyiV27R8SbPs4jsOKCGPhDXIHUry/RnUCbMmVeQaPRfUIxSI1NbqDflsuQfevPtz1svyIlg==
@@ -1774,7 +1774,7 @@ jails-js@^4.2.1:
     morphdom "^2.6.1"
     sodajs "^0.4.10"
 
-"jails.packages@github:jails-org/packages":
+jails.packages@jails-org/packages.git:
   version "1.10.3"
   resolved "https://codeload.github.com/jails-org/packages/tar.gz/3c1537679b7f9bda83b34896769c2f6541e0d644"
 

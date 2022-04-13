@@ -1,5 +1,5 @@
 import ErrorIcon from '@/components/common/icons/errorIcon'
-import { errorContainerStyle, errorIconStyle, errorMessageStyle } from '../../styles'
+import * as S from './styles'
 
 interface IError {
 	message: string;
@@ -7,11 +7,11 @@ interface IError {
 
 function Error ({ message } : IError) {
 	return (
-		<div  css={errorContainerStyle}>
-			<div css={errorIconStyle}>
+		<div  css={S.errorContainerStyle}>
+			<div css={S.errorIconStyle}>
 				<ErrorIcon />
 			</div>
-			<p css={errorMessageStyle}>{message}</p>
+			<p css={S.errorMessageStyle}>{message}</p>
 		</div>
 	)
 }

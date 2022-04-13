@@ -1,8 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
+import BaseStyles from "./components/BaseStyles";
 import 'antd/dist/antd.css';
-import "iq-blueberry/dist/styles.css";
-import BaseStyles from "./BaseStyles";
 import theme from "@/theme";
 import RegisterPage from "@/pages/RegisterPage";
 import InternalLayouts from "@/components/layout/InternalLayouts";
@@ -10,6 +9,7 @@ import EditorPage from "@/pages/Editor";
 import MainTab from "@/pages/Editor/MainTab"
 import TracksTab from "@/pages/Editor/TracksTab";
 import JsonSchema from "@/pages/Editor/JSONTab";
+import "iq-blueberry/dist/styles.css";
 // import MainPage from "@/pages/MainPage";
 
 function App() {
