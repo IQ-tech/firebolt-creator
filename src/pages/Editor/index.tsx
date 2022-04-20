@@ -106,7 +106,7 @@ const EditorPage = () => {
             subTitle="Form description"
             extra={
               <>
-                <Button key="1" type="primary" onClick={() => downloadJSONFile(mockJSON)}>
+                <Button key="1" type="primary" onClick={() => downloadJSONFile(mockJSON, 'banco-pan')}>
                   <DownloadOutlined /> Export form JSON
                 </Button>
               </>
