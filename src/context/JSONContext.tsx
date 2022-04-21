@@ -1,45 +1,13 @@
-import { createContext, useState } from 'react'
+import { createContext, useState } from 'react';
 
-interface IUIProps {
-	label: string;
-	placeholder: string;
-}
+import { IFireboltJSON } from '@/types/fireboltJSON';
 
-interface IUIStyles {
-	size: string;
-}
+import { temporaryMock } from './temporaryMock';
 
-interface IValidators {
-	type: string;
-}
-
-interface IJSON {
-	slug: string
-	"ui:widget": string;
-	"ui:props": IUIProps;
-	"ui:styles": IUIStyles;
-	validators: IValidators[];
-	meta: any;
-}
-
-export const JSONContext = createContext<IJSON[] | null>(null)
+export const JSONContext = createContext({} as IFireboltJSON)
 
 export function JSONProvider({ children }) {
-	const [currentJSON, setCurrentJSON] = useState<IJSON[]>([
-		{
-			slug: "name",
-			"ui:widget": "Text",
-			"ui:props": {
-				label: "Nome completo",
-				placeholder: "Nome completo",
-			},
-			"ui:styles": {
-				size: "half",
-			},
-			validators: [{ type: "required" }, { type: "name" }],
-			meta: {},
-		},
-	])
+	const [currentJSON, setCurrentJSON] = useState<IFireboltJSON>(temporaryMock)
 
 	return (
 		<JSONContext.Provider value={{ currentJSON, setCurrentJSON }}>
