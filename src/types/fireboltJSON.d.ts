@@ -1,3 +1,6 @@
+TODO
+//typar as props que possuem valores fixos
+
 interface ITracks {
 	slug: string;
 	steps: string[];
