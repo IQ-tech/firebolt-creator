@@ -16,10 +16,14 @@ export default function useMainSidebar() {
     return allSteps;
   })
 
+  function addNewStep() {
+    console.log("new step")
+  }
+
   return {
     steps,
 
-
+    addNewStep
   }
 
 }

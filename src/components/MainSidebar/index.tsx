@@ -13,6 +13,8 @@ const StepFields = () => {
   const {
     steps,
 
+    addNewStep
+
   } = useMainSidebar()
 
   return (
@@ -29,7 +31,7 @@ const StepFields = () => {
           </SubMenu>
         ))}
 
-        <Menu.Item css={S.addLinkStyles} key="add" icon={<PlusOutlined />}>
+        <Menu.Item css={S.addLinkStyles} key="add" icon={<PlusOutlined />} onClick={addNewStep}>
           Add
         </Menu.Item>
       </Menu>
