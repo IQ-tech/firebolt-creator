@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import {
   addEdge,
   useNodesState,
@@ -6,7 +6,6 @@ import {
   useReactFlow,
 } from "react-flow-renderer";
 
-import * as M from "./mocks/mockTracks";
 
 export default function useFlow() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);

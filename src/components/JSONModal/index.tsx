@@ -1,20 +1,27 @@
-import { Button } from 'antd'
+import { Button } from "antd";
 
-import ModalContent from './components/ModalContent'
-import useJSONModal from './hook'
-import * as S from './styles'
+import ModalContent from "./components/ModalContent";
+import useJSONModal from "./hook";
+import * as S from "./styles";
 
 function JSONModal() {
-  const modalProps = useJSONModal()
-  const { showModal } = modalProps
+  const modalProps = useJSONModal();
+  const { showModal } = modalProps;
 
   return (
     <>
-      <Button css={S.buttonsStyles} type="link" size="large" onClick={showModal}>Load JSON Schema</Button>
+      <Button
+        css={{ width: "172px" }}
+        type="link"
+        size="large"
+        onClick={showModal}
+      >
+        Load JSON Schema
+      </Button> paranaue
 
       <ModalContent {...modalProps} />
     </>
-  )
+  );
 }
 
-export default JSONModal
+export default JSONModal;

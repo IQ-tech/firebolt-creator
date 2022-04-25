@@ -56,7 +56,7 @@ function AddPropsModal() {
         </div>
 
         <div className="button-container">
-          <Button style={{ width: '100%', marginTop: '24px' }} type="dashed" onClick={addNewProp}>
+          <Button css={{ width: '100%', marginTop: '24px' }} type="dashed" onClick={addNewProp}>
             + Add props
           </Button>
         </div>

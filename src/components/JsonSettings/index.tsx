@@ -1,49 +1,66 @@
-import { Space, Card, Input, Select, Button  } from "antd"
-import { SearchOutlined } from "@ant-design/icons"
-import * as S from "./styles"
+import { Space, Card, Input, Select, Button } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
-const { Option } = Select
+const { Option } = Select;
 
-const plugins = ["br-addons", "us-addons", "pluggin-4", "pluggin-5", "pluggin-6"]
+const plugins = [
+  "br-addons",
+  "us-addons",
+  "pluggin-4",
+  "pluggin-5",
+  "pluggin-6",
+];
+
+const optionsTab = ["Schema version", "Form version", "Description", "Paranaue"];
 
 const JsonSettings = () => (
-  <Card title="Settings" css={S.widthStyles}>
-    <div css={S.settingsContent}>
-      <Space direction="vertical" css={S.widthStyles}>
-        <span>Schema version</span>
-        <Input defaultValue="1.0.0" css={S.textInputsStyles}/>
-      </Space>
-      <Space direction="vertical" css={S.widthStyles}>
-        <span>Form version</span>
-        <Input defaultValue="1.0.0" css={S.textInputsStyles}/>
-      </Space>
-      <Space direction="vertical" css={S.widthStyles}>
-        <span>Description</span>
-        <Input defaultValue="Short description" css={S.textInputsStyles}/>
-      </Space>
-      <Space direction="vertical" css={S.widthStyles}>
+  <Card title="Settings" css={{ width: "100%" }}>
+    <div
+      css={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "32px",
+      }}
+    >
+      {optionsTab.map((option) => (
+        <Space direction="vertical" css={{ width: "100%" }}>
+          <span>{option}</span>
+          <Input
+            defaultValue={option}
+            css={{
+              color: "rgba(0, 0, 0, 0.25)",
+              ":focus": { color: "#000000" },
+            }}
+          />
+        </Space>
+      ))}
+
+      <Space direction="vertical" css={{ width: "100%" }}>
         <span>Plugins</span>
         <div>
           <Select
             mode="multiple"
-            css={S.widthStyles}
+            css={{ width: "100%" }}
             placeholder="Please select"
             defaultValue={["br-addons", "us-addons"]}
           >
-            {plugins.map((option, index) => 
-              <Option key={index} value={option}>{option}</Option>
-            )}
+            {plugins.map((option, index) => (
+              <Option key={index} value={option}>
+                {option}
+              </Option>
+            ))}
           </Select>
         </div>
       </Space>
+
       <Space>
         <span>Webhook config</span>
         <Button type="primary" icon={<SearchOutlined />}>
-        Open webhook configs
+          Open webhook configs
         </Button>
       </Space>
     </div>
   </Card>
-)
+);
 
-export default JsonSettings
+export default JsonSettings;

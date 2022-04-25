@@ -1,5 +1,5 @@
-import React, { useState, useRef, useCallback } from "react";
 import { Card } from "antd";
+import { css } from "@emotion/react";
 import ReactFlow, {
   ReactFlowProvider,
   Controls,
@@ -8,10 +8,14 @@ import ReactFlow, {
 import useFlow from "./hook";
 import SideBarFlow from "./components/SideBarFlow";
 import MiniMapFlow from "./components/MiniMapFlow";
-import CustomLineConnection from './components/CustomLineConnection';
+import CustomLineConnection from "./components/CustomLineConnection";
 import * as C from "./configsFlow";
-import * as M from "./mocks/mockTracks";
-import * as S from "./styles";
+
+export const buttonsSRCStyle = css({
+  marginLeft: "10px",
+  padding: "3px 5px",
+  cursor: "pointer",
+});
 
 const Flow = ({ currentTracks }: any) => {
   const {
@@ -26,13 +30,22 @@ const Flow = ({ currentTracks }: any) => {
     onDragOver,
     onSave,
     onRestore,
-    onClean
+    onClean,
   } = useFlow();
 
   return (
-    <Card title={currentTracks?.slug} css={S.styleCard}>
-      <div css={S.mainCard}>
-        <div css={S.styleReactFlow} ref={reactFlowWrapper}>
+    <Card title={currentTracks?.slug} css={{ width: "100%" }}>
+      <div
+        css={{
+          width: "100%",
+          height: `${document.body.clientHeight / 1.45}px`,
+          background: "#FFFFFF",
+          flexDirection: "row",
+          display: "flex",
+          flexGrow: "1",
+        }}
+      >
+        <div css={{ flexGrow: "1" }} ref={reactFlowWrapper}>
           <ReactFlow
             defaultEdgeOptions={C!.edgeOptions}
             connectionLineStyle={C!.connectionLineStyle}
@@ -44,21 +57,29 @@ const Flow = ({ currentTracks }: any) => {
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
-           connectionLineComponent={CustomLineConnection}
+            connectionLineComponent={CustomLineConnection}
             fitView
           >
             <Controls />
-            <Background color="#aaa" gap={10}  />
+            <Background color="#aaa" gap={10} />
             <MiniMapFlow />
 
-            <div css={S.controlsSave}>
-              <button css={S.buttonsSRC} onClick={onSave}>
+            <div
+              css={{
+                position: "absolute",
+                right: "10px",
+                top: "10px",
+                zIndex: 4,
+                fontSize: "12px",
+              }}
+            >
+              <button css={buttonsSRCStyle} onClick={onSave}>
                 Save
               </button>
-              <button css={S.buttonsSRC} onClick={onRestore}>
+              <button css={buttonsSRCStyle} onClick={onRestore}>
                 Restore
               </button>
-              <button css={S.buttonsSRC} onClick={onClean}>
+              <button css={buttonsSRCStyle} onClick={onClean}>
                 Clean
               </button>
             </div>

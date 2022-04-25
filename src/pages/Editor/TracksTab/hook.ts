@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react'
-import * as M from "@/components/Flow/mocks/mockTracks"
+import { useState } from "react";
+import * as M from "@/components/Flow/mocks/mockTracks";
 
 const useTrackTabs = () => {
-  const [currentTrack, setCurrentTrack] = useState(M.mockTracks)
-
-  useEffect(() =>  window.scrollTo({ top: 9999, behavior: "smooth" }))
+  const [currentTrack, setCurrentTrack] = useState(M.mockTracks);
 
   return {
-    currentTrack
-  }
-}
+    currentTrack,
+  };
+};
 
-export default useTrackTabs
+export default useTrackTabs;

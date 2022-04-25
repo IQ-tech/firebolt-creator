@@ -1,8 +1,7 @@
-import { Layout } from "antd"
-import StepsSidebar from "@/components/MainSidebar"
-import StepFields from "@/components/StepFields"
-import MainPreview from "@/components/MainPreview"
-import * as S from "./styles"
+import { Layout } from "antd";
+import StepsSidebar from "@/components/MainSidebar";
+import StepFields from "@/components/StepFields";
+import MainPreview from "@/components/MainPreview";
 
 // import StepModal from '@/components/StepModal'
 // import AddPropsModal from '@/components/AddPropsModal'
@@ -12,7 +11,12 @@ import * as S from "./styles"
 
 const MainPage = () => {
   return (
-    <Layout css={S.contentStyles}>
+    <Layout
+      css={{
+        flexDirection: "row",
+        width: "100%",
+      }}
+    >
       <StepsSidebar />
       <StepFields />
       <MainPreview />
@@ -20,4 +24,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage
+export default MainPage;
