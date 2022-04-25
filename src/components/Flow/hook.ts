@@ -13,6 +13,10 @@ export default function useFlow() {
   const [reactFlowInstance, setReactFlowInstance]: any = useState(null);
   const reactFlowWrapper: any = useRef(null);
 
+  useEffect(() => {
+    console.log({edges, nodes})
+  }, [edges, nodes])
+
   const { setViewport } = useReactFlow();
 
   const flowKey = "currentTracks";

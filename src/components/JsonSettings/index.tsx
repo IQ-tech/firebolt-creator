@@ -22,8 +22,8 @@ const JsonSettings = () => (
         gap: "32px",
       }}
     >
-      {optionsTab.map((option) => (
-        <Space direction="vertical" css={{ width: "100%" }}>
+      {optionsTab.map((option, index) => (
+        <Space direction="vertical" css={{ width: "100%" }} key={index}>
           <span>{option}</span>
           <Input
             defaultValue={option}
