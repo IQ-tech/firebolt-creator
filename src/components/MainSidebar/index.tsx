@@ -1,21 +1,23 @@
-import { Menu, Divider } from "antd";
-import { FormOutlined, PlusOutlined } from "@ant-design/icons";
+import { Menu, Divider } from "antd"
+import { FormOutlined, PlusOutlined } from "@ant-design/icons"
 
-import useMainSidebar from "./hook";
+import useMainSidebar from "./hook"
 
-import * as S from "./styles";
+import StepModal from '../StepModal'
 
-const { SubMenu } = Menu;
+import * as S from "./styles"
+import { useEffect } from "react"
+
+const { SubMenu } = Menu
 
 const StepFields = () => {
-  
 
   const {
     steps,
 
-    addNewStep
-
   } = useMainSidebar()
+
+  console.log(steps)
 
   return (
     <div css={S.contentSidebarStyles}>
@@ -25,15 +27,13 @@ const StepFields = () => {
 
         {steps.map(step => (
           <SubMenu key={step} icon={<FormOutlined />} title={step}>
-            <Menu.Item key="sub1-rename">Rename</Menu.Item>
-            <Menu.Item key="sub1-remove">Remove</Menu.Item>
-            <Menu.Item key="sub1-edit">Edit</Menu.Item>
+            <Menu.Item key={`${step}-rename`}>Rename</Menu.Item>
+            <Menu.Item key={`${step}-remove`}>Remove</Menu.Item>
+            <Menu.Item key={`${step}-edit`}>Edit</Menu.Item>
           </SubMenu>
         ))}
 
-        <Menu.Item css={S.addLinkStyles} key="add" icon={<PlusOutlined />} onClick={addNewStep}>
-          Add
-        </Menu.Item>
+        <StepModal />
       </Menu>
     </div>
   )
