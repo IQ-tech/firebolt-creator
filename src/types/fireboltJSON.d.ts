@@ -48,4 +48,4 @@ interface IFireboltJSON {
 	"steps": IStep[];
 }
 
-export { IFireboltJSON };
+export { IFireboltJSON, IStep, IUIProps, IUIStyles, IValidators, IField }

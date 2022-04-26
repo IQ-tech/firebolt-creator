@@ -1,29 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'
 
-import { useFireboltJSON } from "@/hooks/useFireboltJSON";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON"
 
 export default function useMainSidebar() {
-  const { currentJSON } = useFireboltJSON();
+  const { currentJSON } = useFireboltJSON()
 
-  const [steps, setSteps] = useState(() => {
-    let allSteps: string[] = [];
+  const [steps, setSteps] = useState(() => stepsFriendlyName())
+
+  useEffect(() => {
+    setSteps(() => stepsFriendlyName())
+
+  }, [currentJSON])
+
+  function stepsFriendlyName() {
+    let allSteps: string[] = []
     const jsonSteps = currentJSON.steps
 
     jsonSteps.map(step => {
-      allSteps.push(step.step.friendlyname);
+      allSteps.push(step.step.friendlyname)
     })
 
     return allSteps;
-  })
-
-  function addNewStep() {
-    console.log("new step")
   }
 
   return {
     steps,
-
-    addNewStep
+    
   }
 
 }
