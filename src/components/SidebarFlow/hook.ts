@@ -1,5 +1,5 @@
 import { useState } from "react";
-import * as M from "@/components/Flow/mocks/mockTracks";
+import * as M from "@/components/Flow/mocks/mockFlows";
 
 
 const useSidebarFlow = () => {
@@ -8,7 +8,7 @@ const useSidebarFlow = () => {
   const addOptions = () =>
     setOptionsFlow([
       ...optionsFlow,
-      `Flow Tracks ${optionsFlow.length + 1}`,
+      `Flow ${optionsFlow.length + 1}`,
     ])
 
   return {

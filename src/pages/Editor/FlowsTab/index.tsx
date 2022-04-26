@@ -1,10 +1,10 @@
 import { Layout } from "antd";
-import useTrackTabs from "./hook";
+import useFlowTabs from "./hook";
 import SidebarFlow from "@/components/SidebarFlow";
 import Flow from "@/components/Flow";
 
-const TracksTab = () => {
-  const { currentTrack } = useTrackTabs();
+const FlowsTab = () => {
+  const { currentFlow } = useFlowTabs();
 
   return (
     <Layout
@@ -14,9 +14,9 @@ const TracksTab = () => {
       }}
     >
       <SidebarFlow />
-      <Flow currentTracks={currentTrack} />
+      <Flow currentFlows={currentFlow} />
     </Layout>
   );
 };
 
-export default TracksTab;
+export default FlowsTab;

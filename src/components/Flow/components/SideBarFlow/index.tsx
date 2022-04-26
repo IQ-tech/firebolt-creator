@@ -17,12 +17,12 @@ const onDragStart = (event, nodeType: string) => {
   event.dataTransfer.effectAllowed = "move";
 };
 
-const SideBarFlow = ({ stepsTracks }) => {
+const SideBarFlow = ({ stepsFlows }) => {
   return (
     <aside css={S.containerSidebarFlow}>
       <h2 css={S.titleSideBarFlow}>You can chose any of the available steps</h2>
 
-      {stepsTracks?.map((step: IStep, i: React.Key | null | undefined) => (
+      {stepsFlows?.map((step: IStep, i: React.Key | null | undefined) => (
         <div
           key={i}
           css={S.optionStepStyle}

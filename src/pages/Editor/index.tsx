@@ -18,7 +18,7 @@ const { Content } = Layout;
 
 const tabs = [
   { path: "/app/editor/main", label: "Main", Icon: HomeOutlined },
-  { path: "/app/editor/tracks", label: "Tracks", Icon: SisternodeOutlined },
+  { path: "/app/editor/flows", label: "Flows", Icon: SisternodeOutlined },
   { path: "/app/editor/jschema", label: "JSON schema", Icon: FileOutlined },
 ];
 

@@ -1,7 +1,7 @@
 TODO
 //typar as props que possuem valores fixos
 
-interface ITracks {
+interface IFlows {
 	slug: string;
 	steps: string[];
 }
@@ -44,7 +44,7 @@ interface IFireboltJSON {
 		"url": string;
 		"headers": { "X-API-KEY": string; }
 	};
-	"tracks": ITracks[];
+	"flowss": IFlows[];
 	"steps": IStep[];
 }
 

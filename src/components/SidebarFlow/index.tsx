@@ -14,7 +14,7 @@ const SidebarFlow = () => {
 
   return (
     <div css={S.contentSidebarStyles}>
-      <h2 css={S.sidebarTitleStyles}>Tracks list</h2>
+      <h2 css={S.sidebarTitleStyles}>Flows list</h2>
       <Divider css={S.dividerStyles} />
       <Menu
         css={S.menuContentStyles}

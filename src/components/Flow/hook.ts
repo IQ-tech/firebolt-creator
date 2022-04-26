@@ -19,7 +19,7 @@ export default function useFlow() {
 
   const { setViewport } = useReactFlow();
 
-  const flowKey = "currentTracks";
+  const flowKey = "currentFlows";
 
   const onConnect = useCallback(
     (params) =>
@@ -82,12 +82,12 @@ export default function useFlow() {
   }, [reactFlowInstance]);
 
   const restoreFlow = async () => {
-    const getflowTracks = JSON.parse(localStorage.getItem(flowKey) as any);
+    const getflowFlows = JSON.parse(localStorage.getItem(flowKey) as any);
 
-    if (getflowTracks) {
-      const { x = 0, y = 0, zoom = 1 } = getflowTracks.viewport;
-      setNodes(getflowTracks.nodes || []);
-      setEdges(getflowTracks.edges || []);
+    if (getflowFlows) {
+      const { x = 0, y = 0, zoom = 1 } = getflowFlows.viewport;
+      setNodes(getflowFlows.nodes || []);
+      setEdges(getflowFlows.edges || []);
       setViewport({ x, y, zoom });
     }
   };

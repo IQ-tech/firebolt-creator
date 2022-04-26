@@ -17,7 +17,7 @@ export const buttonsSRCStyle = css({
   cursor: "pointer",
 });
 
-const Flow = ({ currentTracks }: any) => {
+const Flow = ({ currentFlows }: any) => {
   const {
     reactFlowWrapper,
     nodes,
@@ -34,7 +34,7 @@ const Flow = ({ currentTracks }: any) => {
   } = useFlow();
 
   return (
-    <Card title={currentTracks?.slug} css={{ width: "100%" }}>
+    <Card title={currentFlows?.slug} css={{ width: "100%" }}>
       <div
         css={{
           width: "100%",
@@ -85,14 +85,14 @@ const Flow = ({ currentTracks }: any) => {
             </div>
           </ReactFlow>
         </div>
-        <SideBarFlow stepsTracks={currentTracks?.steps} />
+        <SideBarFlow stepsFlows={currentFlows?.steps} />
       </div>
     </Card>
   );
 };
 
-export default ({ currentTracks }) => (
+export default ({ currentFlows }) => (
   <ReactFlowProvider>
-    <Flow currentTracks={currentTracks} />
+    <Flow currentFlows={currentFlows} />
   </ReactFlowProvider>
 );
