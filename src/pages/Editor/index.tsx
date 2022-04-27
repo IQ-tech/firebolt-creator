@@ -14,7 +14,6 @@ import useEditor from "./hook";
 import mockJSON from "./mockJson";
 
 const { TabPane } = Tabs;
-const { Content } = Layout;
 
 const tabs = [
   { path: "/app/editor/main", label: "Main", Icon: HomeOutlined },
@@ -26,8 +25,8 @@ const EditorPage = () => {
   const { location, navigate, tabsCallback } = useEditor();
 
   return (
-    <Layout className="layout" css={{ padding: "28px" }}>
-      <Content>
+    <div css={{ padding: "28px" }}>
+      <div css={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
         <BreadcrumbComponent />
         <PageHeader
           css={{ padding: "16px 24px 0", marginBottom: "27px" }}
@@ -60,8 +59,8 @@ const EditorPage = () => {
           </Tabs>
         </PageHeader>
         <Outlet />
-      </Content>
-    </Layout>
+      </div>
+    </div>
   );
 };
 

@@ -6,8 +6,8 @@ import ReactFlow, {
   Background,
 } from "react-flow-renderer";
 import useFlow from "./hook";
-import SideBarFlow from "./components/SideBarFlow";
-import MiniMapFlow from "./components/MiniMapFlow";
+import Sidebar from "./components/Sidebar";
+import MiniMap from "./components/MiniMap";
 import CustomLineConnection from "./components/CustomLineConnection";
 import * as C from "./configsFlow";
 
@@ -62,7 +62,7 @@ const Flow = ({ currentFlows }: any) => {
           >
             <Controls />
             <Background color="#aaa" gap={10} />
-            <MiniMapFlow />
+            <MiniMap />
 
             <div
               css={{
@@ -85,7 +85,7 @@ const Flow = ({ currentFlows }: any) => {
             </div>
           </ReactFlow>
         </div>
-        <SideBarFlow stepsFlows={currentFlows?.steps} />
+        <Sidebar stepsFlows={currentFlows?.steps} />
       </div>
     </Card>
   );

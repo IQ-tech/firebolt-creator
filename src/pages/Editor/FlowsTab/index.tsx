@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import useFlowTabs from "./hook";
-import SidebarFlow from "@/components/SidebarFlow";
+import FlowSidebar from "@/components/FlowSidebar";
 import Flow from "@/components/Flow";
 
 const FlowsTab = () => {
@@ -13,7 +13,7 @@ const FlowsTab = () => {
         justifyContent: "center",
       }}
     >
-      <SidebarFlow />
+      <FlowSidebar />
       <Flow currentFlows={currentFlow} />
     </Layout>
   );

@@ -17,7 +17,7 @@ const onDragStart = (event, nodeType: string) => {
   event.dataTransfer.effectAllowed = "move";
 };
 
-const SideBarFlow = ({ stepsFlows }) => {
+const Sidebar = ({ stepsFlows }) => {
   return (
     <aside css={S.containerSidebarFlow}>
       <h2 css={S.titleSideBarFlow}>You can chose any of the available steps</h2>
@@ -36,4 +36,4 @@ const SideBarFlow = ({ stepsFlows }) => {
   );
 };
 
-export default SideBarFlow;
+export default Sidebar;
