@@ -2,7 +2,6 @@ import { Button } from "antd";
 
 import ModalContent from "./components/ModalContent";
 import useJSONModal from "./hook";
-import * as S from "./styles";
 
 function JSONModal() {
   const modalProps = useJSONModal();
@@ -17,8 +16,7 @@ function JSONModal() {
         onClick={showModal}
       >
         Load JSON Schema
-      </Button> paranaue
-
+      </Button>
       <ModalContent {...modalProps} />
     </>
   );

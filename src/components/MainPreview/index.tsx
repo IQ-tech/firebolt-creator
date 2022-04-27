@@ -1,15 +1,14 @@
-import { Card, Select } from "antd"
-import { FireboltForm } from "@iq-firebolt/client"
-import BlueberryTheme from "@iq-firebolt/blueberry-theme" 
+import { Card, Select } from "antd";
+import { FireboltForm } from "@iq-firebolt/client";
+import BlueberryTheme from "@iq-firebolt/blueberry-theme";
 import { mockFields } from "@/pages/Editor/MainTab/mock";
-import * as S from './styles'
 
 const { Option } = Select;
 
 const MainPreview = () => (
-  <div css={S.previewContent}>
+  <div css={{ paddingLeft: "19px", width: "40%" }}>
     <Card
-      css={S.cardPreview}
+      css={{ height: "100%" }}
       title="Preview"
       extra={
         <Select placeholder="Theme">
@@ -22,4 +21,4 @@ const MainPreview = () => (
   </div>
 );
 
-export default MainPreview
+export default MainPreview;

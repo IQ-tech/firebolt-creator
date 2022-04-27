@@ -2,10 +2,9 @@ import { Card } from "antd"
 import JSONInput from "react-json-editor-ajrm"
 import locale from "react-json-editor-ajrm/locale/en"
 import { data } from "@/pages/Editor/JSONTab/data"
-import * as S from "./styles"
 
 const JsonView = () => (
-  <Card title="JSON representation" css={S.widthStyles}>
+  <Card title="JSON representation" css={{ width: "100%" }}>
     <JSONInput
       id="json-editor"
       confirmGood={false}
