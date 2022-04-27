@@ -8,6 +8,9 @@ type JSONAction =
 	{
 		type: 'ADDNEWSTEP';
 		payload: IStep;
+	} | {
+		type: 'EDITSTEP';
+		payload: any;
 	}
 interface IJSONProviderValues {
 	currentJSON: IFireboltJSON;
@@ -29,6 +32,25 @@ export function JSONProvider({ children }) {
 						...state.steps,
 						payload
 					]
+				};
+			case 'EDITSTEP':
+				const currentSteps = [...state.steps]
+				const edittedStep = { step: payload.step }
+				let indexToRemove
+
+				currentSteps.find((step, index) => {
+					if(step.step.slug === payload.slug) {
+						indexToRemove = index
+						return  
+					}
+				})
+
+				currentSteps.splice(indexToRemove, 1)
+				currentSteps.splice(indexToRemove, 0, edittedStep)
+
+				return {
+					...state,
+					steps: currentSteps
 				};
 			default:
 				return state

@@ -13,14 +13,9 @@ export default function useMainSidebar() {
   }, [currentJSON])
 
   function stepsFriendlyName() {
-    let allSteps: string[] = []
     const jsonSteps = currentJSON.steps
 
-    jsonSteps.map(step => {
-      allSteps.push(step.step.friendlyname)
-    })
-
-    return allSteps;
+    return jsonSteps
   }
 
   return {
