@@ -3,6 +3,7 @@ import * as M from "@/components/Flow/mocks/mockFlows";
 
 const useSidebarFlow = () => {
   const [optionsFlow, setOptionsFlow] = useState(M.optionsFlow);
+  const [isAddingNewFlow, setIsAddingNewFlow] = useState(false)
   
   const addOptions = () =>
     setOptionsFlow([
@@ -11,10 +12,16 @@ const useSidebarFlow = () => {
     ])
 
   
+    function startAddNewFlow(){
+      setIsAddingNewFlow(true)
+    }
+
+  
 
   return {
     optionsFlow,
-    addOptions
+    addOptions,
+    startAddNewFlow
   }
   
 }

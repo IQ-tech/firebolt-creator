@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { mockFlows, mockSteps } from "./jsonMocks";
 import {IStep, IFlow } from "@/types/fireboltJSON"
 
@@ -6,6 +6,10 @@ import {IStep, IFlow } from "@/types/fireboltJSON"
 const useFlowTabs = () => {
   const [mockFlowsState, setMockFlowsState] = useState(mockFlows);
   const [mockStepsState, setMockStepsState] = useState<IStep[]>(mockSteps);
+
+  useEffect(() => {
+    console.log(mockFlowsState)
+  }, [mockFlowsState])
 
   const [visibleFlow, setVisibleFlow] = useState<IFlow>(
     () => mockFlows.find((flow) => flow.slug === "default") as IFlow

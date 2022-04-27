@@ -27,7 +27,7 @@ const FlowsTab = () => {
         renameFlow={renameFlow}
         removeFlow={removeFlow}
         visibleFlow={visibleFlow}
-        onChangeVisibleFlow={changeVisibleFlow}
+        changeVisibleFlow={changeVisibleFlow}
       />
       <Flow currentFlows={visibleFlow?.slug} visibleFlow={visibleFlow?.slug} />
     </Layout>

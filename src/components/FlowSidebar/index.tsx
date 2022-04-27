@@ -7,24 +7,28 @@ import {
 import useSidebarFlow from "./hook";
 import { IFlow, IStep } from "@/types/fireboltJSON";
 
+const { SubMenu } = Menu;
+
+import MenuItem from "./MenuItem"
+
 interface IFlowSidebar {
   flows: IFlow[];
-  onChangeVisibleFlow: (flowSlug: string) => void;
   visibleFlow: IFlow;
   addNewFlow: (flowSlug: string) => void;
   renameFlow: (flowSlug: string, newFlowSlug: string) => void;
   removeFlow: (flowSlug: string) => void;
+  changeVisibleFlow: (flowSlug: string) => void;
 }
 
 const FlowSidebar = ({
   flows,
-  onChangeVisibleFlow,
   visibleFlow,
   addNewFlow,
   renameFlow,
   removeFlow,
+  changeVisibleFlow,
 }: IFlowSidebar) => {
-  const { optionsFlow, addOptions } = useSidebarFlow();
+  const { optionsFlow, addOptions, startAddNewFlow } = useSidebarFlow();
 
   return (
     <div css={{ paddingRight: "19px" }}>
@@ -46,23 +50,30 @@ const FlowSidebar = ({
           height: `${document.body.clientHeight / 1.3}px`,
         }}
         mode="vertical"
-        expandIcon={<EllipsisOutlined />}
+        // expandIcon={<EllipsisOutlined />}
         defaultSelectedKeys={[`flow-option-${visibleFlow}`]}
       >
         {flows.map(({ slug }) => (
-          <Menu.Item
+          // <SubMenu
+          //   key={`flow-option-${slug}`}
+          //   // icon={<FormOutlined />}
+          //   onTitleClick={() => onChangeVisibleFlow(slug)}
+          //   title={slug}
+          // >
+          //   <Menu.Item key={`${slug}-rename`} onClick={()=> alert(`${slug}`)}>Rename</Menu.Item>
+          //   <Menu.Item key={`${slug}-remove`}>Remove</Menu.Item>
+          // </SubMenu>
+          <MenuItem
             key={`flow-option-${slug}`}
-            icon={<FormOutlined />}
-            onClick={() => onChangeVisibleFlow(slug)}
-          >
-            <span> {slug}</span>
-            <EllipsisOutlined
-              css={{ position: "absolute", left: "210px", top: "10px" }}
-            />
-          </Menu.Item>
+            title={slug}
+            isActive={visibleFlow.slug === slug}
+            renameFlow={renameFlow}
+            removeFlow={removeFlow}
+            changeVisibleFlow={changeVisibleFlow}
+          />
         ))}
 
-        <Menu.Item
+        {/* <Menu.Item
           css={{ color: "#148EFF" }}
           key="add"
           icon={<PlusOutlined />}
@@ -70,7 +81,15 @@ const FlowSidebar = ({
         >
           {" "}
           Add
-        </Menu.Item>
+        </Menu.Item> */}
+        <button
+          css={{ color: "#148EFF" }}
+          onClick={() => addNewFlow("newFlow")}
+        >
+          <PlusOutlined />
+          {" "}
+          Add
+        </button>
       </Menu>
     </div>
   );
