@@ -5,8 +5,25 @@ import {
   EllipsisOutlined,
 } from "@ant-design/icons";
 import useSidebarFlow from "./hook";
+import { IFlow, IStep } from "@/types/fireboltJSON";
 
-const SidebarFlow = ({ onChangeVisibleFlow, visibleFlow }) => {
+interface IFlowSidebar {
+  flows: IFlow[];
+  onChangeVisibleFlow: (flowSlug: string) => void;
+  visibleFlow: IFlow;
+  addNewFlow: (flowSlug: string) => void;
+  renameFlow: (flowSlug: string, newFlowSlug: string) => void;
+  removeFlow: (flowSlug: string) => void;
+}
+
+const FlowSidebar = ({
+  flows,
+  onChangeVisibleFlow,
+  visibleFlow,
+  addNewFlow,
+  renameFlow,
+  removeFlow,
+}: IFlowSidebar) => {
   const { optionsFlow, addOptions } = useSidebarFlow();
 
   return (
@@ -32,13 +49,13 @@ const SidebarFlow = ({ onChangeVisibleFlow, visibleFlow }) => {
         expandIcon={<EllipsisOutlined />}
         defaultSelectedKeys={[`flow-option-${visibleFlow}`]}
       >
-        {optionsFlow.map((option) => (
+        {flows.map(({ slug }) => (
           <Menu.Item
-            key={`flow-option-${option}`}
+            key={`flow-option-${slug}`}
             icon={<FormOutlined />}
-            onClick={() => onChangeVisibleFlow(option)}
+            onClick={() => onChangeVisibleFlow(slug)}
           >
-            <span> {option}</span>
+            <span> {slug}</span>
             <EllipsisOutlined
               css={{ position: "absolute", left: "210px", top: "10px" }}
             />
@@ -59,4 +76,4 @@ const SidebarFlow = ({ onChangeVisibleFlow, visibleFlow }) => {
   );
 };
 
-export default SidebarFlow;
+export default FlowSidebar;

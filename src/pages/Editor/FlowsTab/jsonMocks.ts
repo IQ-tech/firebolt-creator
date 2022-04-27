@@ -1,26 +1,18 @@
 // todo - remove
+import {IStep, IFlow } from "@/types/fireboltJSON"
 
 export const mockFlows = [
   {
     slug: "default",
-    steps: [
-      "documents",
-      "address",
-      "bills",
-      "cenoura",
-    ],
+    steps: ["documents", "address", "bills", "cenoura"],
   },
   {
-    slug: "alternative",
-    steps: [
-      "documents",
-      "cenoura",
-      "bills",
-    ],
+    slug: "second",
+    steps: ["documents", "cenoura", "bills"],
   },
 ];
 
-export const mockSteps = [
+export const mockSteps: IStep[] = [
   {
     step: {
       slug: "documents",
@@ -127,7 +119,6 @@ export const mockSteps = [
       slug: "bills",
       type: "iq_contas",
       friendlyname: "Adicionar Contas",
-      sharedata: true,
       fields: [],
     },
   },
@@ -136,9 +127,7 @@ export const mockSteps = [
       slug: "cenoura",
       type: "address",
       friendlyname: "Adicionar Contas",
-      sharedata: true,
       fields: [],
     },
   },
-
 ];

@@ -1,28 +1,60 @@
 import { useState } from "react";
 import { mockFlows, mockSteps } from "./jsonMocks";
+import {IStep, IFlow } from "@/types/fireboltJSON"
+
 
 const useFlowTabs = () => {
-  const [visibleFlowSlug, setVisibleFlowSlug] = useState("default");
+  const [mockFlowsState, setMockFlowsState] = useState(mockFlows);
+  const [mockStepsState, setMockStepsState] = useState<IStep[]>(mockSteps);
 
-  const [visibleFlow, setVisibleFlow] = useState(() =>
-    mockFlows.find((flow) => flow.slug === "default")
+  const [visibleFlow, setVisibleFlow] = useState<IFlow>(
+    () => mockFlows.find((flow) => flow.slug === "default") as IFlow
   );
 
-  const [mockFlowState, setMockFlowsState] = useState(mockFlows);
-  const [mockStepsState, setMockStepsState] = useState(mockSteps);
 
   function changeVisibleFlow(flowSlug: string) {
-    const newFlow = mockFlowState.find((flow) => flow.slug === flowSlug);
-    setVisibleFlow(newFlow);
+    const newFlow = mockFlowsState.find((flow) => flow.slug === flowSlug);
+    if (newFlow) {
+      setVisibleFlow(newFlow);
+    }
+  }
+
+  function addNewFlow(flowSlug: string) {
+    const newFlow: IFlow = {
+      slug: flowSlug,
+      steps: [],
+    };
+    const newFlowsList = [...mockFlows, newFlow];
+    setMockFlowsState(newFlowsList); // change to context dispatch
+  }
+
+  function removeFlow(flowSlug: string) {
+    const newFlowsArray = mockFlowsState.filter(
+      (flow) => flow.slug !== flowSlug
+    );
+    setMockFlowsState(newFlowsArray);
+  }
+
+  function renameFlow(flowSlug: string, newFlowSlug: string) {
+    const newFlowsArray = mockFlowsState.map((flow) => {
+      if (flow.slug === flowSlug) {
+        return { ...flow, slug: newFlowSlug };
+      } else {
+        return flow;
+      }
+    });
+
+    setMockFlowsState(newFlowsArray);
   }
 
   return {
-    visibleFlowSlug,
-    setVisibleFlowSlug,
-
     changeVisibleFlow,
     visibleFlow,
-    setVisibleFlow
+    addNewFlow,
+    removeFlow,
+    renameFlow,
+    steps: mockStepsState, // todo - change to state from context
+    flows: mockFlowsState
   };
 };
 

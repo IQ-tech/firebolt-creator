@@ -3,15 +3,15 @@ import { SearchOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
 
-const plugins = [
-  "br-addons",
-  "us-addons",
-  "pluggin-4",
-  "pluggin-5",
-  "pluggin-6",
-];
+// const plugins = [
+//   "br-addons",
+//   "us-addons",
+//   "pluggin-4",
+//   "pluggin-5",
+//   "pluggin-6",
+// ];
 
-const optionsTab = ["Schema version", "Form version", "Description", "Paranaue"];
+const optionsTab = ["Schema version", "Form version", "Description"];
 
 const JsonSettings = () => (
   <Card title="Settings" css={{ width: "100%" }}>
@@ -35,7 +35,7 @@ const JsonSettings = () => (
         </Space>
       ))}
 
-      <Space direction="vertical" css={{ width: "100%" }}>
+      {/* <Space direction="vertical" css={{ width: "100%" }}>
         <span>Plugins</span>
         <div>
           <Select
@@ -51,7 +51,7 @@ const JsonSettings = () => (
             ))}
           </Select>
         </div>
-      </Space>
+      </Space> */}
 
       <Space>
         <span>Webhook config</span>

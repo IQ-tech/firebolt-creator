@@ -4,7 +4,15 @@ import FlowSidebar from "@/components/FlowSidebar";
 import Flow from "@/components/Flow";
 
 const FlowsTab = () => {
-  const { visibleFlow, setVisibleFlow } = useFlowTabs();
+  const {
+    visibleFlow,
+    changeVisibleFlow,
+    addNewFlow,
+    renameFlow,
+    removeFlow,
+    steps,
+    flows
+  } = useFlowTabs();
 
   return (
     <Layout
@@ -14,8 +22,12 @@ const FlowsTab = () => {
       }}
     >
       <FlowSidebar
-        visibleFlow={visibleFlow?.slug}
-        onChangeVisibleFlow={setVisibleFlow}
+        flows={flows}
+        addNewFlow={addNewFlow}
+        renameFlow={renameFlow}
+        removeFlow={removeFlow}
+        visibleFlow={visibleFlow}
+        onChangeVisibleFlow={changeVisibleFlow}
       />
       <Flow currentFlows={visibleFlow?.slug} visibleFlow={visibleFlow?.slug} />
     </Layout>

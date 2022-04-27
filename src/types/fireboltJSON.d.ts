@@ -1,14 +1,9 @@
 TODO
 //typar as props que possuem valores fixos
 
-interface IFlows {
+interface IFlow {
 	slug: string;
 	steps: string[];
-}
-
-interface IUIProps {
-	label?: string;
-	placeholder?: string;
 }
 
 interface IUIStyles {
@@ -22,9 +17,12 @@ interface IValidators {
 interface IField {
 	slug: string;
 	"ui:widget": string;
-	"ui:props": IUIProps,
-	validators: IValidators[]
-	meta: any;
+	"ui:props-preset"?: string;
+	"ui:props"?: {
+		[propKey: string]: any
+	},
+	validators?: IValidators[]
+	meta?: any;
 }
 
 interface IStep {
@@ -44,8 +42,8 @@ interface IFireboltJSON {
 		"url": string;
 		"headers": { "X-API-KEY": string; }
 	};
-	"flowss": IFlows[];
+	"flowss": IFlow[];
 	"steps": IStep[];
 }
 
-export { IFireboltJSON, IStep, IUIProps, IUIStyles, IValidators, IField }
+export { IFireboltJSON, IStep, IUIProps, IUIStyles, IValidators, IField, IFlow }
