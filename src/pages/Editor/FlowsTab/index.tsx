@@ -4,7 +4,7 @@ import FlowSidebar from "@/components/FlowSidebar";
 import Flow from "@/components/Flow";
 
 const FlowsTab = () => {
-  const { currentFlow } = useFlowTabs();
+  const { visibleFlow, setVisibleFlow } = useFlowTabs();
 
   return (
     <Layout
@@ -13,8 +13,11 @@ const FlowsTab = () => {
         justifyContent: "center",
       }}
     >
-      <FlowSidebar />
-      <Flow currentFlows={currentFlow} />
+      <FlowSidebar
+        visibleFlow={visibleFlow?.slug}
+        onChangeVisibleFlow={setVisibleFlow}
+      />
+      <Flow currentFlows={visibleFlow?.slug} visibleFlow={visibleFlow?.slug} />
     </Layout>
   );
 };

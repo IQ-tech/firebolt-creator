@@ -3,8 +3,12 @@ import JSONInput from "react-json-editor-ajrm"
 import locale from "react-json-editor-ajrm/locale/en"
 import { data } from "@/pages/Editor/JSONTab/data"
 
-const JsonView = () => (
-  <Card title="JSON representation" css={{ width: "100%" }}>
+interface IJsonView {
+  readOnly?: boolean
+}
+
+const JsonView = ({readOnly = true} : IJsonView) => (
+  <Card title="JSON representation" css={{ width: "700px" }}>
     <JSONInput
       id="json-editor"
       confirmGood={false}
@@ -13,7 +17,7 @@ const JsonView = () => (
       locale={locale}
       height="700px"
       width="100%"
-      viewOnly={true}
+      viewOnly={readOnly}
     />
   </Card>
 )

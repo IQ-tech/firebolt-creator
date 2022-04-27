@@ -1,11 +1,28 @@
 import { useState } from "react";
-import * as M from "@/components/Flow/mocks/mockFlows";
+import { mockFlows, mockSteps } from "./jsonMocks";
 
 const useFlowTabs = () => {
-  const [currentFlow, setCurrentFlow] = useState(M.mockFlows);
+  const [visibleFlowSlug, setVisibleFlowSlug] = useState("default");
+
+  const [visibleFlow, setVisibleFlow] = useState(() =>
+    mockFlows.find((flow) => flow.slug === "default")
+  );
+
+  const [mockFlowState, setMockFlowsState] = useState(mockFlows);
+  const [mockStepsState, setMockStepsState] = useState(mockSteps);
+
+  function changeVisibleFlow(flowSlug: string) {
+    const newFlow = mockFlowState.find((flow) => flow.slug === flowSlug);
+    setVisibleFlow(newFlow);
+  }
 
   return {
-    currentFlow,
+    visibleFlowSlug,
+    setVisibleFlowSlug,
+
+    changeVisibleFlow,
+    visibleFlow,
+    setVisibleFlow
   };
 };
 

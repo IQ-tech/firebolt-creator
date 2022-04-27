@@ -17,7 +17,7 @@ export const buttonsSRCStyle = css({
   cursor: "pointer",
 });
 
-const Flow = ({ currentFlows }: any) => {
+const Flow = ({ currentFlows, visibleFlow }: any) => {
   const {
     reactFlowWrapper,
     nodes,
@@ -34,7 +34,7 @@ const Flow = ({ currentFlows }: any) => {
   } = useFlow();
 
   return (
-    <Card title={currentFlows?.slug} css={{ width: "100%" }}>
+    <Card title={visibleFlow} css={{ width: "100%" }}>
       <div
         css={{
           width: "100%",
@@ -91,8 +91,8 @@ const Flow = ({ currentFlows }: any) => {
   );
 };
 
-export default ({ currentFlows }) => (
+export default ({ currentFlows, visibleFlow }) => (
   <ReactFlowProvider>
-    <Flow currentFlows={currentFlows} />
+    <Flow currentFlows={currentFlows} visibleFlow={visibleFlow} />
   </ReactFlowProvider>
 );
