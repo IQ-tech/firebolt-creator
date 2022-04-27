@@ -11,6 +11,9 @@ type JSONAction =
 	} | {
 		type: 'EDITSTEP';
 		payload: any;
+	} | {
+		type: 'DELETESTEP';
+		payload: string;
 	}
 interface IJSONProviderValues {
 	currentJSON: IFireboltJSON;
@@ -24,6 +27,8 @@ export function JSONProvider({ children }) {
 	function reducer(state: IFireboltJSON, action: JSONAction) {
 		const { type, payload } = action;
 
+		const currentSteps = [...state.steps]
+
 		switch (type) {
 			case 'ADDNEWSTEP':
 				return {
@@ -34,19 +39,34 @@ export function JSONProvider({ children }) {
 					]
 				};
 			case 'EDITSTEP':
-				const currentSteps = [...state.steps]
 				const edittedStep = { step: payload.step }
-				let indexToRemove
+				let indexToRemoveOldVersionStep
 
 				currentSteps.find((step, index) => {
 					if(step.step.slug === payload.slug) {
-						indexToRemove = index
+						indexToRemoveOldVersionStep = index
 						return  
 					}
 				})
 
-				currentSteps.splice(indexToRemove, 1)
-				currentSteps.splice(indexToRemove, 0, edittedStep)
+				currentSteps.splice(indexToRemoveOldVersionStep, 1)
+				currentSteps.splice(indexToRemoveOldVersionStep, 0, edittedStep)
+
+				return {
+					...state,
+					steps: currentSteps
+				};
+			case 'DELETESTEP':
+				let indexToRemoveStep
+
+				currentSteps.find((step, index) => {
+					if(step.step.slug === payload) {
+						indexToRemoveStep = index
+						return  
+					}
+				})
+
+				currentSteps.splice(indexToRemoveStep, 1)
 
 				return {
 					...state,

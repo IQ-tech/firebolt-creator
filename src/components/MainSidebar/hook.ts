@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useFireboltJSON } from "@/hooks/useFireboltJSON"
 
 export default function useMainSidebar() {
-  const { currentJSON } = useFireboltJSON()
+  const { currentJSON, dispatch } = useFireboltJSON()
 
   const [steps, setSteps] = useState(() => stepsFriendlyName())
 
@@ -18,9 +18,14 @@ export default function useMainSidebar() {
     return jsonSteps
   }
 
+  function handleDeleteStep(slug: string) {
+    dispatch({ type: 'DELETESTEP', payload: slug });
+  }
+
   return {
     steps,
     
+    handleDeleteStep
   }
 
 }

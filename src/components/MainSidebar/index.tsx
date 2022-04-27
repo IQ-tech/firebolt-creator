@@ -16,6 +16,7 @@ const StepFields = () => {
   const {
     steps,
 
+    handleDeleteStep
   } = useMainSidebar()
 
   return (
@@ -26,7 +27,7 @@ const StepFields = () => {
 
         {steps.map(step => (
           <SubMenu key={step.step.friendlyname} icon={<FormOutlined />} title={step.step.friendlyname}>
-            <Menu.Item key={`${step}-remove`}>Remove</Menu.Item>
+            <Menu.Item key={`${step}-remove`} onClick={() => handleDeleteStep(step.step.slug)}>Remove</Menu.Item>
             <EditStepModal key={`${step}-edit`} stepToEdit={step} slug={step.step.slug} />
           </SubMenu>
         ))}
