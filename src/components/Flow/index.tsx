@@ -11,13 +11,19 @@ import MiniMap from "./components/MiniMap";
 import CustomLineConnection from "./components/CustomLineConnection";
 import * as C from "./configsFlow";
 
+import { IFlow } from "@/types/fireboltJSON";
+
 export const buttonsSRCStyle = css({
   marginLeft: "10px",
   padding: "3px 5px",
   cursor: "pointer",
 });
 
-const Flow = ({ currentFlows, visibleFlow }: any) => {
+interface IFlowProps {
+  visibleFlow: IFlow
+}
+
+const Flow = ({ visibleFlow }: IFlowProps) => {
   const {
     reactFlowWrapper,
     nodes,
@@ -31,10 +37,10 @@ const Flow = ({ currentFlows, visibleFlow }: any) => {
     onSave,
     onRestore,
     onClean,
-  } = useFlow();
+  } = useFlow({visibleFlow});
 
   return (
-    <Card title={visibleFlow} css={{ width: "100%" }}>
+    <Card title={visibleFlow.slug} css={{ width: "100%" }}>
       <div
         css={{
           width: "100%",
@@ -92,8 +98,8 @@ const Flow = ({ currentFlows, visibleFlow }: any) => {
   );
 };
 
-export default ({ currentFlows, visibleFlow }) => (
+export default ({ visibleFlow }) => (
   <ReactFlowProvider>
-    <Flow currentFlows={currentFlows} visibleFlow={visibleFlow} />
+    <Flow visibleFlow={visibleFlow} />
   </ReactFlowProvider>
 );

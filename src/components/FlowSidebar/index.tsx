@@ -63,7 +63,7 @@ const FlowSidebar = ({
           height: `${document.body.clientHeight / 1.3}px`,
         }}
         mode="vertical"
-        defaultSelectedKeys={[`flow-option-${visibleFlow}`]}
+        defaultSelectedKeys={[`flow-option-${visibleFlow.slug}`]}
       >
         {flows.map(({ slug }) => (
           <MenuItem

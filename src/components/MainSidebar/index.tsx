@@ -17,7 +17,7 @@ const StepFields = () => {
 
   } = useMainSidebar()
 
-  console.log(steps)
+  //console.log(steps)
 
   return (
     <div css={S.contentSidebarStyles}>

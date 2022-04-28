@@ -29,7 +29,7 @@ const FlowsTab = () => {
         visibleFlow={visibleFlow}
         changeVisibleFlow={changeVisibleFlow}
       />
-      <Flow currentFlows={visibleFlow?.slug} visibleFlow={visibleFlow?.slug} />
+      <Flow visibleFlow={visibleFlow} />
     </Layout>
   );
 };

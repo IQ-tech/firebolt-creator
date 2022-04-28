@@ -10,7 +10,7 @@ const presetsOptions = ["cep or br-addons:cep", "option 2"]
 
 function deleteForm(e) {
   e.stopPropagation()
-  console.log('click')
+ // console.log('click')
 }
 
 const StepFields = () => (

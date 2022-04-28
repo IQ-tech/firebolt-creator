@@ -4,20 +4,69 @@ import {
   useNodesState,
   useEdgesState,
   useReactFlow,
+  Edge,
+  Node,
 } from "react-flow-renderer";
+import { IFlow } from "@/types/fireboltJSON";
 
-
-export default function useFlow() {
-
+export default function useFlow({ visibleFlow }: { visibleFlow: IFlow }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance]: any = useState(null);
   const reactFlowWrapper: any = useRef(null);
 
+  /**
+    *  animated: true
+       id: "reactflow__edge-test-test1"
+      source: "test"
+      sourceHandle: null
+    style: {stroke: 'black'}
+    target: "test1"
+      targetHandle: null
+      reactFlowInstance.toObject()
+    */
   useEffect(() => {
-    // console.log({edges, nodes})
-    // console.log("luiz",reactFlowInstance.toObject())
-  }, [edges, nodes])
+    // visibleFlow.steps
+    const safeVisibleFlow = visibleFlow.steps || [];
+
+    const newEdges: Edge[] = safeVisibleFlow.reduce((acc, stepSlug, index) => {
+      const target = safeVisibleFlow[index + 1];
+      if (!target) {
+        return acc;
+      }
+      const newEdge: Edge = {
+        animated: true,
+        id: `${visibleFlow.slug}-step-${stepSlug}`,
+        source: stepSlug,
+        sourceHandle: null,
+        style: { stroke: "black" },
+        target: target,
+        targetHandle: null,
+      };
+      return [...acc, newEdge];
+    }, [] as Edge[]);
+
+    const newNodes: Node[] = safeVisibleFlow.map((flowSlug, index) => {
+      return {
+        id: flowSlug,
+        data: { label: flowSlug },
+        sourcePosition: "right",
+        targetPosition: "left",
+        position: {
+          x: 5,
+          y: 5 + (5 * index + 1),
+        },
+        
+      };
+    });
+
+    setNodes(newNodes);
+    setEdges(newEdges);
+  }, [visibleFlow]);
+
+  // useEffect(() => {
+  //   console.log({nodes, edges})
+  // }, [nodes, edges])
 
   const { setViewport } = useReactFlow();
 
@@ -70,6 +119,7 @@ export default function useFlow() {
   );
 
   const onSave = useCallback(() => {
+    // console.log("luiz",reactFlowInstance.toObject())
     if (reactFlowInstance) {
       const setFlow = reactFlowInstance.toObject();
       localStorage.setItem(flowKey, JSON.stringify(setFlow));
@@ -101,7 +151,6 @@ export default function useFlow() {
   useEffect(() => {
     restoreFlow();
   }, []);
-
 
   return {
     nodes,
