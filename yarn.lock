@@ -2857,6 +2857,11 @@ simple-evaluate@^1.4.3:
   dependencies:
     get-value "^2.0.6"
 
+slugify@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.5.tgz#c8f5c072bf2135b80703589b39a3d41451fbe8c8"
+  integrity sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==
+
 sodajs@^0.4.10:
   version "0.4.10"
   resolved "https://registry.yarnpkg.com/sodajs/-/sodajs-0.4.10.tgz#361c81b101c02d98767bbd1c24cdaf0cfdbf17f2"

@@ -85,7 +85,8 @@ const Flow = ({ currentFlows, visibleFlow }: any) => {
             </div>
           </ReactFlow>
         </div>
-        <Sidebar stepsFlows={currentFlows?.steps} />
+        {/* <Sidebar stepsFlows={currentFlows?.steps} /> */}
+        <Sidebar stepsFlows={["test", "test1","test2", "test3"]} />
       </div>
     </Card>
   );

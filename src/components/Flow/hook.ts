@@ -15,7 +15,8 @@ export default function useFlow() {
   const reactFlowWrapper: any = useRef(null);
 
   useEffect(() => {
-    console.log({edges, nodes})
+    // console.log({edges, nodes})
+    // console.log("luiz",reactFlowInstance.toObject())
   }, [edges, nodes])
 
   const { setViewport } = useReactFlow();

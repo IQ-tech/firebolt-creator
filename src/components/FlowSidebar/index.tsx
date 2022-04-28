@@ -1,15 +1,16 @@
-import { Menu, Divider } from "antd";
+import { useState } from "react";
+import { Menu, Divider, Input, Button } from "antd";
+import slugify from "slugify";
+import { CopyOutlined } from "@ant-design/icons";
 import {
   FormOutlined,
   PlusOutlined,
   EllipsisOutlined,
 } from "@ant-design/icons";
-import useSidebarFlow from "./hook";
 import { IFlow, IStep } from "@/types/fireboltJSON";
+import * as S from "./styles";
 
-const { SubMenu } = Menu;
-
-import MenuItem from "./MenuItem"
+import MenuItem from "./components/MenuItem";
 
 interface IFlowSidebar {
   flows: IFlow[];
@@ -28,7 +29,19 @@ const FlowSidebar = ({
   removeFlow,
   changeVisibleFlow,
 }: IFlowSidebar) => {
-  const { optionsFlow, addOptions, startAddNewFlow } = useSidebarFlow();
+  const [isAddingFlow, setIsAddingFlow] = useState(false);
+  const [newFlowSlug, setNewFlowSlug] = useState("");
+
+  function changeNewFlowSlug(newSlug: string) {
+    // validate string,
+    setNewFlowSlug(slugify(newSlug, { lower: true }));
+  }
+
+  function submitNewFlowSlug() {
+    addNewFlow(slugify(newFlowSlug));
+    setNewFlowSlug("");
+    setIsAddingFlow(false);
+  }
 
   return (
     <div css={{ paddingRight: "19px" }}>
@@ -50,19 +63,9 @@ const FlowSidebar = ({
           height: `${document.body.clientHeight / 1.3}px`,
         }}
         mode="vertical"
-        // expandIcon={<EllipsisOutlined />}
         defaultSelectedKeys={[`flow-option-${visibleFlow}`]}
       >
         {flows.map(({ slug }) => (
-          // <SubMenu
-          //   key={`flow-option-${slug}`}
-          //   // icon={<FormOutlined />}
-          //   onTitleClick={() => onChangeVisibleFlow(slug)}
-          //   title={slug}
-          // >
-          //   <Menu.Item key={`${slug}-rename`} onClick={()=> alert(`${slug}`)}>Rename</Menu.Item>
-          //   <Menu.Item key={`${slug}-remove`}>Remove</Menu.Item>
-          // </SubMenu>
           <MenuItem
             key={`flow-option-${slug}`}
             title={slug}
@@ -72,31 +75,41 @@ const FlowSidebar = ({
             changeVisibleFlow={changeVisibleFlow}
           />
         ))}
-
-        {/* <Menu.Item
-          css={{ color: "#148EFF" }}
-          key="add"
-          icon={<PlusOutlined />}
-          onClick={() => addOptions()}
-        >
-          {" "}
-          Add
-        </Menu.Item> */}
-        <button
-          css={{ 
-             height: "40px",
-          width: "40px",
-          border: "none",
-          cursor: "pointer",
-          ":hover": {
-            opacity: 0.4
-          },}}
-          onClick={() => addNewFlow("newFlow")}
-        >
-          <PlusOutlined />
-          {" "}
-          Add
-        </button>
+        {isAddingFlow ? (
+          <form
+            css={{ paddingInline: 13 }}
+            onBlur={() => setIsAddingFlow(false)}
+            onSubmit={submitNewFlowSlug}
+          >
+            <Input.Group compact>
+              <Input
+                style={{ width: "calc(100% - 32px)" }}
+                autoFocus
+                onChange={(event) => changeNewFlowSlug(event.target.value)}
+                onBlur={(e) => e.stopPropagation()}
+              />
+              <Button icon={<PlusOutlined />} onClick={submitNewFlowSlug} />
+            </Input.Group>
+          </form>
+        ) : (
+          <button
+            css={[
+              S.defaultBtn(),
+              {
+                width: "100%",
+                color: "#1890ff",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: 10,
+                paddingInline: 10,
+              },
+            ]}
+            onClick={() => setIsAddingFlow(true)}
+          >
+            <PlusOutlined /> Add
+          </button>
+        )}
       </Menu>
     </div>
   );

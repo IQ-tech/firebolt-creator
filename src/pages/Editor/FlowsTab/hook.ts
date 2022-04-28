@@ -7,9 +7,14 @@ const useFlowTabs = () => {
   const [mockFlowsState, setMockFlowsState] = useState(mockFlows);
   const [mockStepsState, setMockStepsState] = useState<IStep[]>(mockSteps);
 
-  useEffect(() => {
-    console.log(mockFlowsState)
-  }, [mockFlowsState])
+  // useEffect(() => {
+  //   console.log(mockFlowsState)
+  // }, [mockFlowsState])
+  
+  const validSlug = (newFlowSlug: string): boolean => {
+    const slugAlreadyExists = !!mockFlowsState.find(flow => flow.slug === newFlowSlug)
+    return !!newFlowSlug && !slugAlreadyExists
+  }
 
   const [visibleFlow, setVisibleFlow] = useState<IFlow>(
     () => mockFlows.find((flow) => flow.slug === "default") as IFlow
@@ -24,12 +29,15 @@ const useFlowTabs = () => {
   }
 
   function addNewFlow(flowSlug: string) {
+    if(!validSlug(flowSlug)) return
+
     const newFlow: IFlow = {
       slug: flowSlug,
       steps: [],
     };
-    const newFlowsList = [...mockFlows, newFlow];
-    setMockFlowsState(newFlowsList); // change to context dispatch
+    const newFlowsList = [...mockFlowsState, newFlow];
+    console.log(newFlowsList)
+    if(flowSlug) return setMockFlowsState(newFlowsList); // change to context dispatch
   }
 
   function removeFlow(flowSlug: string) {
@@ -40,6 +48,9 @@ const useFlowTabs = () => {
   }
 
   function renameFlow(flowSlug: string, newFlowSlug: string) {
+   
+    if(!validSlug(newFlowSlug)) return
+    
     const newFlowsArray = mockFlowsState.map((flow) => {
       if (flow.slug === flowSlug) {
         return { ...flow, slug: newFlowSlug };
@@ -48,7 +59,7 @@ const useFlowTabs = () => {
       }
     });
 
-    setMockFlowsState(newFlowsArray);
+  setMockFlowsState(newFlowsArray);
   }
 
   return {
