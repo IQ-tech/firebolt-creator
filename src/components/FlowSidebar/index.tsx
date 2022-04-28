@@ -83,7 +83,14 @@ const FlowSidebar = ({
           Add
         </Menu.Item> */}
         <button
-          css={{ color: "#148EFF" }}
+          css={{ 
+             height: "40px",
+          width: "40px",
+          border: "none",
+          cursor: "pointer",
+          ":hover": {
+            opacity: 0.4
+          },}}
           onClick={() => addNewFlow("newFlow")}
         >
           <PlusOutlined />

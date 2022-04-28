@@ -30,13 +30,34 @@ const MenuItem = ({
         }}
       >
         <input
+        css={{
+          background: isActive ? "#e6f7ff" : "unset",
+          height: "40px",
+          width: "75%",
+          border: "none",
+          paddingLeft: "5px"
+        }}
           type="text"
           value={inputData}
           onChange={(event) => setInputData(event.target.value)}
           autoFocus
         />
 
-        <button type="submit">
+        <button 
+        css={{
+          background: isActive ? "#e6f7ff" : "unset",
+          marginLeft: "3px",
+          height: "35px",
+          width: "35px",
+          border: "none",
+          cursor: "pointer",
+          ":hover": {
+            opacity: 0.7,
+            border: "solid 1px black"
+          },
+        }}
+        
+        type="submit">
           <CheckOutlined />
         </button>
       </form>
@@ -68,11 +89,13 @@ const MenuItem = ({
               width: "95%",
               border: "none",
               cursor: "pointer",
+              textAlign: "left",
+              paddingLeft: "8px"
             }}
             type="button"
             onClick={() => changeVisibleFlow(title)}
           >
-           <span css={{ marginRight: "90px"}}> {title}</span>
+           {title}
           </button>
             <button
               css={{
@@ -91,7 +114,18 @@ const MenuItem = ({
               <FormOutlined />
             </button>
 
-          <button type="button" onClick={() => removeFlow(title)}>
+          <button 
+          css={{
+            background: isActive ? "#e6f7ff" : "unset",
+            height: "40px",
+            width: "40px",
+            border: "none",
+            cursor: "pointer",
+            ":hover": {
+              opacity: 0.4
+            },
+          }}
+           type="button" onClick={() => removeFlow(title)}>
             <DeleteOutlined />
           </button>
         </>
