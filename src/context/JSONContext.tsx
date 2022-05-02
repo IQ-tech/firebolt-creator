@@ -14,10 +14,18 @@ type JSONAction =
 	} | {
 		type: 'DELETESTEP';
 		payload: string;
+	} | {
+		type: 'DELETEFIELD';
+		payload: {
+			step: string;
+			field: string;
+		};
 	}
 interface IJSONProviderValues {
 	currentJSON: IFireboltJSON;
 	dispatch: React.Dispatch<JSONAction>;
+	visibleStep: IStep;
+	setVisibleStep: React.Dispatch<React.SetStateAction<IStep>>;
 }
 
 export const JSONContext = createContext({} as IJSONProviderValues);
@@ -30,7 +38,7 @@ export function JSONProvider({ children }) {
 		const currentSteps = [...state.steps]
 
 		switch (type) {
-			case 'ADDNEWSTEP':
+			case 'ADDNEWSTEP': {
 				return {
 					...state,
 					steps: [
@@ -38,40 +46,45 @@ export function JSONProvider({ children }) {
 						payload
 					]
 				};
-			case 'EDITSTEP':
-				const edittedStep = { step: payload.step }
-				let indexToRemoveOldVersionStep
-
-				currentSteps.find((step, index) => {
+			}
+			case 'EDITSTEP': {
+				const newCurrentSteps = currentSteps.map(step => {
 					if(step.step.slug === payload.slug) {
-						indexToRemoveOldVersionStep = index
-						return  
+						return { step: payload.step }
 					}
-				})
 
-				currentSteps.splice(indexToRemoveOldVersionStep, 1)
-				currentSteps.splice(indexToRemoveOldVersionStep, 0, edittedStep)
+					return step
+
+				})
 
 				return {
 					...state,
-					steps: currentSteps
+					steps: newCurrentSteps
 				};
-			case 'DELETESTEP':
-				let indexToRemoveStep
-
-				currentSteps.find((step, index) => {
-					if(step.step.slug === payload) {
-						indexToRemoveStep = index
-						return  
-					}
-				})
-
-				currentSteps.splice(indexToRemoveStep, 1)
+			}
+			case 'DELETESTEP': {
+				const newCurrentSteps = currentSteps.filter(step => step.step.slug !== payload)
 
 				return {
 					...state,
-					steps: currentSteps
+					steps: newCurrentSteps
 				};
+			}
+			case 'DELETEFIELD': {
+				const newCurrentSteps = currentSteps.map(step => {
+					if(step.step.slug === payload.step) {
+						const newCurrentFields = step.step.fields.filter(field => field.slug !== payload.field)
+						step.step.fields = newCurrentFields
+					}
+
+					return step
+				})
+
+				return {
+					...state,
+					steps: [newCurrentSteps[0]]
+				};
+			}
 			default:
 				return state
 		}
@@ -79,8 +92,10 @@ export function JSONProvider({ children }) {
 
 	const [currentJSON, dispatch] = useReducer(reducer, temporaryMock)
 
+	const [visibleStep, setVisibleStep] = useState<IStep>(currentJSON.steps[0])
+
 	return (
-		<JSONContext.Provider value={{ currentJSON, dispatch }}>
+		<JSONContext.Provider value={{ currentJSON, dispatch,  visibleStep, setVisibleStep }}>
 			{children}
 		</JSONContext.Provider>
 	)

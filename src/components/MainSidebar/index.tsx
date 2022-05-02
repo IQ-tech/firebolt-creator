@@ -7,7 +7,6 @@ import StepModal from '../StepModal'
 import EditStepModal from "../EditStepModal"
 
 import * as S from "./styles"
-import { useEffect } from "react"
 
 const { SubMenu } = Menu
 

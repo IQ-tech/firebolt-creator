@@ -34,7 +34,17 @@ export const temporaryMock = {
 						},
 						"validators": [{ "type": "required" }, { "type": "name" }],
 						"meta": {}
-					}
+					},
+					{
+						"slug": "email",
+						"ui:widget": "Email",
+						"ui:props": {
+							"label": "Email",
+							"placeholder": "contato@email.com"
+						},
+						"validators": [{ "type": "required" }, { "type": "email" }],
+						"meta": {}
+						},
 				]
 			}
 		}

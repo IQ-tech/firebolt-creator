@@ -5,7 +5,7 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON"
 export default function useMainSidebar() {
   const { currentJSON, dispatch } = useFireboltJSON()
 
-  const [steps, setSteps] = useState(() => stepsFriendlyName())
+  const [steps, setSteps] = useState(stepsFriendlyName)
 
   useEffect(() => {
     setSteps(() => stepsFriendlyName())
