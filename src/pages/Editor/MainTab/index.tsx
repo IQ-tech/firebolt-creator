@@ -9,7 +9,10 @@ import MainPreview from "@/components/MainPreview";
 // <StepModal />
 // <AddPropsModal />
 
+import { useFireboltJSON } from '@/hooks/useFireboltJSON'
+
 const MainPage = () => {
+  const { visibleStep, setVisibleStep } = useFireboltJSON()
   return (
     <Layout
       css={{
@@ -17,9 +20,9 @@ const MainPage = () => {
         width: "100%",
       }}
     >
-      <StepsSidebar />
-      <StepFields />
-      <MainPreview />
+      <StepsSidebar setVisibleStep={setVisibleStep} />
+      <StepFields visibleStep={visibleStep} />
+      <MainPreview visibleStep={visibleStep} />
     </Layout>
   );
 };

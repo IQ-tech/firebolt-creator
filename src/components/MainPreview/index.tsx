@@ -5,7 +5,8 @@ import { mockFields } from "@/pages/Editor/MainTab/mock";
 
 const { Option } = Select;
 
-const MainPreview = () => (
+const MainPreview = ({ visibleStep }) => (
+  
   <div css={{ paddingLeft: "19px", width: "40%" }}>
     <Card
       css={{ height: "100%" }}
@@ -16,7 +17,7 @@ const MainPreview = () => (
         </Select>
       }
     >
-      <FireboltForm theme={BlueberryTheme} schema={mockFields as any} />
+      <FireboltForm theme={BlueberryTheme} schema={visibleStep.step.fields} />
     </Card>
   </div>
 );

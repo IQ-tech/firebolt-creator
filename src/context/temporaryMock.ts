@@ -34,7 +34,37 @@ export const temporaryMock = {
 						},
 						"validators": [{ "type": "required" }, { "type": "name" }],
 						"meta": {}
-					}
+					},
+					{
+						"slug": "email",
+						"ui:widget": "Email",
+						"ui:props": {
+							"label": "Email",
+							"placeholder": "contato@email.com"
+						},
+						"validators": [{ "type": "required" }, { "type": "email" }],
+						"meta": {}
+						},
+				]
+			}
+		},
+		{
+			"step": {
+				"slug": "personal_data_2",
+				"type": "form",
+				"friendlyname": "Dados pessoais 2",
+				"fields": [
+					{
+						"slug": "full_name",
+						"ui:widget": "Text",
+						"ui:props": {
+							"label": "Nome completo",
+							"placeholder": "Digite seu nome"
+						},
+						"validators": [{ "type": "required" }, { "type": "name" }],
+						"meta": {}
+					},
+					
 				]
 			}
 		}

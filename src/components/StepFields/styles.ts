@@ -4,7 +4,7 @@ export const widthStyles = css({ width: "100%" })
 
 export const contentStyles = css({ width: "60%" })
 
-export const deleteButton = css({background: "none", border: "none"})
+export const deleteButton = css({background: "none", border: "none", cursor: 'pointer'})
 
 export const emailInputContent = css({ width: "100%", gap: "16px", display: "flex" })
 

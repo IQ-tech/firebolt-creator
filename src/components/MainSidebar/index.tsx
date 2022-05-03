@@ -4,20 +4,20 @@ import { FormOutlined, PlusOutlined } from "@ant-design/icons"
 import useMainSidebar from "./hook"
 
 import StepModal from '../StepModal'
+import EditStepModal from "../EditStepModal"
 
 import * as S from "./styles"
-import { useEffect } from "react"
 
 const { SubMenu } = Menu
 
-const StepFields = () => {
+const StepFields = ({ setVisibleStep }) => {
 
   const {
     steps,
 
-  } = useMainSidebar()
-
-  //console.log(steps)
+    handleVisibleStep,
+    handleDeleteStep
+  } = useMainSidebar({ setVisibleStep })
 
   return (
     <div css={S.contentSidebarStyles}>
@@ -26,10 +26,9 @@ const StepFields = () => {
       <Menu css={S.menuContentStyles} mode="vertical">
 
         {steps.map(step => (
-          <SubMenu key={step} icon={<FormOutlined />} title={step}>
-            <Menu.Item key={`${step}-rename`}>Rename</Menu.Item>
-            <Menu.Item key={`${step}-remove`}>Remove</Menu.Item>
-            <Menu.Item key={`${step}-edit`}>Edit</Menu.Item>
+          <SubMenu key={step.step.friendlyname} icon={<FormOutlined />} title={step.step.friendlyname} onTitleClick={() => handleVisibleStep(step.step.slug)}>
+            <Menu.Item key={`${step}-remove`} onClick={() => handleDeleteStep(step.step.slug)}>Remove</Menu.Item>
+            <EditStepModal key={`${step}-edit`} stepToEdit={step} slug={step.step.slug} />
           </SubMenu>
         ))}
 
