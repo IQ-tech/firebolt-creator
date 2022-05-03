@@ -47,6 +47,26 @@ export const temporaryMock = {
 						},
 				]
 			}
+		},
+		{
+			"step": {
+				"slug": "personal_data_2",
+				"type": "form",
+				"friendlyname": "Dados pessoais 2",
+				"fields": [
+					{
+						"slug": "full_name",
+						"ui:widget": "Text",
+						"ui:props": {
+							"label": "Nome completo",
+							"placeholder": "Digite seu nome"
+						},
+						"validators": [{ "type": "required" }, { "type": "name" }],
+						"meta": {}
+					},
+					
+				]
+			}
 		}
 	]
 }

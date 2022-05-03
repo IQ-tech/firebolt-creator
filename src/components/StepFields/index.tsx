@@ -15,10 +15,15 @@ const StepFields = ({ visibleStep }) => {
   const {
     stepFields,
 
+    handleAddField,
     handleDeleteField
-  } = useStepFields()
+  } = useStepFields({ visibleStep })
 
-  return (<Card title="Step fields" css={S.contentStyles}>
+  return (<Card title="Step fields" css={S.contentStyles} extra={
+    <Button type="primary" onClick={() => handleAddField(visibleStep.step.slug)}>
+      Add Field
+    </Button>
+  }>
     <Collapse defaultActiveKey={[]} css={S.widthStyles}>
       {stepFields.map((field) => (
         <Panel header={field['ui:props'].label} key={field.slug} extra={

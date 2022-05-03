@@ -12,7 +12,7 @@ import MainPreview from "@/components/MainPreview";
 import { useFireboltJSON } from '@/hooks/useFireboltJSON'
 
 const MainPage = () => {
-  const { visibleStep } = useFireboltJSON()
+  const { visibleStep, setVisibleStep } = useFireboltJSON()
   return (
     <Layout
       css={{
@@ -20,9 +20,9 @@ const MainPage = () => {
         width: "100%",
       }}
     >
-      <StepsSidebar />
+      <StepsSidebar setVisibleStep={setVisibleStep} />
       <StepFields visibleStep={visibleStep} />
-      <MainPreview />
+      <MainPreview visibleStep={visibleStep} />
     </Layout>
   );
 };

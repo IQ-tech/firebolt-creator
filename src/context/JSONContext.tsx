@@ -1,6 +1,6 @@
 import React, { createContext, useState, useReducer, useEffect } from 'react';
 
-import { IFireboltJSON, IStep } from '@/types/fireboltJSON';
+import { IFireboltJSON, IStep, IField } from '@/types/fireboltJSON';
 
 import { temporaryMock } from './temporaryMock';
 
@@ -20,6 +20,12 @@ type JSONAction =
 			step: string;
 			field: string;
 		};
+	} | {
+		type: 'ADDFIELD';
+		payload: {
+			step: string;
+			field: IField;
+		}
 	}
 interface IJSONProviderValues {
 	currentJSON: IFireboltJSON;
@@ -77,12 +83,13 @@ export function JSONProvider({ children }) {
 						step.step.fields = newCurrentFields
 					}
 
-					return step
+					return {...step}
 				})
+                console.log("🚀 ~ file: JSONContext.tsx ~ line 88 ~ reducer ~ newCurrentSteps", newCurrentSteps)
 
 				return {
 					...state,
-					steps: [newCurrentSteps[0]]
+					steps: newCurrentSteps
 				};
 			}
 			default:

@@ -10,13 +10,14 @@ import * as S from "./styles"
 
 const { SubMenu } = Menu
 
-const StepFields = () => {
+const StepFields = ({ setVisibleStep }) => {
 
   const {
     steps,
 
+    handleVisibleStep,
     handleDeleteStep
-  } = useMainSidebar()
+  } = useMainSidebar({ setVisibleStep })
 
   return (
     <div css={S.contentSidebarStyles}>
@@ -25,7 +26,7 @@ const StepFields = () => {
       <Menu css={S.menuContentStyles} mode="vertical">
 
         {steps.map(step => (
-          <SubMenu key={step.step.friendlyname} icon={<FormOutlined />} title={step.step.friendlyname}>
+          <SubMenu key={step.step.friendlyname} icon={<FormOutlined />} title={step.step.friendlyname} onTitleClick={() => handleVisibleStep(step.step.slug)}>
             <Menu.Item key={`${step}-remove`} onClick={() => handleDeleteStep(step.step.slug)}>Remove</Menu.Item>
             <EditStepModal key={`${step}-edit`} stepToEdit={step} slug={step.step.slug} />
           </SubMenu>

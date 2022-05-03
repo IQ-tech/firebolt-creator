@@ -6,7 +6,8 @@ import * as S from './styles'
 
 const { Option } = Select;
 
-const MainPreview = () => (
+const MainPreview = ({ visibleStep }) => (
+  
   <div css={S.previewContent}>
     <Card
       css={S.cardPreview}
@@ -17,7 +18,7 @@ const MainPreview = () => (
         </Select>
       }
     >
-      <FireboltForm theme={BlueberryTheme} schema={mockFields as any} />
+      <FireboltForm theme={BlueberryTheme} schema={visibleStep.step.fields} />
     </Card>
   </div>
 );
