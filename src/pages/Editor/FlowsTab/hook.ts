@@ -21,8 +21,6 @@ const useFlowTabs = () => {
     return !!newFlowSlug && !slugAlreadyExists;
   };
 
-
-
   function changeVisibleFlow(flowSlug: string) {
     const newFlow = mockFlowsState.find((flow) => flow.slug === flowSlug);
     if (newFlow) {
@@ -35,10 +33,9 @@ const useFlowTabs = () => {
 
     const newFlow: IFlow = {
       slug: flowSlug,
-      steps: [],
+      steps: ["paranaue", "parana"],
     };
     const newFlowsList = [...mockFlowsState, newFlow];
-    console.log(newFlowsList);
     if (flowSlug) return setMockFlowsState(newFlowsList); // change to context dispatch
   }
 
