@@ -12,21 +12,10 @@ import { IFlow } from "@/types/fireboltJSON";
 export default function useFlow({ visibleFlow }: { visibleFlow: IFlow }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [reactFlowInstance, setReactFlowInstance]: any = useState(null);
-  const reactFlowWrapper: any = useRef(null);
+  const [reactFlowInstance, setReactFlowInstance] = useState<any>(null); // TODO: ANY
+  const reactFlowWrapper = useRef<any>(null); // TODO: ANY
 
-  /**
-    *  animated: true
-       id: "reactflow__edge-test-test1"
-      source: "test"
-      sourceHandle: null
-    style: {stroke: 'black'}
-    target: "test1"
-      targetHandle: null
-      reactFlowInstance.toObject()
-    */
   useEffect(() => {
-    // visibleFlow.steps
     const safeVisibleFlow = visibleFlow.steps || [];
 
     const newEdges: Edge[] = safeVisibleFlow.reduce((acc, stepSlug, index) => {
@@ -46,27 +35,24 @@ export default function useFlow({ visibleFlow }: { visibleFlow: IFlow }) {
       return [...acc, newEdge];
     }, [] as Edge[]);
 
-    const newNodes: Node[] = safeVisibleFlow.map((flowSlug, index) => {
+    const newNodes: any[] = safeVisibleFlow.map((flowSlug: string, index) => {
+      // TODO: ANY
       return {
+        key: index,
         id: flowSlug,
         data: { label: flowSlug },
         sourcePosition: "right",
         targetPosition: "left",
         position: {
-          x: 5,
-          y: 5 + (5 * index + 1),
+          x: 180 * index + 1,
+          y: 5,
         },
-        
       };
     });
 
     setNodes(newNodes);
     setEdges(newEdges);
   }, [visibleFlow]);
-
-  // useEffect(() => {
-  //   console.log({nodes, edges})
-  // }, [nodes, edges])
 
   const { setViewport } = useReactFlow();
 
@@ -113,13 +99,12 @@ export default function useFlow({ visibleFlow }: { visibleFlow: IFlow }) {
         targetPosition: "left",
       };
 
-      setNodes((nds: any[]) => nds.concat(newNode));
+      setNodes((nds: any[]) => nds.concat(newNode)); // TODO: ANY
     },
     [reactFlowInstance]
   );
 
   const onSave = useCallback(() => {
-    // console.log("luiz",reactFlowInstance.toObject())
     if (reactFlowInstance) {
       const setFlow = reactFlowInstance.toObject();
       localStorage.setItem(flowKey, JSON.stringify(setFlow));
@@ -134,7 +119,7 @@ export default function useFlow({ visibleFlow }: { visibleFlow: IFlow }) {
   }, [reactFlowInstance]);
 
   const restoreFlow = async () => {
-    const getflowFlows = JSON.parse(localStorage.getItem(flowKey) as any);
+    const getflowFlows = JSON.parse(localStorage.getItem(flowKey) as string);
 
     if (getflowFlows) {
       const { x = 0, y = 0, zoom = 1 } = getflowFlows.viewport;
