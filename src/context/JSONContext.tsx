@@ -1,8 +1,5 @@
 import React, { createContext, useState, useReducer, useEffect } from 'react';
-
 import { IFireboltJSON, IStep, IField } from '@/types/fireboltJSON';
-
-// import { temporaryMock } from './temporaryMock';
 import blankJSON from "./blankJSONBoilerplate";
 import reducer, {JSONAction} from "./reducer";
 

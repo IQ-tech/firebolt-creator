@@ -1,9 +1,10 @@
 
 import { useFireboltJSON } from "@/hooks/useFireboltJSON"
 import { useNavigate  } from "react-router-dom";
+import { IFireboltJSON } from '@/types/fireboltJSON';
 
 export default function useRegisterPage(){
-  const {  dispatch } = useFireboltJSON()
+  const { dispatch } = useFireboltJSON()
   const navigate = useNavigate()
 
   function handleCreateForm(){
@@ -11,8 +12,14 @@ export default function useRegisterPage(){
     navigate("/app/editor/main")
   }
 
+  function handleUploadJSON(newJSON: IFireboltJSON){
+    dispatch({type: "START_WITH_JSON", payload: newJSON})
+    navigate("/app/editor/main")
+  }
+
   return {
-    handleCreateForm
+    handleCreateForm,
+    handleUploadJSON
   }
 }
 

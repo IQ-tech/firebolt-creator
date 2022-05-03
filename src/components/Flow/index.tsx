@@ -11,7 +11,7 @@ import MiniMap from "./components/MiniMap";
 import CustomLineConnection from "./components/CustomLineConnection";
 import * as C from "./configsFlow";
 
-import { IFlow } from "@/types/fireboltJSON";
+import { IFlow, IStep } from "@/types/fireboltJSON";
 
 export const buttonsSRCStyle = css({
   marginLeft: "10px",
@@ -20,10 +20,11 @@ export const buttonsSRCStyle = css({
 });
 
 interface IFlowProps {
-  visibleFlow: IFlow
+  visibleFlow: IFlow;
+  steps: IStep[]
 }
 
-const Flow = ({ visibleFlow }: IFlowProps) => {
+const Flow = ({ visibleFlow, steps }: IFlowProps) => {
   const {
     reactFlowWrapper,
     nodes,
@@ -91,15 +92,14 @@ const Flow = ({ visibleFlow }: IFlowProps) => {
             </div>
           </ReactFlow>
         </div>
-        <Sidebar stepsFlows={visibleFlow?.steps} />
-        {/* <Sidebar stepsFlows={["test", "test1","test2", "test3"]} /> */}
+        <Sidebar steps={steps} />
       </div>
     </Card>
   );
 };
 
-export default ({ visibleFlow }) => (
+export default ({ visibleFlow , steps }: {visibleFlow: IFlow, steps: IStep[]}) => (
   <ReactFlowProvider>
-    <Flow visibleFlow={visibleFlow} />
+    <Flow steps={steps} visibleFlow={visibleFlow} />
   </ReactFlowProvider>
 );

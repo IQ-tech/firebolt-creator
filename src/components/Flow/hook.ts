@@ -14,6 +14,20 @@ export default function useFlow({ visibleFlow }: { visibleFlow: IFlow }) {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null); // TODO: ANY
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
+  const { setViewport } = useReactFlow();
+  const flowKey = "currentFlows";
+
+  useEffect(() => {
+    const newFlowSteps = edges.reduce((acc, edge, index) => {
+      const {target, source} = edge
+      let newAcc = [...acc]
+      if(!acc.includes(source)) newAcc.push(source)
+      if(!acc.includes(target)) newAcc.push(target)
+      return newAcc
+    }, [] as string[])
+
+    console.log(newFlowSteps)
+  }, [edges])
 
   useEffect(() => {
     const safeVisibleFlow = visibleFlow.steps || [];
@@ -52,11 +66,8 @@ export default function useFlow({ visibleFlow }: { visibleFlow: IFlow }) {
 
     setNodes(newNodes);
     setEdges(newEdges);
+    setViewport({ x: 20 , y: 100, zoom: 1.5 });
   }, [visibleFlow]);
-
-  const { setViewport } = useReactFlow();
-
-  const flowKey = "currentFlows";
 
   const onConnect = useCallback(
     (params) =>

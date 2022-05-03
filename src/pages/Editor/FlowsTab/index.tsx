@@ -10,8 +10,8 @@ const FlowsTab = () => {
     addNewFlow,
     renameFlow,
     removeFlow,
-    // steps,
-    flows
+    flows,
+    steps,
   } = useFlowTabs();
 
   return (
@@ -29,7 +29,7 @@ const FlowsTab = () => {
         visibleFlow={visibleFlow}
         changeVisibleFlow={changeVisibleFlow}
       />
-      <Flow visibleFlow={visibleFlow} />
+      <Flow visibleFlow={visibleFlow} steps={steps}  />
     </Layout>
   );
 };

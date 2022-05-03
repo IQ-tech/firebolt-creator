@@ -27,8 +27,8 @@ const StepFields = ({ setVisibleStep }) => {
 
         {steps.map(step => (
           <SubMenu key={step.step.friendlyname} icon={<FormOutlined />} title={step.step.friendlyname} onTitleClick={() => handleVisibleStep(step.step.slug)}>
-            <Menu.Item key={`${step}-remove`} onClick={() => handleDeleteStep(step.step.slug)}>Remove</Menu.Item>
-            <EditStepModal key={`${step}-edit`} stepToEdit={step} slug={step.step.slug} />
+            <Menu.Item key={`${step.step.slug}-remove`} onClick={() => handleDeleteStep(step.step.slug)}>Remove</Menu.Item>
+            <EditStepModal key={`${step.step.slug}-edit`} stepToEdit={step} slug={step.step.slug} />
           </SubMenu>
         ))}
 

@@ -5,6 +5,7 @@ import BigFireboltLogo from "@/components/common/icons/bigFireboltLogo";
 import GlobalIocn from "@/components/common/icons/globalIcon";
 import GithubIcon from "@/components/common/icons/githubIcon";
 import JSONModal from "@/components/JSONModal";
+import useRegisterPage from "./hook"
 
 const { Text } = Typography;
 
@@ -17,6 +18,7 @@ export const globalIconStyles = css({
 });
 
 const RegisterPage = () => {
+  const {handleCreateForm, handleUploadJSON} = useRegisterPage()
   return (
     <Space
       align="center"
@@ -50,13 +52,13 @@ const RegisterPage = () => {
         </Text>
       </Space>
       <Space size="large" css={{ paddingTop: "97px" }}>
-        <Link to="/app/editor/main">
-          <Button css={{ width: "172.27px" }} type="primary" size="large">
+       
+          <Button onClick={handleCreateForm} css={{ width: "172.27px" }} type="primary" size="large">
             {" "}
             Create Form{" "}
           </Button>
-        </Link>
-        <JSONModal />
+        
+        <JSONModal onUploadJSON={handleUploadJSON} />
       </Space>
       <Space align="center" direction="vertical" css={{ paddingTop: "300px" }}>
         <Space size="large">
