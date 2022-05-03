@@ -10,7 +10,7 @@ const FlowsTab = () => {
     addNewFlow,
     renameFlow,
     removeFlow,
-    steps,
+    // steps,
     flows
   } = useFlowTabs();
 
