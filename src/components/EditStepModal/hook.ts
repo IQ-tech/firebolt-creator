@@ -29,7 +29,7 @@ export default function useEditStepModal({ stepToEdit, slug }) {
       slug: slug
     }
 
-    dispatch({ type: 'EDITSTEP', payload: edittedStep });
+    dispatch({ type: 'EDIT_STEP', payload: edittedStep });
 
     setIsModalVisible(false)
   }

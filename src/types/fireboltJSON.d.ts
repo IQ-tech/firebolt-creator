@@ -42,7 +42,7 @@ interface IFireboltJSON {
 		"url": string;
 		"headers": { "X-API-KEY": string; }
 	};
-	"flowss": IFlow[];
+	"tracks": IFlow[];
 	"steps": IStep[];
 }
 

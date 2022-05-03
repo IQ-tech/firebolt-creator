@@ -1,63 +1,68 @@
 import { useEffect, useState } from "react";
 import { mockFlows, mockSteps } from "./jsonMocks";
 import { IStep, IFlow } from "@/types/fireboltJSON";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 const useFlowTabs = () => {
-  const [mockFlowsState, setMockFlowsState] = useState(mockFlows);
-  const [mockStepsState, setMockStepsState] = useState<IStep[]>(mockSteps);
+  const { currentJSON, dispatch } = useFireboltJSON();
 
+  // const defaultFlow = {
+  //   slug: "default",
+  //   steps: currentJSON.steps.map((e) => e.step.slug),
+  // };
+
+  const flowsState = currentJSON.tracks || [];
+  const flowSteps = currentJSON.steps || [];
+
+  // se tiver criando o json do zero
+  // adicionar o fluxo default sem nenhum passo na array de passos
 
   const [visibleFlow, setVisibleFlow] = useState<IFlow>(
-    () => mockFlows.find((flow) => flow.slug === "default") as IFlow
+    () => currentJSON.tracks.find((flow) => flow.slug === "default") as IFlow
   );
+
   // useEffect(() => {
-  //   console.log(mockFlowsState)
-  // }, [mockFlowsState])
+  //   dispatch({ type: "ADDFLOW", payload: defaultFlow })
+  //   console.log(currentJSON.steps.map(e => e.step.slug))
+  // }, [flowsState])
 
   const validSlug = (newFlowSlug: string): boolean => {
-    const slugAlreadyExists = !!mockFlowsState.find(
+    const slugAlreadyExists = !!flowsState.find(
       (flow) => flow.slug === newFlowSlug
     );
     return !!newFlowSlug && !slugAlreadyExists;
   };
 
-  function changeVisibleFlow(flowSlug: string) {
-    const newFlow = mockFlowsState.find((flow) => flow.slug === flowSlug);
+  const changeVisibleFlow = (flowSlug: string) => {
+    const newFlow = flowsState.find((flow) => flow.slug === flowSlug);
     if (newFlow) {
       setVisibleFlow(newFlow);
     }
   }
 
-  function addNewFlow(flowSlug: string) {
+  const addNewFlow = (flowSlug: string) => {
     if (!validSlug(flowSlug)) return;
 
     const newFlow: IFlow = {
       slug: flowSlug,
-      steps: ["paranaue", "parana"],
+      steps: currentJSON.steps.map((e) => e.step.slug),
     };
-    const newFlowsList = [...mockFlowsState, newFlow];
-    if (flowSlug) return setMockFlowsState(newFlowsList); // change to context dispatch
+
+    if (flowSlug) {
+      dispatch({ type: "ADD_FLOW", payload: newFlow });
+  }
+}
+
+  const removeFlow = (flowSlug: string) => {
+    dispatch({ type: "REMOVE_FLOW", payload: { slug: flowSlug } });
   }
 
-  function removeFlow(flowSlug: string) {
-    const newFlowsArray = mockFlowsState.filter(
-      (flow) => flow.slug !== flowSlug
-    );
-    setMockFlowsState(newFlowsArray);
-  }
-
-  function renameFlow(flowSlug: string, newFlowSlug: string) {
+  const renameFlow = (flowSlug: string, newFlowSlug: string) => {
     if (!validSlug(newFlowSlug)) return;
-
-    const newFlowsArray = mockFlowsState.map((flow) => {
-      if (flow.slug === flowSlug) {
-        return { ...flow, slug: newFlowSlug };
-      } else {
-        return flow;
-      }
+    dispatch({
+      type: "RENAME_FLOW",
+      payload: { slug: flowSlug, newSlug: newFlowSlug },
     });
-
-    setMockFlowsState(newFlowsArray);
   }
 
   return {
@@ -66,9 +71,9 @@ const useFlowTabs = () => {
     addNewFlow,
     removeFlow,
     renameFlow,
-    steps: mockStepsState, // todo - change to state from context
-    flows: mockFlowsState,
+    //steps: mockStepsState, // todo - change to state from context
+    flows: flowsState,
   };
 };
 
-export default useFlowTabs;
+export default useFlowTabs

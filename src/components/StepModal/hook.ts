@@ -35,7 +35,7 @@ export default function useStepModal() {
 			}
     }
 
-    dispatch({ type: 'ADDNEWSTEP', payload: newStep });
+    dispatch({ type: 'ADD_NEW_STEP', payload: newStep });
 
     setIsModalVisible(false)
   }

@@ -31,7 +31,7 @@ export default function useStepFields({ visibleStep }) {
     console.log(step)
     const fieldToDelete = { step: step, field: field }
 
-    dispatch({ type: 'DELETEFIELD', payload: fieldToDelete });
+    dispatch({ type: 'DELETE_FIELD', payload: fieldToDelete });
   }
 
   return {
