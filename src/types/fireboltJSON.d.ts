@@ -21,6 +21,9 @@ interface IField {
 	"ui:props"?: {
 		[propKey: string]: any
 	},
+	"ui:styles"?: {
+		size: string
+	},
 	validators?: IValidators[]
 	meta?: any;
 }

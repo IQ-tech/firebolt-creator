@@ -3,14 +3,14 @@ import FormValidators from './components/Form'
 
 import { Modal, Button } from 'antd'
 
-function ValidatorsModal() {
+function ValidatorsModal({ field }) {
   const { 
     isModalVisible,
     
     showModal,
     handleOk,
     handleCancel
-  } = useStepModal()
+  } = useStepModal({ field })
 
   return (
     <>

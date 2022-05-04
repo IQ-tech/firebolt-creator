@@ -1,19 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useFireboltJSON } from "@/hooks/useFireboltJSON"
+
 interface IFieldProps {
   propName: string;
   value: string;
 }
 
-export default function useAddPropsModal() {
+export default function useAddPropsModal({ field, visibleStep }) {
+  const { currentJSON, dispatch } = useFireboltJSON()
+
   const [isModalVisible, setIsModalVisible] = useState(false)
   const defaultField = {
     propName: "",
     value: "",
   }
 
-  const [fieldProps, setFieldProps] = useState<IFieldProps[]>([
-    defaultField
-  ])
+  const [fieldProps, setFieldProps] = useState<IFieldProps[]>(() => {
+    const propsArray: any[] = [];
+
+    for (const [key, value] of Object.entries(field['ui:props'])) {
+      propsArray.push({propName: key, value: value})
+    }
+
+    return propsArray
+  })
 
   const columns = [
     {
@@ -41,6 +51,14 @@ export default function useAddPropsModal() {
   };
 
   function handleOk() {
+    let newField = {...field}
+
+    newField['ui:props'] = fieldProps
+
+    const fieldToEditProps = { step: visibleStep.step.slug, field: newField }
+
+    dispatch({ type: 'EDIT_FIELD_PROPS', payload: fieldToEditProps })
+
     setIsModalVisible(false);
   };
 

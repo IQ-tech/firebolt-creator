@@ -2,6 +2,7 @@ import { Card, Select } from "antd";
 import { FireboltForm } from "@iq-firebolt/client";
 import BlueberryTheme from "@iq-firebolt/blueberry-theme";
 import { mockFields } from "@/pages/Editor/MainTab/mock";
+import '@iq-firebolt/client/dist/main.css'
 
 const { Option } = Select;
 
