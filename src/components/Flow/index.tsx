@@ -21,7 +21,7 @@ export const buttonsSRCStyle = css({
 
 export interface IFlowProps {
   visibleFlow: IFlow;
-  steps: IStep[]
+  steps: IStep[];
 }
 
 const Flow = ({ visibleFlow, steps }: IFlowProps) => {
@@ -38,7 +38,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
     onSave,
     onRestore,
     onClean,
-  } = useFlow({visibleFlow, steps});
+  } = useFlow({ visibleFlow, steps });
 
   return (
     <Card title={visibleFlow.slug} css={{ width: "100%" }}>
@@ -55,6 +55,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
         <div css={{ flexGrow: "1" }} ref={reactFlowWrapper}>
           <ReactFlow
             defaultEdgeOptions={C!.edgeOptions}
+            defaultZoom={1}
             connectionLineStyle={C!.connectionLineStyle}
             nodes={nodes}
             onNodesChange={onNodesChange}
@@ -65,7 +66,6 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             connectionLineComponent={CustomLineConnection}
-            fitView
           >
             <Controls />
             <Background color="#aaa" gap={10} />
@@ -98,7 +98,13 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
   );
 };
 
-export default ({ visibleFlow , steps }: {visibleFlow: IFlow, steps: IStep[]}) => (
+export default ({
+  visibleFlow,
+  steps,
+}: {
+  visibleFlow: IFlow;
+  steps: IStep[];
+}) => (
   <ReactFlowProvider>
     <Flow steps={steps} visibleFlow={visibleFlow} />
   </ReactFlowProvider>

@@ -6,42 +6,51 @@ import {
   useReactFlow,
   Edge,
   Node,
+  ReactFlowInstance,
 } from "react-flow-renderer";
-import { IFlow } from "@/types/fireboltJSON";
+import { IFlow, IStep } from "@/types/fireboltJSON";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
-export default function useFlow({ visibleFlow, steps }) {
+// render baloes dos passos de acordo com visible flow
+// toda alteração no flow, resulta em um novo track.steps, consequentemente  num dispatch para o contexto
+
+function getStep(stepSlug: string, steps: IStep[]) {
+  const step = steps.find((step) => step.step.slug === stepSlug);
+  return step;
+}
+
+export default function useFlow({
+  visibleFlow,
+  steps,
+}: {
+  visibleFlow: IFlow;
+  steps: IStep[];
+}) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [reactFlowInstance, setReactFlowInstance] = useState<any>(null); // TODO: ANY
+  const [reactFlowInstance, setReactFlowInstance] =
+    useState<ReactFlowInstance>(); // TODO: ANY
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
   const { setViewport } = useReactFlow();
+  const { dispatch } = useFireboltJSON();
+
   const flowKey = "currentFlows";
 
-  useEffect(() => {
-    const newFlowSteps = edges.reduce((acc, edge, index) => {
-      const {target, source} = edge
-      let newAcc = [...acc]
-      if(!acc.includes(source)) newAcc.push(source) // TODO: 
-      if(!acc.includes(target)) newAcc.push(target) // remove o segundo e faz a ligação dos edges[BUG]
-      return newAcc
-    }, [] as string[])
+  useEffect(setNewFlowSteps, [edges]);
+  useEffect(populateEdgesAndNodes, [visibleFlow]);
 
- //   console.log("🚀 ~ file: hook.ts ~ line 28 ~ newFlowSteps ~ newFlowSteps", newFlowSteps)
-  }, [edges])
-
-  useEffect(() => {
-    const safeVisibleFlow = steps || [];
+  function populateEdgesAndNodes() {
+    const safeVisibleFlow = visibleFlow?.steps || [];
 
     const newEdges: Edge[] = safeVisibleFlow?.reduce((acc, stepSlug, index) => {
-      
-      const target = safeVisibleFlow[index + 1]?.step?.slug;
+      const target = safeVisibleFlow[index + 1];
       if (!target) {
         return acc;
       }
       const newEdge: Edge = {
         animated: true,
-        id: stepSlug?.step?.slug,
-        source: stepSlug?.step?.slug,
+        id: `flow-${visibleFlow.slug}-edge-${stepSlug}-${target}`,
+        source: stepSlug,
         sourceHandle: null,
         style: { stroke: "black" },
         target: target,
@@ -50,26 +59,38 @@ export default function useFlow({ visibleFlow, steps }) {
       return [...acc, newEdge];
     }, [] as Edge[]);
 
-    const newNodes: any[] = safeVisibleFlow?.map((flowSlug, index) => {
-      // TODO: ANY
+    const newNodes: Node[] = safeVisibleFlow?.map((stepSlug, index) => {
+      const stepData = getStep(stepSlug, steps);
       return {
         key: index,
-        id: flowSlug?.step?.slug,
-        data: { label: flowSlug?.step?.friendlyname },
-        sourcePosition: "right",
-        targetPosition: "left",
+        id: stepSlug,
+        data: { label: stepData?.step.friendlyname },
+        sourcePosition: "right" as any,
+        targetPosition: "left" as any,
         position: {
           x: 180 * index + 1,
           y: 5,
         },
       };
     });
-    
-
     setNodes(newNodes);
     setEdges(newEdges);
-   // setViewport({ x: 20 , y: 100, zoom: 0.8 });
-  }, [visibleFlow]);
+  }
+
+  function setNewFlowSteps() {
+    const newFlowSteps = edges.reduce((acc, edge, index) => {
+      const { target, source } = edge;
+      let newAcc = [...acc];
+      if (!acc.includes(source)) newAcc.push(source); // TODO:
+      if (!acc.includes(target)) newAcc.push(target); // remove o segundo e faz a ligação dos edges[BUG]
+      return newAcc;
+    }, [] as string[]);
+
+    dispatch({
+      type: "CHANGE_FLOW_STEPS",
+      payload: { slug: visibleFlow.slug, newSteps: newFlowSteps },
+    });
+  }
 
   const onConnect = useCallback(
     (params) =>
@@ -100,7 +121,7 @@ export default function useFlow({ visibleFlow, steps }) {
 
       if (typeof type === "undefined" || !type) return;
 
-      const position = reactFlowInstance.project({
+      const position = reactFlowInstance!.project({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
       });
@@ -132,7 +153,7 @@ export default function useFlow({ visibleFlow, steps }) {
     }
   }, [reactFlowInstance]);
 
-  const restoreFlow = async () => {
+  async function restoreFlow() {
     const getflowFlows = JSON.parse(localStorage.getItem(flowKey) as string);
 
     if (getflowFlows) {
@@ -141,15 +162,11 @@ export default function useFlow({ visibleFlow, steps }) {
       setEdges(getflowFlows.edges || []);
       setViewport({ x, y, zoom });
     }
-  };
+  }
 
   const onRestore = useCallback(() => {
     restoreFlow();
   }, [setNodes, setViewport]);
-
-  // useEffect(() => {
-  //   restoreFlow();
-  // }, []);
 
   return {
     nodes,

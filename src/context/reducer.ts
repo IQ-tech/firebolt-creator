@@ -45,6 +45,13 @@ export type JSONAction =
       };
     }
   | {
+      type: "CHANGE_FLOW_STEPS";
+      payload: {
+        slug: string;
+        newSteps: string[];
+      };
+    }
+  | {
       type: "REMOVE_FLOW";
       payload: {
         slug: string;
@@ -90,6 +97,20 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
       return {
         ...state,
         tracks: newFlowsArray,
+      };
+    }
+
+    case "CHANGE_FLOW_STEPS": {
+      const newTracks = state.tracks.map((flow) => {
+        if (flow.slug === payload.slug) {
+          return { slug: flow.slug, steps: payload.newSteps };
+        }
+        return flow;
+      });
+
+      return {
+        ...state,
+        tracks: newTracks,
       };
     }
 

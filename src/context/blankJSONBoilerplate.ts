@@ -15,7 +15,7 @@ const blankJSON = {
 	"steps": [
 		{
 			"step": {
-				"slug": "personal_data_1",
+				"slug": "personal_data",
 				"type": "form",
 				"friendlyname": "Dados pessoais",
 				"fields": [
