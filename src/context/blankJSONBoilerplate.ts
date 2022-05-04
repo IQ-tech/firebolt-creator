@@ -15,7 +15,7 @@ const blankJSON = {
 	"steps": [
 		{
 			"step": {
-				"slug": "personal_data",
+				"slug": "personal_data_1",
 				"type": "form",
 				"friendlyname": "Dados pessoais",
 				"fields": [
@@ -47,6 +47,93 @@ const blankJSON = {
 				"slug": "personal_data_2",
 				"type": "form",
 				"friendlyname": "Dados pessoais 2",
+				"fields": [
+					{
+						"slug": "full_name",
+						"ui:widget": "Text",
+						"ui:props": {
+							"label": "Nome completo",
+							"placeholder": "Digite seu nome"
+						},
+						"validators": [{ "type": "required" }, { "type": "name" }],
+						"meta": {}
+					},
+					{
+						"slug": "email",
+						"ui:widget": "Email",
+						"ui:props": {
+							"label": "Email",
+							"placeholder": "contato@email.com"
+						},
+						"validators": [{ "type": "required" }, { "type": "email" }],
+						"meta": {}
+						},
+				]
+			}
+		},
+		{
+			"step": {
+				"slug": "personal_data_3",
+				"type": "form",
+				"friendlyname": "Dados pessoais 3",
+				"fields": [
+					{
+						"slug": "full_name",
+						"ui:widget": "Text",
+						"ui:props": {
+							"label": "Nome completo",
+							"placeholder": "Digite seu nome"
+						},
+						"validators": [{ "type": "required" }, { "type": "name" }],
+						"meta": {}
+					},
+					{
+						"slug": "email",
+						"ui:widget": "Email",
+						"ui:props": {
+							"label": "Email",
+							"placeholder": "contato@email.com"
+						},
+						"validators": [{ "type": "required" }, { "type": "email" }],
+						"meta": {}
+						},
+				]
+			}
+		},
+		{
+			"step": {
+				"slug": "personal_data_4",
+				"type": "form",
+				"friendlyname": "Dados pessoais 4",
+				"fields": [
+					{
+						"slug": "full_name",
+						"ui:widget": "Text",
+						"ui:props": {
+							"label": "Nome completo",
+							"placeholder": "Digite seu nome"
+						},
+						"validators": [{ "type": "required" }, { "type": "name" }],
+						"meta": {}
+					},
+					{
+						"slug": "email",
+						"ui:widget": "Email",
+						"ui:props": {
+							"label": "Email",
+							"placeholder": "contato@email.com"
+						},
+						"validators": [{ "type": "required" }, { "type": "email" }],
+						"meta": {}
+						},
+				]
+			}
+		},
+		{
+			"step": {
+				"slug": "personal_data_5",
+				"type": "form",
+				"friendlyname": "Dados pessoais 5",
 				"fields": [
 					{
 						"slug": "full_name",

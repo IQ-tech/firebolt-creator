@@ -19,7 +19,7 @@ export const buttonsSRCStyle = css({
   cursor: "pointer",
 });
 
-interface IFlowProps {
+export interface IFlowProps {
   visibleFlow: IFlow;
   steps: IStep[]
 }
@@ -38,7 +38,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
     onSave,
     onRestore,
     onClean,
-  } = useFlow({visibleFlow});
+  } = useFlow({visibleFlow, steps});
 
   return (
     <Card title={visibleFlow.slug} css={{ width: "100%" }}>

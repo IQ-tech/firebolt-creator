@@ -134,10 +134,10 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
 
         return { ...step };
       });
-      console.log(
-        "🚀 ~ file: JSONContext.tsx ~ line 88 ~ reducer ~ newCurrentSteps",
-        newCurrentSteps
-      );
+      // console.log(
+      //   "🚀 ~ file: JSONContext.tsx ~ line 88 ~ reducer ~ newCurrentSteps",
+      //   newCurrentSteps
+      // );
 
       return {
         ...state,

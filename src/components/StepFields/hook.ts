@@ -28,7 +28,7 @@ export default function useStepFields({ visibleStep }) {
   }
 
   function handleDeleteField(step: string, field: string) {
-    console.log(step)
+   //g(step)
     const fieldToDelete = { step: step, field: field }
 
     dispatch({ type: 'DELETE_FIELD', payload: fieldToDelete });

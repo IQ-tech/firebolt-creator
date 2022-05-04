@@ -1,13 +1,11 @@
-import React from "react";
 import * as S from "./styles";
-
-
 
 import { IStep } from "@/types/fireboltJSON";
 
-const onDragStart = (event, nodeType: string) => {
+const onDragStart = (event, nodeType: string, valueStep: string) => {
   event.dataTransfer.setData("nodeType", nodeType);
   event.dataTransfer.setData("stepCurrent", event.target.innerHTML);
+  event.dataTransfer.setData("valueStep", valueStep);
   event.dataTransfer.effectAllowed = "move";
 };
 
@@ -20,7 +18,7 @@ const Sidebar = ({ steps }: {steps: IStep[]}) => {
         <div
           key={`step-item-${step?.friendlyname}`}
           css={S.optionStepStyle}
-          onDragStart={(event) => onDragStart(event, "default")}
+          onDragStart={(event) => onDragStart(event, "default", step.slug)}
           draggable
         >
           {step?.friendlyname}

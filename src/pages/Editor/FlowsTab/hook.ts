@@ -8,9 +8,23 @@ const useFlowTabs = () => {
   const flowsState = currentJSON.tracks || [];
   const flowSteps = currentJSON.steps || [];
 
-  const [visibleFlow, setVisibleFlow] = useState<IFlow>(
-    () => currentJSON.tracks.find((flow) => flow.slug === "default") as IFlow
-  );
+  // const [visibleFlow, setVisibleFlow] = useState<IFlow>(
+  //   () => currentJSON.tracks.find((flow) => flow.slug === "default") as IFlow
+  // );
+
+  const flowGenerator = ( flowSlug: string) => {
+
+    const newFlow: IFlow = {
+      slug: flowSlug,
+      steps: flowSteps?.map((e) => e.step.slug),
+    };
+    return newFlow
+  }
+
+  const [visibleFlow, setVisibleFlow] = useState<IFlow>(flowGenerator("default"));
+
+   console.log("🚀 ~ file: hook.ts ~ line 17 ~ useFlowTabs ~ visibleFlow", visibleFlow?.slug)
+
 
 
   const validSlug = (newFlowSlug: string): boolean => {
@@ -26,17 +40,13 @@ const useFlowTabs = () => {
       setVisibleFlow(newFlow);
     }
   }
+  useEffect(() =>{changeVisibleFlow(visibleFlow?.slug)},[])
 
   const addNewFlow = (flowSlug: string) => {
     if (!validSlug(flowSlug)) return;
 
-    const newFlow: IFlow = {
-      slug: flowSlug,
-      steps: currentJSON.steps.map((e) => e.step.friendlyname),
-    };
-
     if (flowSlug) {
-      dispatch({ type: "ADD_FLOW", payload: newFlow });
+      dispatch({ type: "ADD_FLOW", payload: flowGenerator(flowSlug)});
   }
 }
 
