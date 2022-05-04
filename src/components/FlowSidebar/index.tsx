@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { Menu, Divider, Input, Button } from "antd";
 import slugify from "slugify";
-import { CopyOutlined } from "@ant-design/icons";
-import {
-  FormOutlined,
-  PlusOutlined,
-  EllipsisOutlined,
-} from "@ant-design/icons";
-import { IFlow, IStep } from "@/types/fireboltJSON";
+import { PlusOutlined } from "@ant-design/icons";
+import { IFlow } from "@/types/fireboltJSON";
 import * as S from "./styles";
 
 import MenuItem from "./components/MenuItem";
@@ -64,6 +59,7 @@ const FlowSidebar = ({
         }}
         mode="vertical"
         defaultSelectedKeys={[`flow-option-${visibleFlow.slug}`]}
+        selectedKeys={[`flow-option-${visibleFlow.slug}`]}
       >
         {flows.map(({ slug }) => (
           <MenuItem
@@ -75,41 +71,41 @@ const FlowSidebar = ({
             changeVisibleFlow={changeVisibleFlow}
           />
         ))}
-        {isAddingFlow ? (
-          <form
-            css={{ paddingInline: 13 }}
-            onBlur={() => setIsAddingFlow(false)}
-            onSubmit={submitNewFlowSlug}
-          >
-            <Input.Group compact>
-              <Input
-                style={{ width: "calc(100% - 32px)" }}
-                autoFocus
-                onChange={(event) => changeNewFlowSlug(event.target.value)}
-                onBlur={(e) => e.stopPropagation()}
-              />
-              <Button icon={<PlusOutlined />} onClick={submitNewFlowSlug} />
-            </Input.Group>
-          </form>
-        ) : (
-          <button
-            css={[
-              S.defaultBtn(),
-              {
-                width: "100%",
-                color: "#1890ff",
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                gap: 10,
-                paddingInline: 10,
-              },
-            ]}
-            onClick={() => setIsAddingFlow(true)}
-          >
-            <PlusOutlined /> Add
-          </button>
-        )}
+        <Menu.Item key="add-item-form">
+          {isAddingFlow ? (
+            <form
+              onBlur={() => setIsAddingFlow(false)}
+              onSubmit={submitNewFlowSlug}
+            >
+              <Input.Group compact>
+                <Input
+                  style={{ width: "calc(100% - 32px)" }}
+                  autoFocus
+                  onChange={(event) => changeNewFlowSlug(event.target.value)}
+                  onBlur={(e) => e.stopPropagation()}
+                />
+                <Button icon={<PlusOutlined />} onClick={submitNewFlowSlug} />
+              </Input.Group>
+            </form>
+          ) : (
+            <button
+              css={[
+                S.defaultBtn(),
+                {
+                  width: "100%",
+                  color: "#1890ff",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  gap: 10,
+                },
+              ]}
+              onClick={() => setIsAddingFlow(true)}
+            >
+              <PlusOutlined /> Add
+            </button>
+          )}
+        </Menu.Item>
       </Menu>
     </div>
   );

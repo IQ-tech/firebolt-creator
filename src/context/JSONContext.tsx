@@ -16,9 +16,9 @@ export function JSONProvider({ children }) {
 	const [currentJSON, dispatch] = useReducer(reducer, blankJSON)
 	const [visibleStep, setVisibleStep] = useState<IStep>(currentJSON.steps[0])
 
-	// useEffect(() => {
-	// 	console.log(currentJSON)
-	// }, [currentJSON])
+	useEffect(() => {
+		console.log(currentJSON)
+	}, [currentJSON])
 
 	return (
 		<JSONContext.Provider value={{ currentJSON, dispatch,  visibleStep, setVisibleStep }}>
