@@ -73,7 +73,7 @@ const StepFields = ({ visibleStep }) => {
             </Space>
             <Space>
               <span>UI props</span>
-              <AddPropsModal field={field['ui:props']} />
+              <AddPropsModal field={field} visibleStep={visibleStep}/>
             </Space>
             <Space>
               <span>Validators</span>

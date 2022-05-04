@@ -2,7 +2,7 @@ import useAddPropsModal from './hook'
 
 import { Modal, Button, Input, Table } from 'antd'
 
-function AddPropsModal({ field }) {
+function AddPropsModal({ field, visibleStep }) {
   const {
     isModalVisible,
     fieldProps, 
@@ -14,7 +14,7 @@ function AddPropsModal({ field }) {
     handlePropsData,
     addNewProp,
     deleteProp
-  } = useAddPropsModal({ field })
+  } = useAddPropsModal({ field, visibleStep })
 
   let locale = {
     emptyText: '.',
