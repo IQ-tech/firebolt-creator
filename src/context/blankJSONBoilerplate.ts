@@ -1,7 +1,8 @@
 const blankJSON = {
+	"name": "blankJSON",
 	"$schema-version": "1.0.0",
 	"$form-version": "0.0.1",
-	"business": "",
+	"business": "Description JSON",
 	"webhook": {
 		"url": "{WEBHOOK_URL}",
 		"headers": { "X-API-KEY": "secret" }

@@ -35,6 +35,7 @@ interface IStep {
 }
 
 interface IFireboltJSON {
+	"name": string;
 	"$schema-version": string;
 	"$form-version": string;
 	"business": string;

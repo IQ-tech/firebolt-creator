@@ -22,7 +22,8 @@ const tabs = [
 ];
 
 const EditorPage = () => {
-  const { location, navigate, tabsCallback } = useEditor();
+  const { location, navigate, tabsCallback, currentJSON, dispatch } =
+    useEditor();
 
   return (
     <div css={{ padding: "28px" }}>
@@ -32,13 +33,49 @@ const EditorPage = () => {
           css={{ padding: "16px 24px 0", marginBottom: "27px" }}
           ghost={false}
           onBack={() => navigate("/")}
-          title="My Form"
-          subTitle="Form description"
+          title={
+            <p
+              css={{
+                padding: "4px 8px",
+                border: "1px solid transparent",
+                ":hover": { border: "solid 1px #1890ff" },
+              }}
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={(e) => {
+                dispatch({
+                  type: "SET_EXPERIENCE_NAME",
+                  payload: { experienceName: e?.target?.innerText },
+                });
+              }}
+            >
+              {currentJSON?.name}
+            </p>
+          }
+          subTitle={
+            <p
+              css={{
+                padding: "4px 8px",
+                border:"1px solid transparent",
+                ":hover": { border: "solid 1px #1890ff" },
+              }}
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={(e) => {
+                dispatch({
+                  type: "SET_EXPERIENCE_DESCRIPTION",
+                  payload: { newDescription: e?.target?.innerText },
+                });
+              }}
+            >
+              {currentJSON?.business}
+            </p>
+          }
           extra={
             <Button
               key="1"
               type="primary"
-              onClick={() => downloadJSONFile(mockJSON, "banco-pan")}
+              onClick={() => downloadJSONFile(currentJSON, currentJSON?.name)}
             >
               <DownloadOutlined /> Export form JSON
             </Button>

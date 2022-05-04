@@ -1,6 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 export default function useEditor() {
+  const { currentJSON, dispatch } = useFireboltJSON();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -9,5 +11,5 @@ export default function useEditor() {
     navigate(path)
   };
 
-  return { location, navigate, tabsCallback };
+  return { location, navigate, tabsCallback, currentJSON, dispatch };
 }

@@ -11,9 +11,6 @@ import {
 import { IFlow, IStep } from "@/types/fireboltJSON";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
-// render baloes dos passos de acordo com visible flow
-// toda alteração no flow, resulta em um novo track.steps, consequentemente  num dispatch para o contexto
-
 function getStep(stepSlug: string, steps: IStep[]) {
   const step = steps.find((step) => step.step.slug === stepSlug);
   return step;
@@ -28,16 +25,17 @@ export default function useFlow({
 }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [populated, setPopulated] = useState(false);
+
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>(); // TODO: ANY
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
   const { setViewport } = useReactFlow();
   const { dispatch } = useFireboltJSON();
-
   const flowKey = "currentFlows";
 
-  useEffect(setNewFlowSteps, [edges]);
   useEffect(populateEdgesAndNodes, [visibleFlow]);
+  useEffect(setNewFlowSteps, [edges]); // problema
 
   function populateEdgesAndNodes() {
     const safeVisibleFlow = visibleFlow?.steps || [];
@@ -75,21 +73,24 @@ export default function useFlow({
     });
     setNodes(newNodes);
     setEdges(newEdges);
+    setPopulated(true);
   }
 
   function setNewFlowSteps() {
-    const newFlowSteps = edges.reduce((acc, edge, index) => {
-      const { target, source } = edge;
-      let newAcc = [...acc];
-      if (!acc.includes(source)) newAcc.push(source); // TODO:
-      if (!acc.includes(target)) newAcc.push(target); // remove o segundo e faz a ligação dos edges[BUG]
-      return newAcc;
-    }, [] as string[]);
+    if (populated) {
+      const newFlowSteps = edges.reduce((acc, edge) => {
+        const { target, source } = edge;
+        let newAcc = [...acc];
+        if (!acc.includes(source)) newAcc.push(source); // TODO:
+        if (!acc.includes(target)) newAcc.push(target); // remove o segundo e faz a ligação dos edges[BUG]
+        return newAcc;
+      }, [] as string[]);
 
-    dispatch({
-      type: "CHANGE_FLOW_STEPS",
-      payload: { slug: visibleFlow.slug, newSteps: newFlowSteps },
-    });
+      dispatch({
+        type: "CHANGE_FLOW_STEPS",
+        payload: { slug: visibleFlow.slug, newSteps: newFlowSteps },
+      });
+    }
   }
 
   const onConnect = useCallback(
@@ -99,6 +100,7 @@ export default function useFlow({
           e?.source?.includes(params.source)
         );
         if (!validConnection) return addEdge(params, eds);
+
         return eds;
       }),
     [setEdges]

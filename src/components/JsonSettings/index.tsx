@@ -11,9 +11,10 @@ const { Option } = Select;
 //   "pluggin-6",
 // ];
 
-const optionsTab = ["Schema version", "Form version", "Description"];
 
-const JsonSettings = () => (
+const JsonSettings = ({currentJSON, dispatch}) =>{ 
+
+  return (
   <Card title="Settings" css={{ width: "100%" }}>
     <div
       css={{
@@ -22,18 +23,43 @@ const JsonSettings = () => (
         gap: "32px",
       }}
     >
-      {optionsTab.map((option, index) => (
-        <Space direction="vertical" css={{ width: "100%" }} key={index}>
-          <span>{option}</span>
+      
+        <Space direction="vertical" css={{ width: "100%" }}>
+          <span>{"$schema-version"}</span>
           <Input
-            defaultValue={option}
+            defaultValue={currentJSON?.["$schema-version"]}
             css={{
               color: "rgba(0, 0, 0, 0.25)",
               ":focus": { color: "#000000" },
             }}
+            onChange={(e) => {
+              dispatch({
+                type: "SET_EXPERIENCE_FBT_VERSION",
+                payload:  e?.target?.value ,
+              });
+            }
+          }
           />
         </Space>
-      ))}
+    
+        <Space direction="vertical" css={{ width: "100%" }}>
+          <span>{"$form-version"}</span>
+          <Input
+            defaultValue={currentJSON?.["$form-version"]}
+            css={{
+              color: "rgba(0, 0, 0, 0.25)",
+              ":focus": { color: "#000000" },
+            }}
+            onChange={(e) => {
+              dispatch({
+                type: "SET_EXPERIENCE_VERSION",
+                payload: { experienceVersion: e?.target?.value },
+              });
+            }
+          }
+          />
+        </Space>
+     
 
       {/* <Space direction="vertical" css={{ width: "100%" }}>
         <span>Plugins</span>
@@ -62,5 +88,6 @@ const JsonSettings = () => (
     </div>
   </Card>
 );
+    }
 
 export default JsonSettings;

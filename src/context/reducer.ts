@@ -30,6 +30,13 @@ export type JSONAction =
     }
   | { type: "START_BLANK"; payload?: any }
   | { type: "START_WITH_JSON"; payload: IFireboltJSON }
+  | { type: "SET_EXPERIENCE_VERSION"; payload: { experienceVersion: string } }
+  | {
+      type: "SET_EXPERIENCE_FBT_VERSION";
+      payload: { experienceFbtVersion: string };
+    }
+  | { type: "SET_EXPERIENCE_DESCRIPTION"; payload: { newDescription: string } }
+  | { type: "SET_EXPERIENCE_NAME"; payload: { experienceName: string } }
   | {
       type: "ADD_FLOW";
       payload: {
@@ -71,6 +78,34 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
       return {
         ...state,
         tracks: [...state.tracks, payload],
+      };
+    }
+
+    case "SET_EXPERIENCE_FBT_VERSION": {
+      return {
+        ...state,
+        "$schema-version": payload,
+      };
+    }
+
+    case "SET_EXPERIENCE_VERSION": {
+      return {
+        ...state,
+        "$form-version": payload?.experienceVersion,
+      };
+    }
+
+    case "SET_EXPERIENCE_NAME": {
+      return {
+        ...state,
+        name: payload.experienceName,
+      };
+    }
+
+    case "SET_EXPERIENCE_DESCRIPTION": {
+      return {
+        ...state,
+        business: payload?.newDescription, //  todo change to description later
       };
     }
 

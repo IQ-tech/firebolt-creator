@@ -1,7 +1,10 @@
 import JsonView from "@/components/JsonView";
 import JsonSettings from "@/components/JsonSettings";
+import useJSONTabs from "./hook";
 
 const JsonSchema = () => {
+const { currentJSON , dispatch} = useJSONTabs()
+
   return (
     <div
       css={{
@@ -11,8 +14,8 @@ const JsonSchema = () => {
         gap: "29px",
       }}
     >
-      <JsonView />
-      <JsonSettings />
+      <JsonView currentJSON={currentJSON} />
+      <JsonSettings currentJSON={currentJSON} dispatch={dispatch}/>
     </div>
   );
 };

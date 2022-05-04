@@ -1,18 +1,21 @@
 import { Card } from "antd"
 import JSONInput from "react-json-editor-ajrm"
 import locale from "react-json-editor-ajrm/locale/en"
-import { data } from "@/pages/Editor/JSONTab/data"
+import { IFireboltJSON } from "@/types/fireboltJSON";
 
 interface IJsonView {
   readOnly?: boolean
+  currentJSON?: IFireboltJSON
 }
 
-const JsonView = ({readOnly = true} : IJsonView) => (
-  <Card title="JSON representation" css={{ width: "700px" }}>
+const JsonView = ({readOnly = true, currentJSON} : IJsonView) =>{ 
+
+  return(
+  <Card title={currentJSON?.name} css={{ flex: "0 0 45%" }}>
     <JSONInput
       id="json-editor"
       confirmGood={false}
-      placeholder={data}
+      placeholder={currentJSON}
       theme="light_mitsuketa_tribute"
       locale={locale}
       height="700px"
@@ -21,5 +24,6 @@ const JsonView = ({readOnly = true} : IJsonView) => (
     />
   </Card>
 )
+}
 
 export default JsonView
