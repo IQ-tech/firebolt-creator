@@ -26,6 +26,9 @@ const blankJSON = {
 							"label": "Nome completo",
 							"placeholder": "Digite seu nome"
 						},
+						"ui:styles": {
+							"size": "half"
+						},
 						"validators": [{ "type": "required" }, { "type": "name" }],
 						"meta": {}
 					},

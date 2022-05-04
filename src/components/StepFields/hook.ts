@@ -28,17 +28,30 @@ export default function useStepFields({ visibleStep }) {
   }
 
   function handleDeleteField(step: string, field: string) {
-   //g(step)
     const fieldToDelete = { step: step, field: field }
 
     dispatch({ type: 'DELETE_FIELD', payload: fieldToDelete });
+  }
+
+  function handleEditFieldStyle(step: string, field: any, checked: boolean) {
+    let newField = {...field}
+
+    newField['ui:styles'] = checked ? {
+      "size": "half"
+    } : {}
+
+    const fieldToEditStyles = { step: step, field: newField }
+
+    dispatch({ type: 'EDIT_FIELD_STYLES', payload: fieldToEditStyles });
+
   }
 
   return {
     stepFields,
 
     handleAddField,
-    handleDeleteField
+    handleDeleteField,
+    handleEditFieldStyle
   }
 
 }
