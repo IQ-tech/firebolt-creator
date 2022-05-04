@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function useStepModal() {
+export default function useStepModal({ field }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   function showModal() {

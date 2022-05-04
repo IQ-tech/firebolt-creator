@@ -1,6 +1,9 @@
 import { Card, Collapse, Space, Input, Select, Switch, Button } from "antd";
 import { ZoomInOutlined, DeleteOutlined } from "@ant-design/icons";
 
+import ValidatorsModal from "../ValidatorsModal"
+import AddPropsModal from "../AddPropsModal"
+
 import useStepFields from "./hook"
 
 import * as S from "./styles";
@@ -16,7 +19,8 @@ const StepFields = ({ visibleStep }) => {
     stepFields,
 
     handleAddField,
-    handleDeleteField
+    handleDeleteField,
+    handleEditFieldStyle
   } = useStepFields({ visibleStep })
 
   return (<Card title="Step fields" css={S.contentStyles} extra={
@@ -65,21 +69,15 @@ const StepFields = ({ visibleStep }) => {
             </Space> */}
             <Space>
               <span>Half size</span>
-              <Switch defaultChecked />
+              <Switch onChange={(e) => handleEditFieldStyle(visibleStep.step.slug, field, e)} checked={field['ui:styles']?.size === 'half'}/>
             </Space>
             <Space>
               <span>UI props</span>
-              <Button type="primary">
-                <ZoomInOutlined />
-                Open ui props config
-              </Button>
+              <AddPropsModal field={field['ui:props']} />
             </Space>
             <Space>
               <span>Validators</span>
-              <Button type="primary">
-                <ZoomInOutlined />
-                Open validators config
-              </Button>
+              <ValidatorsModal field={field.validators} />
             </Space>
           </Space>
         </Panel>

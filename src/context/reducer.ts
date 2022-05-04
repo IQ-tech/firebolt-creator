@@ -28,6 +28,13 @@ export type JSONAction =
         field: IField;
       };
     }
+  | {
+      type: "EDIT_FIELD_STYLES";
+      payload: {
+        step: string;
+        field: IField;
+      };
+    }
   | { type: "START_BLANK"; payload?: any }
   | { type: "START_WITH_JSON"; payload: IFireboltJSON }
   | {
@@ -123,6 +130,30 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
         steps: newCurrentSteps,
       };
     }
+    case "EDIT_FIELD_STYLES": {
+      const newCurrentSteps = currentSteps.map((step) => {
+        if (step.step.slug === payload.step) {
+          const newCurrentFields = step.step.fields.map(field => {
+            if(field.slug === payload.field.slug) {
+              return payload.field
+            }
+
+            return field
+          })
+
+          step.step.fields = newCurrentFields
+        }
+
+        return step;
+      });
+
+      console.log(newCurrentSteps)
+
+      return {
+        ...state,
+        steps: newCurrentSteps,
+      };
+    }
     case "DELETE_FIELD": {
       const newCurrentSteps = currentSteps.map((step) => {
         if (step.step.slug === payload.step) {
@@ -134,10 +165,6 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
 
         return { ...step };
       });
-      // console.log(
-      //   "🚀 ~ file: JSONContext.tsx ~ line 88 ~ reducer ~ newCurrentSteps",
-      //   newCurrentSteps
-      // );
 
       return {
         ...state,

@@ -1,19 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 interface IFieldProps {
   propName: string;
   value: string;
 }
 
-export default function useAddPropsModal() {
+export default function useAddPropsModal({ field }) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const defaultField = {
     propName: "",
     value: "",
   }
 
-  const [fieldProps, setFieldProps] = useState<IFieldProps[]>([
-    defaultField
-  ])
+  const [fieldProps, setFieldProps] = useState<IFieldProps[]>(() => {
+    const propsArray: any[] = [];
+
+    for (const [key, value] of Object.entries(field)) {
+      propsArray.push({propName: key, value: value})
+    }
+
+    return propsArray
+  })
 
   const columns = [
     {
