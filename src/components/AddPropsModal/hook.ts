@@ -59,7 +59,6 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
     dispatch({ type: 'EDIT_FIELD_PROPS', payload: fieldToEditProps })
 
-    console.log(currentJSON)
     setIsModalVisible(false);
   };
 
