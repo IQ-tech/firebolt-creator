@@ -42,7 +42,7 @@ export type JSONAction =
         field: IField;
       };
     }
-  | { type: "START_BLANK"; payload?: any }
+  | { type: "START_BLANK"; payload: any }
   | { type: "START_WITH_JSON"; payload: IFireboltJSON }
   | { type: "SET_EXPERIENCE_VERSION"; payload: { experienceVersion: string } }
   | {
@@ -79,7 +79,7 @@ export type JSONAction =
       };
     };
 
-function reducer(state: IFireboltJSON, action: JSONAction) {
+function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
   const { type, payload } = action;
 
   const currentSteps = [...state.steps];
@@ -98,7 +98,7 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
     case "SET_EXPERIENCE_FBT_VERSION": {
       return {
         ...state,
-        "$schema-version": payload,
+        "$schema-version": payload.experienceFbtVersion,
       };
     }
 
@@ -196,15 +196,15 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
     case "EDIT_FIELD_STYLES": {
       const newCurrentSteps = currentSteps.map((step) => {
         if (step.step.slug === payload.step) {
-          const newCurrentFields = step.step.fields.map(field => {
-            if(field.slug === payload.field.slug) {
-              return payload.field
+          const newCurrentFields = step.step.fields.map((field) => {
+            if (field.slug === payload.field.slug) {
+              return payload.field;
             }
 
-            return field
-          })
+            return field;
+          });
 
-          step.step.fields = newCurrentFields
+          step.step.fields = newCurrentFields;
         }
 
         return step;
@@ -219,15 +219,15 @@ function reducer(state: IFireboltJSON, action: JSONAction) {
     case "EDIT_FIELD_PROPS": {
       const newCurrentSteps = currentSteps.map((step) => {
         if (step.step.slug === payload.step) {
-          const newCurrentFields = step.step.fields.map(field => {
-            if(field.slug === payload.field.slug) {
-              return payload.field
+          const newCurrentFields = step.step.fields.map((field) => {
+            if (field.slug === payload.field.slug) {
+              return payload.field;
             }
 
-            return field
-          })
+            return field;
+          });
 
-          step.step.fields = newCurrentFields
+          step.step.fields = newCurrentFields;
         }
 
         return step;

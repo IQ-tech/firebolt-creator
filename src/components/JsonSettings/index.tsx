@@ -11,19 +11,16 @@ const { Option } = Select;
 //   "pluggin-6",
 // ];
 
-
-const JsonSettings = ({currentJSON, dispatch}) =>{ 
-
+const JsonSettings = ({ currentJSON, dispatch }) => {
   return (
-  <Card title="Settings" css={{ width: "100%" }}>
-    <div
-      css={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "32px",
-      }}
-    >
-      
+    <Card title="Settings" css={{ width: "100%" }}>
+      <div
+        css={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "32px",
+        }}
+      >
         <Space direction="vertical" css={{ width: "100%" }}>
           <span>{"$schema-version"}</span>
           <Input
@@ -35,13 +32,14 @@ const JsonSettings = ({currentJSON, dispatch}) =>{
             onChange={(e) => {
               dispatch({
                 type: "SET_EXPERIENCE_FBT_VERSION",
-                payload:  e?.target?.value ,
+                payload: {
+                  experienceFbtVersion: e?.target?.value,
+                },
               });
-            }
-          }
+            }}
           />
         </Space>
-    
+
         <Space direction="vertical" css={{ width: "100%" }}>
           <span>{"$form-version"}</span>
           <Input
@@ -55,13 +53,11 @@ const JsonSettings = ({currentJSON, dispatch}) =>{
                 type: "SET_EXPERIENCE_VERSION",
                 payload: { experienceVersion: e?.target?.value },
               });
-            }
-          }
+            }}
           />
         </Space>
-     
 
-      {/* <Space direction="vertical" css={{ width: "100%" }}>
+        {/* <Space direction="vertical" css={{ width: "100%" }}>
         <span>Plugins</span>
         <div>
           <Select
@@ -79,15 +75,15 @@ const JsonSettings = ({currentJSON, dispatch}) =>{
         </div>
       </Space> */}
 
-      <Space>
-        <span>Webhook config</span>
-        <Button type="primary" icon={<SearchOutlined />}>
-          Open webhook configs
-        </Button>
-      </Space>
-    </div>
-  </Card>
-);
-    }
+        <Space>
+          <span>Webhook config</span>
+          <Button type="primary" icon={<SearchOutlined />}>
+            Open webhook configs
+          </Button>
+        </Space>
+      </div>
+    </Card>
+  );
+};
 
 export default JsonSettings;

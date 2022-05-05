@@ -1,4 +1,6 @@
-const blankJSON = {
+import { IFireboltJSON } from '@/types/fireboltJSON';
+
+const blankJSON: IFireboltJSON = {
 	"name": "blankJSON",
 	"$schema-version": "1.0.0",
 	"$form-version": "0.0.1",
