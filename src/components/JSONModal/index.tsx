@@ -3,7 +3,7 @@ import { Button } from "antd";
 import ModalContent from "./components/ModalContent";
 import useJSONModal from "./hook";
 
-function JSONModal() {
+function JSONModal({onUploadJSON}) {
   const modalProps = useJSONModal();
   const { showModal } = modalProps;
 

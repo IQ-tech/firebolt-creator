@@ -42,7 +42,7 @@ export type JSONAction =
         field: IField;
       };
     }
-  | { type: "START_BLANK"; payload: any }
+  | { type: "START_BLANK"; payload?: any }
   | { type: "START_WITH_JSON"; payload: IFireboltJSON }
   | { type: "SET_EXPERIENCE_VERSION"; payload: { experienceVersion: string } }
   | {

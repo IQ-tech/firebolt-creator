@@ -1,98 +1,97 @@
-import { useState, useEffect } from 'react'
-import { useFireboltJSON } from "@/hooks/useFireboltJSON"
+import { useState, useEffect } from "react";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 interface IFieldProps {
   propName: string;
-  value: string;
+  value: any;
 }
 
 export default function useAddPropsModal({ field, visibleStep }) {
-  const { currentJSON, dispatch } = useFireboltJSON()
+  const { dispatch } = useFireboltJSON();
 
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const defaultField = {
     propName: "",
     value: "",
-  }
+  };
 
   const [fieldProps, setFieldProps] = useState<IFieldProps[]>(() => {
-    const propsArray: any[] = [];
-
-    for (const [key, value] of Object.entries(field['ui:props'])) {
-      propsArray.push({propName: key, value: value})
-    }
-
-    return propsArray
-  })
-
+    const props = Object.entries(field["ui:props"]);
+    const mappedProps = props.map(([key, value]) => ({
+      propName: key,
+      value,
+    }));
+    return mappedProps;
+  });
   const columns = [
     {
-      title: 'Prop Name',
-      dataIndex: 'propName',
-      key: 'propName',
-      width: 200
+      title: "Prop Name",
+      dataIndex: "propName",
+      key: "propName",
+      width: 200,
     },
     {
-      title: 'Value',
-      dataIndex: 'value',
-      key: 'value',
-      width: 200
+      title: "Value",
+      dataIndex: "value",
+      key: "value",
+      width: 200,
     },
     {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
-      width: 72
-    }
-  ]
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      width: 72,
+    },
+  ];
 
   function showModal() {
     setIsModalVisible(true);
-  };
+  }
 
   function handleOk() {
-    let newField = {...field}
+    const newField = {
+      ...field,
+      ["ui:props"]: fieldProps,
+    };
 
-    newField['ui:props'] = fieldProps
+    const fieldToEditProps = { step: visibleStep.step.slug, field: newField };
 
-    const fieldToEditProps = { step: visibleStep.step.slug, field: newField }
-
-    dispatch({ type: 'EDIT_FIELD_PROPS', payload: fieldToEditProps })
+    dispatch({ type: "EDIT_FIELD_PROPS", payload: fieldToEditProps });
 
     setIsModalVisible(false);
-  };
+  }
 
   function handleCancel() {
     setIsModalVisible(false);
-  };
+  }
 
   function handlePropsData(index: number, name: string, value: string) {
-    const currentFields = [...fieldProps]
+    const currentFields = [...fieldProps];
 
-    currentFields[index][name as keyof IFieldProps] = value
+    currentFields[index][name as keyof IFieldProps] = value;
 
-    setFieldProps(currentFields)
+    setFieldProps(currentFields);
   }
 
   function addNewProp() {
-    const currentFields = [...fieldProps]
+    const currentFields = [...fieldProps];
 
-    currentFields.push(defaultField)
+    currentFields.push(defaultField);
 
-    setFieldProps(currentFields)
+    setFieldProps(currentFields);
   }
 
   function deleteProp(index: number) {
-    const currentFields = [...fieldProps]
+    const currentFields = [...fieldProps];
 
-    currentFields.splice(index, 1)
+    currentFields.splice(index, 1);
 
-    setFieldProps(currentFields)
+    setFieldProps(currentFields);
   }
 
   return {
     isModalVisible,
-    fieldProps, 
+    fieldProps,
     columns,
 
     showModal,
@@ -100,7 +99,6 @@ export default function useAddPropsModal({ field, visibleStep }) {
     handleCancel,
     handlePropsData,
     addNewProp,
-    deleteProp
-  }
-
+    deleteProp,
+  };
 }
