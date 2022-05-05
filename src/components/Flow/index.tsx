@@ -1,19 +1,30 @@
-import React, { useState, useRef, useCallback } from "react";
 import { Card } from "antd";
+import { css } from "@emotion/react";
 import ReactFlow, {
   ReactFlowProvider,
   Controls,
   Background,
 } from "react-flow-renderer";
 import useFlow from "./hook";
-import SideBarFlow from "./components/SideBarFlow";
-import MiniMapFlow from "./components/MiniMapFlow";
-import CustomLineConnection from './components/CustomLineConnection';
+import Sidebar from "./components/Sidebar";
+import MiniMap from "./components/MiniMap";
+import CustomLineConnection from "./components/CustomLineConnection";
 import * as C from "./configsFlow";
-import * as M from "./mocks/mockTracks";
-import * as S from "./styles";
 
-const Flow = ({ currentTracks }: any) => {
+import { IFlow, IStep } from "@/types/fireboltJSON";
+
+export const buttonsSRCStyle = css({
+  marginLeft: "10px",
+  padding: "3px 5px",
+  cursor: "pointer",
+});
+
+export interface IFlowProps {
+  visibleFlow: IFlow;
+  steps: IStep[];
+}
+
+const Flow = ({ visibleFlow, steps }: IFlowProps) => {
   const {
     reactFlowWrapper,
     nodes,
@@ -26,15 +37,25 @@ const Flow = ({ currentTracks }: any) => {
     onDragOver,
     onSave,
     onRestore,
-    onClean
-  } = useFlow();
+    onClean,
+  } = useFlow({ visibleFlow, steps });
 
   return (
-    <Card title={currentTracks?.slug} css={S.styleCard}>
-      <div css={S.mainCard}>
-        <div css={S.styleReactFlow} ref={reactFlowWrapper}>
+    <Card title={visibleFlow.slug} css={{ width: "100%" }}>
+      <div
+        css={{
+          width: "100%",
+          height: `${document.body.clientHeight / 1.45}px`,
+          background: "#FFFFFF",
+          flexDirection: "row",
+          display: "flex",
+          flexGrow: "1",
+        }}
+      >
+        <div css={{ flexGrow: "1" }} ref={reactFlowWrapper}>
           <ReactFlow
             defaultEdgeOptions={C!.edgeOptions}
+            defaultZoom={1}
             connectionLineStyle={C!.connectionLineStyle}
             nodes={nodes}
             onNodesChange={onNodesChange}
@@ -44,34 +65,47 @@ const Flow = ({ currentTracks }: any) => {
             onInit={setReactFlowInstance}
             onDrop={onDrop}
             onDragOver={onDragOver}
-           connectionLineComponent={CustomLineConnection}
-            fitView
+            connectionLineComponent={CustomLineConnection}
           >
             <Controls />
-            <Background color="#aaa" gap={10}  />
-            <MiniMapFlow />
+            <Background color="#aaa" gap={10} />
+            <MiniMap />
 
-            <div css={S.controlsSave}>
-              <button css={S.buttonsSRC} onClick={onSave}>
+            <div
+              css={{
+                position: "absolute",
+                right: "10px",
+                top: "10px",
+                zIndex: 4,
+                fontSize: "12px",
+              }}
+            >
+              <button css={buttonsSRCStyle} onClick={onSave}>
                 Save
               </button>
-              <button css={S.buttonsSRC} onClick={onRestore}>
+              <button css={buttonsSRCStyle} onClick={onRestore}>
                 Restore
               </button>
-              <button css={S.buttonsSRC} onClick={onClean}>
+              <button css={buttonsSRCStyle} onClick={onClean}>
                 Clean
               </button>
             </div>
           </ReactFlow>
         </div>
-        <SideBarFlow stepsTracks={currentTracks?.steps} />
+        <Sidebar steps={steps} />
       </div>
     </Card>
   );
 };
 
-export default ({ currentTracks }) => (
+export default ({
+  visibleFlow,
+  steps,
+}: {
+  visibleFlow: IFlow;
+  steps: IStep[];
+}) => (
   <ReactFlowProvider>
-    <Flow currentTracks={currentTracks} />
+    <Flow steps={steps} visibleFlow={visibleFlow} />
   </ReactFlowProvider>
 );

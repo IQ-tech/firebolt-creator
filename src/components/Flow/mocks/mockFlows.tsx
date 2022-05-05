@@ -1,6 +1,5 @@
-import React from "react";
 
-export const mockTracks = {
+export const mockFlows = {
   slug: "default",
   steps: [
     "personal_data",
@@ -12,5 +11,6 @@ export const mockTracks = {
     "invoice_expiration",
   ],
 };
+
 
 export const optionsFlow = ["default", "alternative"];

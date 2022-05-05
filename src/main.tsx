@@ -13,7 +13,7 @@ ReactDOM.render(
     */}
     {/* using hash router due to github pages problems */}
     <HashRouter>
-      <App />
+        <App />
     </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")

@@ -7,16 +7,16 @@ const MiniMapFlow = () => (
       if (n.style?.background) return n.style.background;
       if (n.type === "input") return "#0041d0";
       if (n.type === "output") return "#ff0072";
-      if (n.type === "default") return "#1a192b";
+      if (n.type === "default") return "black";
 
-      return "#eee";
+      return "#eee3";
     }}
     nodeColor={(n: any) => {
       if (n.style?.background) return n.style.background;
 
-      return "#fff";
+      return "#533554";
     }}
-    nodeBorderRadius={2}
+    nodeBorderRadius={3}
   />
 );
 

@@ -4,18 +4,11 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON"
 
 import { IStep } from '@/types/fireboltJSON'
 
-export default function useStepModal() {
+export default function useEditStepModal({ stepToEdit, slug }) {
   const { currentJSON, dispatch } = useFireboltJSON()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [step, setStep] = useState<IStep>({
-    step: {
-      slug: "",
-      friendlyname: "",
-      type: "form",
-      fields: []
-    }
-  })
+  const [step, setStep] = useState<IStep>(stepToEdit)
 
   function showModal() {
     setIsModalVisible(true)
@@ -25,22 +18,23 @@ export default function useStepModal() {
     setIsModalVisible(false)
   };
 
-  function addNewStep() {
-    const newStep = {
+  function handleConfirmEdition() {
+    const edittedStep = {
       "step": {
 				"slug": step.step.slug,
 				"type": step.step.type,
 				"friendlyname": step.step.friendlyname,
 				"fields": []
-			}
+			},
+      slug: slug
     }
 
-    dispatch({ type: 'ADD_NEW_STEP', payload: newStep });
+    dispatch({ type: 'EDIT_STEP', payload: edittedStep });
 
     setIsModalVisible(false)
   }
 
-  function handleStepData(name: string, value: string) {
+  function handleEditStepData(name: string, value: string) {    
     setStep((prevState) => {
       return {
         ...prevState,
@@ -57,9 +51,9 @@ export default function useStepModal() {
     step, 
     
     showModal,
-    addNewStep,
+    handleEditStepData,
+    handleConfirmEdition,
     handleCancel,
-    handleStepData
   }
 
 }

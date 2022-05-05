@@ -17,7 +17,3 @@ export const menuContentStyles = css({
   width: "240px",
   height: `${document.body.clientHeight}px`,
 });
-
-export const addLinkStyles = (theme) =>
-  css({ color: theme?.colors?.["blue-cyan"]
-});

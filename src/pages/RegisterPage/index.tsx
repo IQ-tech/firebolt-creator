@@ -1,54 +1,77 @@
-import { Link } from 'react-router-dom';
-import { Button, Space, Typography } from 'antd';
-import BigFireboltLogo from '@/components/common/icons/bigFireboltLogo';
-import GlobalIocn from '@/components/common/icons/globalIcon';
-import GithubIcon from '@/components/common/icons/githubIcon';
-import JSONModal from '@/components/JSONModal';
-
-import * as S from './styles'
+import { Link } from "react-router-dom";
+import { css } from "@emotion/react";
+import { Button, Space, Typography } from "antd";
+import BigFireboltLogo from "@/components/common/icons/bigFireboltLogo";
+import GlobalIocn from "@/components/common/icons/globalIcon";
+import GithubIcon from "@/components/common/icons/githubIcon";
+import JSONModal from "@/components/JSONModal";
+import useRegisterPage from "./hook"
 
 const { Text } = Typography;
 
+export const globalIconStyles = css({
+  minWidth: "100vw",
+  display: "flex",
+  justifyContent: "flex-end",
+  paddingTop: "16px",
+  paddingRight: "23px",
+});
+
 const RegisterPage = () => {
-  return(
+  const {handleCreateForm, handleUploadJSON} = useRegisterPage()
+  return (
     <Space
       align="center"
-      direction="vertical"          
-      css={S.contentStyles}
+      direction="vertical"
+      css={(theme) => ({
+        backgroundColor: theme?.colors?.["grey"],
+        backgroundImage:
+          "url('../components/common/icons/backgroundRegisterPage.png')",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+      })}
     >
-      <a  
-        css={S.globalIconStyles}
+      <a
+        css={globalIconStyles}
         href="https://iq-tech.github.io/firebolt-docs/en/introduction/"
         target="_blank"
         rel="noopener noreferrer"
       >
         <GlobalIocn />
       </a>
-      <Space 
+      <Space
         align="center"
-        direction="vertical"  
-        css={S.bigLogoStyles}
+        direction="vertical"
+        css={{ paddingTop: "230px" }}
         size="large"
       >
         <BigFireboltLogo />
-        <Text type="secondary">Firebolt is a multistep form experiences creator</Text>
+        <Text type="secondary">
+          Firebolt is a multistep form experiences creator
+        </Text>
       </Space>
-      <Space size="large" css={S.contentButtonsStyles}>
-        <Link to="/app/editor/main">
-          <Button css={S.buttonsStyles} type="primary" size="large"> Create Form </Button>
-        </Link>
-       <JSONModal />
+      <Space size="large" css={{ paddingTop: "97px" }}>
+       
+          <Button onClick={handleCreateForm} css={{ width: "172.27px" }} type="primary" size="large">
+            {" "}
+            Create Form{" "}
+          </Button>
+        
+        <JSONModal onUploadJSON={handleUploadJSON} />
       </Space>
-      <Space align="center" direction="vertical" css={S.footerStyles}>
+      <Space align="center" direction="vertical" css={{ paddingTop: "300px" }}>
         <Space size="large">
           <Text type="secondary">Firebolt</Text>
           <GithubIcon />
           <Text type="secondary">iq tech</Text>
         </Space>
-        <p css={S.copyrightStyles}>Copyright ©2022 Produced by iq tech team</p>      
+        <p css={{ color: "rgba(0, 0, 0, 0.25)" }}>
+          Copyright ©2022 Produced by iq tech team
+        </p>
       </Space>
     </Space>
-  )
-}
+  );
+};
 
-export default RegisterPage
+export default RegisterPage;

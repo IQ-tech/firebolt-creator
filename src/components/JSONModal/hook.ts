@@ -2,7 +2,6 @@
 import AJV from 'ajv';
 import { useState } from 'react';
 
-
 import { JSONSchema } from "./schema"
 
 interface IHandleEditor { 
@@ -31,15 +30,13 @@ export default function useJSONModal() {
     setDisableButton(true)
   };
 
-  const handleUpload = (event: object) => {
-    {/* @ts-ignore */}
-    const [ file ] : [ object ] = event?.fileList
+  const handleUpload = (event) => {
+  
+    const [ file ] = event?.fileList
     const reader = new FileReader();
     
-    {/* @ts-ignore */}
     reader.readAsText(file?.originFileObj);
 
-    {/* @ts-ignore */}
     setJson(event?.fileList)
     setJsonError('')
     

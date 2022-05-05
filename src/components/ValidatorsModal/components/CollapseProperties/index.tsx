@@ -15,7 +15,7 @@ interface ICollapseProperties {
 
 const CollapseProperties = ({ data, remove } : ICollapseProperties) => {
 	function handleChangeInput(value : any) {
-	  console.log(`selected ${value}`);
+	 // console.log(`selected ${value}`);
 	}
 
 

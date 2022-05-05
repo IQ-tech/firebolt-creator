@@ -1,37 +1,37 @@
 import { Modal, Button, Input, Select, Menu } from 'antd'
 import { PlusOutlined } from "@ant-design/icons"
 
-import useStepModal from './hook'
+import useEditStepModal from './hook'
 
 import * as S from "./styles"
 
-function ModalEditStep() {
+function EditStepModal({ key, stepToEdit, slug }) {
   const { Option } = Select
   const { 
     isModalVisible,
     step, 
-    
+
     showModal,
     
-    addNewStep,
+    handleEditStepData,
+    handleConfirmEdition,
     handleCancel,
-    handleStepData
-  } = useStepModal()
+  } = useEditStepModal({ stepToEdit, slug })
 
   return (
     <>
-      <Menu.Item css={S.addLinkStyles} key="add" icon={<PlusOutlined />} onClick={showModal}>
-        Add
+      <Menu.Item key={key} onClick={showModal}>
+        Edit
       </Menu.Item>
 
-      <Modal title="Create/Edit Step" visible={isModalVisible} onOk={addNewStep} onCancel={handleCancel}>
+      <Modal title="Create/Edit Step" visible={isModalVisible} onOk={handleConfirmEdition} onCancel={handleCancel}>
         <div className="flex">
           <div className="label__input">
             <label>Slug</label>
             <Input 
               placeholder="Basic info" 
               value={step.step.slug} 
-              onChange={(e) => handleStepData("slug", e.currentTarget.value)}
+              onChange={(e) => handleEditStepData("slug", e.currentTarget.value)}
             />
           </div>
 
@@ -40,14 +40,14 @@ function ModalEditStep() {
             <Input 
               placeholder="Tell me some basic info" 
               value={step.step.friendlyname}
-              onChange={(e) => handleStepData("friendlyname", e.currentTarget.value)}
+              onChange={(e) => handleEditStepData("friendlyname", e.currentTarget.value)}
             />
           </div>
         </div>
 
         <div className="column label__select">
           <label>Type</label>
-          <Select style={{ width: '100%' }} value={step.step.type} onSelect={(value: string) => handleStepData("type", value)}>
+          <Select style={{ width: '100%' }} value={step.step.type} onSelect={(value: string) => handleEditStepData("type", value)}>
             <Option value="form">Form</Option>
             <Option value="custom">Custom</Option>
           </Select>
@@ -57,4 +57,4 @@ function ModalEditStep() {
   )
 }
 
-export default ModalEditStep
+export default EditStepModal

@@ -8,8 +8,8 @@ const EditorPage = () => {
   return (
     <>
       <StepModal />
-      <AddPropsModal />
-      <ValidatorsModal />
+      {/* <AddPropsModal />
+      <ValidatorsModal /> */}
     </>
   )
 }
