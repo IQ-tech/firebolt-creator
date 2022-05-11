@@ -88,6 +88,9 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
     case "START_BLANK": {
       return blankJSON;
     }
+    case "START_WITH_JSON": {
+      return payload;
+    }
     case "ADD_FLOW": {
       return {
         ...state,

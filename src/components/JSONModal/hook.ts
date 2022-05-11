@@ -1,96 +1,77 @@
-{/* @ts-ignore */}
-import AJV from 'ajv';
-import { useState } from 'react';
+import { IFireboltJSON } from "@/types/fireboltJSON";
+import AJV from "ajv";
+import {  useState } from "react";
 
-import { JSONSchema } from "./schema"
+import { JSONSchema } from "./schema";
 
-interface IHandleEditor { 
-  error: object;
-  json: object;
-  plainText: string;
-}
-
-export default function useJSONModal() {
-  const [ json, setJson ] = useState({})
-  const [ jsonError, setJsonError ] = useState('')
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [disableButton, setDisableButton] = useState(true)
-
-  function showModal() {
-    setIsModalVisible(true);
-  };
-
-  function handleOk() {
-    setIsModalVisible(false);
-  };
+export default function useJSONModal({ onCloseModal, onOpenModal, onUploadJSON }) {
+  const [json, setJson] = useState<IFireboltJSON>({} as IFireboltJSON);
+  const [jsonError, setJsonError] = useState("");
+  const [disableButton, setDisableButton] = useState(true);
 
   function handleCancel() {
-    setIsModalVisible(false);
-    setJson([])
-    setDisableButton(true)
-  };
+    onCloseModal();
+    setJson({} as IFireboltJSON);
+    setDisableButton(true);
+  }
 
   const handleUpload = (event) => {
-  
-    const [ file ] = event?.fileList
+    const [file] = event?.fileList;
     const reader = new FileReader();
-    
+
     reader.readAsText(file?.originFileObj);
 
-    setJson(event?.fileList)
-    setJsonError('')
-    
+    setJson(event?.fileList);
+    setJsonError("");
+
     setTimeout(() => {
       if (reader.result) {
-        validateJSON(reader.result)
+        validateJSON(reader.result);
       }
-    }, 10)
-  }
- 
+    }, 10);
+  };
 
-  const handleEditor = ({ error, json, plainText } : IHandleEditor) => {
-    const jsonValue = json ? json : plainText
-    
-    setJson(jsonValue)
-    setJsonError('')
+  const handleEditor = ({ jsObject, json, error }) => {
+    setJson(jsObject);
+    setJsonError("");
 
-    if (!error && json)
-      validateJSON(json)
-  }
-  
-  const validateJSON = (json : string|object) => {
-    const jsonValidator = new AJV()
-    const validate = jsonValidator.compile(JSONSchema)
+    if (!error && json) validateJSON(json);
+  };
 
-    const uploadedJSON = typeof json === "string" ?  JSON.parse(json) : json
-    const isValid = validate(uploadedJSON)
-    
-    setDisableButton(!isValid)
+  const validateJSON = (json: string | object) => {
+    const jsonValidator = new AJV();
+    const validate = jsonValidator.compile(JSONSchema);
+
+    const uploadedJSON = typeof json === "string" ? JSON.parse(json) : json;
+    const isValid = validate(uploadedJSON);
+
+    setDisableButton(!isValid);
 
     if (!isValid) {
-      const errors = validate.errors || []
+      const errors = validate.errors || [];
       errors.map((error) => {
-        setJsonError(`${error.instancePath} ${error.message}`)
-      })
+        setJsonError(`${error.instancePath} ${error.message}`);
+      });
     }
-  }
+  };
 
   function handleTabChange(): void {
-    setJson([])
-    setJsonError('')
+    setJson({} as IFireboltJSON);
+    setJsonError("");
+  }
+
+  function handleOk(){
+    onUploadJSON(json)
   }
 
   return {
     json,
     jsonError,
-    isModalVisible,
     disableButton,
-    showModal,
-    handleOk,
     handleCancel,
     handleUpload,
     handleEditor,
-    handleTabChange
-  }
-
+    handleTabChange,
+    handleOk
+  };
 }

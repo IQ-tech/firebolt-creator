@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
 import { css } from "@emotion/react";
 import { Button, Space, Typography } from "antd";
 import BigFireboltLogo from "@/components/common/icons/bigFireboltLogo";
 import GlobalIocn from "@/components/common/icons/globalIcon";
 import GithubIcon from "@/components/common/icons/githubIcon";
 import JSONModal from "@/components/JSONModal";
-import useRegisterPage from "./hook"
+import useRegisterPage from "./hook";
 
 const { Text } = Typography;
 
@@ -18,7 +17,15 @@ export const globalIconStyles = css({
 });
 
 const RegisterPage = () => {
-  const {handleCreateForm, handleUploadJSON} = useRegisterPage()
+  const {
+    handleCreateForm,
+    handleUploadJSON,
+    currentYear,
+    isModalVisible,
+    showModal,
+    hideModal,
+  } = useRegisterPage();
+
   return (
     <Space
       align="center"
@@ -52,13 +59,29 @@ const RegisterPage = () => {
         </Text>
       </Space>
       <Space size="large" css={{ paddingTop: "97px" }}>
-       
-          <Button onClick={handleCreateForm} css={{ width: "172.27px" }} type="primary" size="large">
-            {" "}
-            Create Form{" "}
-          </Button>
-        
-        <JSONModal onUploadJSON={handleUploadJSON} />
+        <Button
+          onClick={handleCreateForm}
+          css={{ width: "172.27px" }}
+          type="primary"
+          size="large"
+        >
+          {" "}
+          Create Form{" "}
+        </Button>
+        <Button
+          css={{ width: "172px" }}
+          type="link"
+          size="large"
+          onClick={showModal}
+        >
+          Load JSON Schema
+        </Button>
+        <JSONModal
+          isModalOpen={isModalVisible}
+          onOpenModal={showModal}
+          onCloseModal={hideModal}
+          onUploadJSON={handleUploadJSON}
+        />
       </Space>
       <Space align="center" direction="vertical" css={{ paddingTop: "300px" }}>
         <Space size="large">
@@ -67,7 +90,7 @@ const RegisterPage = () => {
           <Text type="secondary">iq tech</Text>
         </Space>
         <p css={{ color: "rgba(0, 0, 0, 0.25)" }}>
-          Copyright ©2022 Produced by iq tech team
+          Copyright ©{currentYear} Produced by iq tech team
         </p>
       </Space>
     </Space>
