@@ -17,7 +17,7 @@ export type JSONAction =
   | {
       type: "DELETE_FIELD";
       payload: {
-        step: string;
+        stepSlug: string;
         field: string;
       };
     }
@@ -194,6 +194,32 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
       return {
         ...state,
         steps: newCurrentSteps,
+      };
+    }
+    case "DELETE_FIELD": {
+      const currentSteps = state?.steps;
+      const stepToModify = currentSteps.find(
+        (step) => step?.step?.slug === payload?.stepSlug
+      );
+      const newStepFields = stepToModify?.step?.fields?.filter(
+        (field) => field?.slug !== payload.field
+      ) as IField[];
+
+      const newStep: IStep = {
+        step: {
+          ...stepToModify!.step,
+          fields: newStepFields,
+        },
+      };
+
+      const newSteps = state.steps.map((step) => {
+        if (step.step.slug === newStep.step.slug) return newStep;
+        return step;
+      });
+
+      return {
+        ...state,
+        steps: newSteps,
       };
     }
     case "EDIT_FIELD_STYLES": {

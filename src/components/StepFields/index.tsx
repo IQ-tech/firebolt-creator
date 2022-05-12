@@ -39,7 +39,7 @@ const StepFields = ({ visibleStep }) => {
       <Collapse defaultActiveKey={[]} css={S.widthStyles}>
         {stepFields.map((field) => (
           <Panel
-            header={field["ui:props"]?.label}
+            header={field.slug}
             key={field.slug}
             extra={
               <button

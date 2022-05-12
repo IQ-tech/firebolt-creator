@@ -7,7 +7,7 @@ import ValidatorsModal from '../components/ValidatorsModal'
 const EditorPage = () => {
   return (
     <>
-      <StepModal />
+      {/* <StepModal /> */}
       {/* <AddPropsModal />
       <ValidatorsModal /> */}
     </>
