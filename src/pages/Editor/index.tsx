@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
-import BreadcrumbComponent from "@/components/Breadcrumb";
-import { Layout, PageHeader, Button, Tabs } from "antd";
+import { PageHeader, Button, Tabs } from "antd";
 import {
   HomeOutlined,
   SisternodeOutlined,
@@ -8,10 +7,10 @@ import {
   DownloadOutlined,
 } from "@ant-design/icons";
 
+import BreadcrumbComponent from "@/components/Breadcrumb";
 import downloadJSONFile from "@/helpers/downloadJSON";
 
 import useEditor from "./hook";
-import mockJSON from "./mockJson";
 
 const { TabPane } = Tabs;
 
@@ -56,7 +55,7 @@ const EditorPage = () => {
             <p
               css={{
                 padding: "4px 8px",
-                border:"1px solid transparent",
+                border: "1px solid transparent",
                 ":hover": { border: "solid 1px #1890ff" },
               }}
               contentEditable

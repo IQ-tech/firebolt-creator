@@ -13,6 +13,7 @@ import JsonSchema from "@/pages/Editor/JSONTab";
 
 import "antd/dist/antd.css";
 import "iq-blueberry/dist/styles.css";
+import '@iq-firebolt/client/dist/main.css'
 
 
 function App() {
