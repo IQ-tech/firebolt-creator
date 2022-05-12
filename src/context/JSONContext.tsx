@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import { IFireboltJSON, IStep } from "@/types/fireboltJSON";
 
-import { JSONAction } from "./reducer";
+import { JSONAction } from "./hook/reducer";
 import useJSONContext from "./hook";
 
 interface IJSONProviderValues {

@@ -2,7 +2,7 @@ import { useState, useReducer, useEffect } from "react";
 import { IStep } from "@/types/fireboltJSON";
 import blankJSON from "../blankJSONBoilerplate";
 
-import reducer from "../reducer";
+import reducer from "./reducer";
 
 export default function useJSONContext() {
   const [currentJSON, dispatch] = useReducer(reducer, blankJSON);

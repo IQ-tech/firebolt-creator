@@ -1,5 +1,5 @@
 import { IFireboltJSON, IStep, IField } from "@/types/fireboltJSON";
-import blankJSON from "./blankJSONBoilerplate";
+import blankJSON from "../blankJSONBoilerplate";
 
 export type JSONAction =
   | {
