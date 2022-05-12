@@ -13,6 +13,8 @@ const MainTab = () => {
     isAddStepModalOpen,
     openAddStepModal,
     closeAddStepModal,
+    openEditStepModal,
+    editingStep,
   } = useMainTab();
   return (
     <Layout
@@ -23,6 +25,7 @@ const MainTab = () => {
     >
       <StepsSidebar
         onOpenAddStep={openAddStepModal}
+        openEditStep={openEditStepModal}
         visibleStep={visibleStep}
         setVisibleStep={setVisibleStep}
       />
@@ -31,6 +34,7 @@ const MainTab = () => {
       <StepModal
         isModalVisible={isAddStepModalOpen}
         onCloseModal={closeAddStepModal}
+        editingStep={editingStep}
       />
     </Layout>
   );

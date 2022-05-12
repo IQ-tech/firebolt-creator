@@ -2,11 +2,15 @@ import { Menu, Divider } from "antd";
 import { FormOutlined, PlusOutlined } from "@ant-design/icons";
 
 import useMainSidebar from "./hook";
-import EditStepModal from "../EditStepModal";
 
 const { SubMenu } = Menu;
 
-const StepFields = ({ setVisibleStep, visibleStep, onOpenAddStep }) => {
+const StepFields = ({
+  setVisibleStep,
+  visibleStep,
+  onOpenAddStep,
+  openEditStep,
+}) => {
   const { steps, handleVisibleStep, handleDeleteStep } = useMainSidebar({
     setVisibleStep,
   });
@@ -46,11 +50,12 @@ const StepFields = ({ setVisibleStep, visibleStep, onOpenAddStep }) => {
             >
               Remove
             </Menu.Item>
-            <EditStepModal
+            <Menu.Item
               key={`${step.step.slug}-edit`}
-              stepToEdit={step}
-              slug={step.step.slug}
-            />
+              onClick={() => openEditStep(step)}
+            >
+              Edit
+            </Menu.Item>
           </SubMenu>
         ))}
         <Menu.Item

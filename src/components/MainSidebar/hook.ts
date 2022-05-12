@@ -4,7 +4,6 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 export default function useMainSidebar({ setVisibleStep }) {
   const { currentJSON, dispatch } = useFireboltJSON();
-
   const [steps, setSteps] = useState(handleSteps);
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export default function useMainSidebar({ setVisibleStep }) {
 
   return {
     steps,
-
     handleVisibleStep,
     handleDeleteStep,
   };

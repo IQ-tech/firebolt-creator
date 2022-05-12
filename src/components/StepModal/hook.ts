@@ -1,19 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 import { IStep } from "@/types/fireboltJSON";
 
-export default function useStepModal({ onCloseModal }) {
+const emptyStep = {
+  step: {
+    slug: "",
+    friendlyname: "",
+    type: "form",
+    fields: [],
+  },
+};
+
+export default function useStepModal({ onCloseModal, editingStep }) {
   const { dispatch } = useFireboltJSON();
-  const [step, setStep] = useState<IStep>({
-    step: {
-      slug: "",
-      friendlyname: "",
-      type: "form",
-      fields: [],
-    },
-  });
+  const [step, setStep] = useState<IStep>(emptyStep);
+
+  useEffect(() => {
+    if (editingStep) {
+      setStep(editingStep);
+    }
+  }, [editingStep]);
+
+  const modalTitle = !!editingStep
+    ? `Edit step - ${editingStep.step.friendlyname}`
+    : "Create step";
 
   function handleCancel() {
     onCloseModal();
@@ -21,17 +33,25 @@ export default function useStepModal({ onCloseModal }) {
 
   function addNewStep() {
     const newStep = {
-      step: {
-        slug: step.step.slug,
-        type: step.step.type,
-        friendlyname: step.step.friendlyname,
-        fields: [],
-      },
+      slug: step.step.slug,
+      type: step.step.type,
+      friendlyname: step.step.friendlyname,
+      fields: [],
     };
 
-    dispatch({ type: "ADD_NEW_STEP", payload: newStep });
+    if (editingStep) {
+      dispatch({
+        type: "EDIT_STEP",
+        payload: {
+          slug: editingStep.step.slug,
+          step: newStep,
+        },
+      });
+    } else {
+      dispatch({ type: "ADD_NEW_STEP", payload: { step: newStep } });
+    }
 
-    onCloseModal()
+    onCloseModal();
   }
 
   function handleStepData(name: string, value: string) {
@@ -51,5 +71,6 @@ export default function useStepModal({ onCloseModal }) {
     addNewStep,
     handleCancel,
     handleStepData,
+    modalTitle,
   };
 }

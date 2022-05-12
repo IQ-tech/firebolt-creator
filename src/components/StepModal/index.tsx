@@ -1,16 +1,25 @@
+import { IStep } from "@/types/fireboltJSON";
 import { Modal, Input, Select } from "antd";
 
 import useStepModal from "./hook";
 
-function ModalEditStep({ onCloseModal, isModalVisible }) {
+interface IModalStep {
+  editingStep?: IStep;
+  isModalVisible: boolean;
+  onCloseModal(...args: any[]): void;
+}
+
+function ModalStep({ onCloseModal, isModalVisible, editingStep }: IModalStep) {
   const { Option } = Select;
-  const { step, addNewStep, handleCancel, handleStepData } = useStepModal({
-    onCloseModal,
-  });
+  const { step, addNewStep, handleCancel, handleStepData, modalTitle } =
+    useStepModal({
+      onCloseModal,
+      editingStep,
+    });
 
   return (
     <Modal
-      title="Create/Edit Step"
+      title={modalTitle}
       visible={isModalVisible}
       onOk={addNewStep}
       onCancel={handleCancel}
@@ -52,4 +61,4 @@ function ModalEditStep({ onCloseModal, isModalVisible }) {
   );
 }
 
-export default ModalEditStep;
+export default ModalStep;
