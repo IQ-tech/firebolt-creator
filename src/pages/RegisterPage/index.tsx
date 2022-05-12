@@ -78,7 +78,6 @@ const RegisterPage = () => {
         </Button>
         <JSONModal
           isModalOpen={isModalVisible}
-          onOpenModal={showModal}
           onCloseModal={hideModal}
           onUploadJSON={handleUploadJSON}
         />

@@ -5,16 +5,8 @@ import { HashRouter } from "react-router-dom";
 import App from "./App";
 
 ReactDOM.render(
-  <React.StrictMode>
-    {/* 
-    <BrowserRouter basename="/firebolt-creator">
-      <App />
-    </BrowserRouter> 
-    */}
-    {/* using hash router due to github pages problems */}
-    <HashRouter>
-        <App />
-    </HashRouter>
-  </React.StrictMode>,
+  <HashRouter>
+    <App />
+  </HashRouter>,
   document.getElementById("root")
 );

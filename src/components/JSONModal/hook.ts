@@ -1,10 +1,10 @@
 import { IFireboltJSON } from "@/types/fireboltJSON";
 import AJV from "ajv";
-import {  useState } from "react";
+import { useState } from "react";
 
 import { JSONSchema } from "./schema";
 
-export default function useJSONModal({ onCloseModal, onOpenModal, onUploadJSON }) {
+export default function useJSONModal({ onCloseModal, onUploadJSON }) {
   const [json, setJson] = useState<IFireboltJSON>({} as IFireboltJSON);
   const [jsonError, setJsonError] = useState("");
   const [disableButton, setDisableButton] = useState(true);
@@ -16,19 +16,17 @@ export default function useJSONModal({ onCloseModal, onOpenModal, onUploadJSON }
   }
 
   const handleUpload = (event) => {
-    const [file] = event?.fileList;
+    const file = event?.file?.originFileObj;
     const reader = new FileReader();
+    reader.readAsText(file);
+    reader.addEventListener("load", () => {
+      const safeResult = (reader.result as string) || "";
+      const parsedResult = JSON.parse(safeResult);
 
-    reader.readAsText(file?.originFileObj);
-
-    setJson(event?.fileList);
-    setJsonError("");
-
-    setTimeout(() => {
-      if (reader.result) {
-        validateJSON(reader.result);
-      }
-    }, 10);
+      setJson(parsedResult);
+      setJsonError("");
+      validateJSON(safeResult);
+    });
   };
 
   const handleEditor = ({ jsObject, json, error }) => {
@@ -60,8 +58,8 @@ export default function useJSONModal({ onCloseModal, onOpenModal, onUploadJSON }
     setJsonError("");
   }
 
-  function handleOk(){
-    onUploadJSON(json)
+  function handleOk() {
+    onUploadJSON(json);
   }
 
   return {
@@ -72,6 +70,6 @@ export default function useJSONModal({ onCloseModal, onOpenModal, onUploadJSON }
     handleUpload,
     handleEditor,
     handleTabChange,
-    handleOk
+    handleOk,
   };
 }

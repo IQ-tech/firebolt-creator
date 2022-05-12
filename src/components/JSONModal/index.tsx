@@ -9,7 +9,6 @@ const { TabPane } = Tabs;
 
 interface JSONModalProps {
   isModalOpen: boolean;
-  onOpenModal(...args: any[]): void;
   onCloseModal(...args: any[]): void;
   onUploadJSON(addedJSON: IFireboltJSON): void;
 }
@@ -17,7 +16,6 @@ interface JSONModalProps {
 function JSONModal({
   onUploadJSON,
   onCloseModal,
-  onOpenModal,
   isModalOpen,
 }: JSONModalProps) {
   const {
@@ -30,7 +28,6 @@ function JSONModal({
     handleOk,
   } = useJSONModal({
     onCloseModal,
-    onOpenModal,
     onUploadJSON,
   });
 
