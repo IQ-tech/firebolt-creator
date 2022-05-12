@@ -9,7 +9,7 @@ const { Option } = Select;
 const themesMap = {
   blueberry: BlueberryTheme,
   material: MaterialTheme,
-  emptyTheme: {}
+  emptyTheme: {},
 };
 
 const MainPreview = ({ visibleStep }) => {
@@ -31,6 +31,7 @@ const MainPreview = ({ visibleStep }) => {
         }
       >
         <FireboltForm
+          customActionsChild={() => <></>}
           theme={themesMap[usedTheme]}
           schema={visibleStep.step.fields}
         />

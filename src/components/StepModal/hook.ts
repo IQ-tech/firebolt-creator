@@ -1,43 +1,37 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-import { useFireboltJSON } from "@/hooks/useFireboltJSON"
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
-import { IStep } from '@/types/fireboltJSON'
+import { IStep } from "@/types/fireboltJSON";
 
-export default function useStepModal() {
-  const { currentJSON, dispatch } = useFireboltJSON()
-
-  const [isModalVisible, setIsModalVisible] = useState(false)
+export default function useStepModal({ onCloseModal }) {
+  const { dispatch } = useFireboltJSON();
   const [step, setStep] = useState<IStep>({
     step: {
       slug: "",
       friendlyname: "",
       type: "form",
-      fields: []
-    }
-  })
-
-  function showModal() {
-    setIsModalVisible(true)
-  };
+      fields: [],
+    },
+  });
 
   function handleCancel() {
-    setIsModalVisible(false)
-  };
+    onCloseModal();
+  }
 
   function addNewStep() {
     const newStep = {
-      "step": {
-				"slug": step.step.slug,
-				"type": step.step.type,
-				"friendlyname": step.step.friendlyname,
-				"fields": []
-			}
-    }
+      step: {
+        slug: step.step.slug,
+        type: step.step.type,
+        friendlyname: step.step.friendlyname,
+        fields: [],
+      },
+    };
 
-    dispatch({ type: 'ADD_NEW_STEP', payload: newStep });
+    dispatch({ type: "ADD_NEW_STEP", payload: newStep });
 
-    setIsModalVisible(false)
+    onCloseModal()
   }
 
   function handleStepData(name: string, value: string) {
@@ -46,20 +40,16 @@ export default function useStepModal() {
         ...prevState,
         step: {
           ...prevState.step,
-          [name]: value
-        }
-      }
-    })
+          [name]: value,
+        },
+      };
+    });
   }
 
   return {
-    isModalVisible,
-    step, 
-    
-    showModal,
+    step,
     addNewStep,
     handleCancel,
-    handleStepData
-  }
-
+    handleStepData,
+  };
 }

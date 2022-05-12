@@ -2,17 +2,18 @@ import { Layout } from "antd";
 import StepsSidebar from "@/components/MainSidebar";
 import StepFields from "@/components/StepFields";
 import MainPreview from "@/components/MainPreview";
+import StepModal from "@/components/StepModal";
 
-// import StepModal from '@/components/StepModal'
-// import AddPropsModal from '@/components/AddPropsModal'
+import useMainTab from "./hook";
 
-// <StepModal />
-// <AddPropsModal />
-
-import { useFireboltJSON } from '@/hooks/useFireboltJSON'
-
-const MainPage = () => {
-  const { visibleStep, setVisibleStep } = useFireboltJSON()
+const MainTab = () => {
+  const {
+    visibleStep,
+    setVisibleStep,
+    isAddStepModalOpen,
+    openAddStepModal,
+    closeAddStepModal,
+  } = useMainTab();
   return (
     <Layout
       css={{
@@ -20,11 +21,19 @@ const MainPage = () => {
         width: "100%",
       }}
     >
-      <StepsSidebar setVisibleStep={setVisibleStep} />
+      <StepsSidebar
+        onOpenAddStep={openAddStepModal}
+        visibleStep={visibleStep}
+        setVisibleStep={setVisibleStep}
+      />
       <StepFields visibleStep={visibleStep} />
       <MainPreview visibleStep={visibleStep} />
+      <StepModal
+        isModalVisible={isAddStepModalOpen}
+        onCloseModal={closeAddStepModal}
+      />
     </Layout>
   );
 };
 
-export default MainPage;
+export default MainTab;
