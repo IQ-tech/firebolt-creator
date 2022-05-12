@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import slugify from "slugify";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 import { IStep } from "@/types/fireboltJSON";
@@ -33,7 +33,7 @@ export default function useStepModal({ onCloseModal, editingStep }) {
 
   function addNewStep() {
     const newStep = {
-      slug: step.step.slug,
+      slug: slugify(step.step.slug),
       type: step.step.type,
       friendlyname: step.step.friendlyname,
       fields: [],

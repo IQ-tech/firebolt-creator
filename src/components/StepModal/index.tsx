@@ -28,7 +28,7 @@ function ModalStep({ onCloseModal, isModalVisible, editingStep }: IModalStep) {
         <div className="label__input">
           <label>Slug</label>
           <Input
-            placeholder="Basic info"
+            placeholder="personal_data"
             value={step.step.slug}
             onChange={(e) => handleStepData("slug", e.currentTarget.value)}
           />
@@ -37,7 +37,7 @@ function ModalStep({ onCloseModal, isModalVisible, editingStep }: IModalStep) {
         <div className="label__input">
           <label>Friendly Name</label>
           <Input
-            placeholder="Tell me some basic info"
+            placeholder="Personal data"
             value={step.step.friendlyname}
             onChange={(e) =>
               handleStepData("friendlyname", e.currentTarget.value)
