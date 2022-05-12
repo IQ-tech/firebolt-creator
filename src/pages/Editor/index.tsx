@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { PageHeader, Button, Tabs } from "antd";
+import { PageHeader, Button, Tabs, Dropdown, Menu } from "antd";
 import {
   HomeOutlined,
   SisternodeOutlined,
   FileOutlined,
   DownloadOutlined,
+  MoreOutlined,
+  RollbackOutlined,
 } from "@ant-design/icons";
 
 import BreadcrumbComponent from "@/components/Breadcrumb";
@@ -70,15 +72,31 @@ const EditorPage = () => {
               {currentJSON?.business}
             </p>
           }
-          extra={
+          extra={[
             <Button
               key="1"
               type="primary"
               onClick={() => downloadJSONFile(currentJSON, currentJSON?.name)}
             >
               <DownloadOutlined /> Export form JSON
-            </Button>
-          }
+            </Button>,
+            <Dropdown
+              key="more"
+              overlay={
+                <Menu>
+                  <Menu.Item icon={<RollbackOutlined />} key={`undo-button`}>
+                    undo
+                  </Menu.Item>
+                </Menu>
+              }
+              placement="bottomRight"
+            >
+              <Button
+                type="text"
+                icon={<MoreOutlined style={{ fontSize: 20 }} />}
+              />
+            </Dropdown>,
+          ]}
         >
           <Tabs activeKey={location.pathname} onTabClick={tabsCallback}>
             {tabs.map(({ path, Icon, label }) => (
