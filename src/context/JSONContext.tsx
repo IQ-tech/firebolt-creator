@@ -9,13 +9,21 @@ interface IJSONProviderValues {
   dispatch: React.Dispatch<JSONAction>;
   visibleStep: IStep;
   setVisibleStep(step: IStep): void;
+  undoChange(): void;
+  redoChange(): void;
 }
 
 export const JSONContext = createContext({} as IJSONProviderValues);
 
 export function JSONProvider({ children }) {
-  const { currentJSON, dispatch, visibleStep, setVisibleStep } =
-    useJSONContext();
+  const {
+    currentJSON,
+    dispatch,
+    visibleStep,
+    setVisibleStep,
+    undoChange,
+    redoChange,
+  } = useJSONContext();
 
   return (
     <JSONContext.Provider
@@ -24,6 +32,8 @@ export function JSONProvider({ children }) {
         dispatch,
         visibleStep,
         setVisibleStep,
+        undoChange,
+        redoChange,
       }}
     >
       {children}

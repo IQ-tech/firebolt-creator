@@ -3,6 +3,7 @@ import { IStep } from "@/types/fireboltJSON";
 import blankJSON from "../blankJSONBoilerplate";
 
 import reducer from "./reducer";
+import useHistory from "./useHistory";
 
 export default function useJSONContext() {
   const [currentJSON, dispatch] = useReducer(reducer, blankJSON);
@@ -12,6 +13,8 @@ export default function useJSONContext() {
   const [visibleStepSlug, setVisibleStepSlug] = useState<string>(
     currentJSON?.steps[0]?.step?.slug
   );
+
+  const { undoChange, redoChange } = useHistory({ currentJSON, dispatch });
 
   useEffect(() => {
     const stepData = currentJSON.steps.find(
@@ -32,5 +35,7 @@ export default function useJSONContext() {
     dispatch,
     visibleStep: visibleStepState,
     setVisibleStep,
+    undoChange,
+    redoChange,
   };
 }

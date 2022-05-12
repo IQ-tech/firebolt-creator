@@ -6,7 +6,8 @@ import {
   FileOutlined,
   DownloadOutlined,
   MoreOutlined,
-  RollbackOutlined,
+  UndoOutlined,
+  RedoOutlined,
 } from "@ant-design/icons";
 
 import BreadcrumbComponent from "@/components/Breadcrumb";
@@ -84,8 +85,11 @@ const EditorPage = () => {
               key="more"
               overlay={
                 <Menu>
-                  <Menu.Item icon={<RollbackOutlined />} key={`undo-button`}>
-                    undo
+                  <Menu.Item icon={<UndoOutlined />} key={`undo-button`}>
+                    Undo
+                  </Menu.Item>
+                  <Menu.Item icon={<RedoOutlined />} key={`redo-button`}>
+                    Redo
                   </Menu.Item>
                 </Menu>
               }
