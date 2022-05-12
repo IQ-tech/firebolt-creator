@@ -25,7 +25,7 @@ const StepFields = ({ visibleStep }) => {
 
   return (
     <Card
-      title="Step fields"
+      title={`Step fields - ${visibleStep?.step?.friendlyname}`}
       css={S.contentStyles}
       extra={
         <Button

@@ -23,7 +23,7 @@ function AddPropsModal({ field, visibleStep }) {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Add Props
+        Config Props
       </Button>
 
       <Modal title="Email - UI Props" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
