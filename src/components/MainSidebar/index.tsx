@@ -1,5 +1,6 @@
 import { Menu, Divider } from "antd";
 import { FormOutlined, PlusOutlined } from "@ant-design/icons";
+import Tooltip from "../Tooltip";
 
 import useMainSidebar from "./hook";
 
@@ -17,17 +18,23 @@ const StepFields = ({
 
   return (
     <div css={{ paddingRight: "19px" }}>
-      <p
+      <div
         css={(theme) => ({
           padding: "16px 24px",
           margin: "0",
           backgroundColor: theme?.colors?.white,
           fontWeight: "500",
           fontSize: "16px",
+          display: "flex",
+          alignItems: "center",
         })}
       >
-        Steps
-      </p>
+        Available steps{" "}
+        <Tooltip
+          title="Steps"
+          content="All available steps that can be used on the multistep experience"
+        />
+      </div>
       <Divider css={{ margin: "0" }} />
       <Menu
         mode="vertical"

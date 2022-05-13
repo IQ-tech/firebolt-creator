@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
-
 import theme from "@/theme";
 import { JSONProvider } from "@/contexts/JSONContext";
 import BaseStyles from "./components/BaseStyles";
