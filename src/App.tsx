@@ -2,7 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
 
 import theme from "@/theme";
-import { JSONProvider } from "@/context/JSONContext";
+import { JSONProvider } from "@/contexts/JSONContext";
 import BaseStyles from "./components/BaseStyles";
 import InternalLayouts from "@/components/layout/InternalLayouts";
 import RegisterPage from "@/pages/RegisterPage";
