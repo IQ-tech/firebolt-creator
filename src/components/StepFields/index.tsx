@@ -15,6 +15,7 @@ import {
   ArrowUpOutlined,
   ArrowDownOutlined,
 } from "@ant-design/icons";
+import stopPropagation from "@/helpers/stopPropagation";
 import ValidatorsModal from "../ValidatorsModal";
 import AddPropsModal from "../AddPropsModal";
 
@@ -22,9 +23,15 @@ import useStepFields from "./hook";
 
 const { Panel } = Collapse;
 const { Option } = Select;
-const widthStyles = css({ width: "100%" });
 
 const widgetOptions = ["Text", "Select", "Radio", "Checkbox", "Email"];
+
+const widthStyles = css({ width: "100%" });
+const headerReset = css`
+  .ant-collapse-header {
+    align-items: center !important;
+  }
+`;
 
 const StepFields = ({ visibleStep }) => {
   const {
@@ -34,6 +41,8 @@ const StepFields = ({ visibleStep }) => {
     handleDeleteField,
     handleEditFieldStyle,
     checkHasFieldDown,
+    moveFieldUp,
+    moveFieldDown,
   } = useStepFields();
 
   return (
@@ -49,7 +58,7 @@ const StepFields = ({ visibleStep }) => {
         </Button>
       }
     >
-      <Collapse defaultActiveKey={[]} css={widthStyles}>
+      <Collapse css={[widthStyles, headerReset]} defaultActiveKey={[]}>
         {stepFields.map((field) => (
           <Panel
             header={field.slug}
@@ -62,9 +71,9 @@ const StepFields = ({ visibleStep }) => {
                     type="primary"
                     disabled={checkHasFieldUp(field)}
                     icon={<ArrowUpOutlined />}
-                    onClick={() =>
-                      handleDeleteField(visibleStep.step.slug, field.slug)
-                    }
+                    onClick={stopPropagation(() =>
+                      moveFieldUp(visibleStep.step.slug, field.slug)
+                    )}
                   />
                 </Tooltip>
                 <Tooltip title="Move field down">
@@ -72,18 +81,18 @@ const StepFields = ({ visibleStep }) => {
                     type="primary"
                     disabled={checkHasFieldDown(field)}
                     icon={<ArrowDownOutlined />}
-                    onClick={() =>
-                      handleDeleteField(visibleStep.step.slug, field.slug)
-                    }
+                    onClick={stopPropagation(() =>
+                      moveFieldDown(visibleStep.step.slug, field.slug)
+                    )}
                   />
                 </Tooltip>
                 <Tooltip title="Move field to another step">
                   <Button
                     type="primary"
                     icon={<SwapOutlined />}
-                    onClick={() =>
+                    onClick={stopPropagation(() =>
                       handleDeleteField(visibleStep.step.slug, field.slug)
-                    }
+                    )}
                   />
                 </Tooltip>
                 <Tooltip title="Delete field">
@@ -91,9 +100,9 @@ const StepFields = ({ visibleStep }) => {
                     type="primary"
                     danger
                     icon={<DeleteOutlined />}
-                    onClick={() =>
+                    onClick={stopPropagation(() =>
                       handleDeleteField(visibleStep.step.slug, field.slug)
-                    }
+                    )}
                   />
                 </Tooltip>
               </Space>

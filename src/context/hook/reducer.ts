@@ -1,96 +1,20 @@
 import { IFireboltJSON, IStep, IField } from "@/types/fireboltJSON";
 import blankJSON from "../blankJSONBoilerplate";
-
-export type JSONAction =
-  | {
-      type: "ADD_NEW_STEP";
-      payload: IStep;
-    }
-  | {
-      type: "EDIT_STEP";
-      payload: any;
-    }
-  | {
-      type: "DELETE_STEP";
-      payload: string;
-    }
-  | {
-      type: "DELETE_FIELD";
-      payload: {
-        stepSlug: string;
-        field: string;
-      };
-    }
-  | {
-      type: "ADD_FIELD";
-      payload: {
-        step: string;
-        field: IField;
-      };
-    }
-  | {
-      type: "EDIT_FIELD_STYLES";
-      payload: {
-        step: string;
-        field: IField;
-      };
-    }
-  | {
-      type: "EDIT_FIELD_PROPS";
-      payload: {
-        step: string;
-        field: IField;
-      };
-    }
-  | { type: "START_BLANK"; payload?: any }
-  | { type: "START_WITH_JSON"; payload: IFireboltJSON }
-  | { type: "SET_EXPERIENCE_VERSION"; payload: { experienceVersion: string } }
-  | {
-      type: "SET_EXPERIENCE_FBT_VERSION";
-      payload: { experienceFbtVersion: string };
-    }
-  | { type: "SET_EXPERIENCE_DESCRIPTION"; payload: { newDescription: string } }
-  | { type: "SET_EXPERIENCE_NAME"; payload: { experienceName: string } }
-  | {
-      type: "ADD_FLOW";
-      payload: {
-        slug: string;
-        steps: string[];
-      };
-    }
-  | {
-      type: "RENAME_FLOW";
-      payload: {
-        slug: string;
-        newSlug: string;
-      };
-    }
-  | {
-      type: "CHANGE_FLOW_STEPS";
-      payload: {
-        slug: string;
-        newSteps: string[];
-      };
-    }
-  | {
-      type: "REMOVE_FLOW";
-      payload: {
-        slug: string;
-      };
-    };
+import { JSONAction } from "./reducer.types";
 
 function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
   const { type, payload } = action;
-
   const currentSteps = [...state.steps];
 
   switch (type) {
     case "START_BLANK": {
       return blankJSON;
     }
+
     case "START_WITH_JSON": {
       return payload;
     }
+
     case "ADD_FLOW": {
       return {
         ...state,
@@ -172,6 +96,7 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
         steps: [...state.steps, payload],
       };
     }
+
     case "EDIT_STEP": {
       const newCurrentSteps = currentSteps.map((step) => {
         if (step.step.slug === payload.slug) {
@@ -196,6 +121,7 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
         steps: newCurrentSteps,
       };
     }
+
     case "DELETE_FIELD": {
       const currentSteps = state?.steps;
       const stepToModify = currentSteps.find(
@@ -222,6 +148,81 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
         steps: newSteps,
       };
     }
+
+    case "MOVE_FIELD_UP": {
+      const stepToModify = currentSteps.find(
+        (step) => step?.step?.slug === payload.stepSlug
+      );
+
+      const modifiedFields = (() => {
+        const fields = stepToModify?.step.fields || [];
+        const fieldsCopy = [...fields];
+        const originalFieldIndex = fields.findIndex(
+          (field) => field.slug === payload.fieldSlug
+        );
+        const isFirstItem = originalFieldIndex === 0;
+        if (isFirstItem) return fields;
+        const toIndex = originalFieldIndex - 1;
+        const field = fields[originalFieldIndex];
+        fieldsCopy.splice(originalFieldIndex, 1);
+        fieldsCopy.splice(toIndex, 0, field);
+        return fieldsCopy;
+      })();
+
+      const newStep: IStep = {
+        step: {
+          ...stepToModify!.step,
+          fields: modifiedFields,
+        },
+      };
+
+      const newSteps = currentSteps.map((step) => {
+        if (step.step.slug === newStep.step.slug) {
+          return newStep;
+        }
+        return step;
+      });
+
+      return { ...state, steps: newSteps };
+    }
+
+    case "MOVE_FIELD_DOWN": {
+      const stepToModify = currentSteps.find(
+        (step) => step?.step?.slug === payload.stepSlug
+      );
+
+      const modifiedFields = (() => {
+        const fields = stepToModify?.step.fields || [];
+        const fieldsCopy = [...fields];
+        const originalFieldIndex = fields.findIndex(
+          (field) => field.slug === payload.fieldSlug
+        );
+        const isLastItem = originalFieldIndex === fields.length - 1;
+        if (isLastItem) return fields;
+        const toIndex = originalFieldIndex + 1;
+        const field = fields[originalFieldIndex];
+        fieldsCopy.splice(originalFieldIndex, 1);
+        fieldsCopy.splice(toIndex, 0, field);
+        return fieldsCopy;
+      })();
+
+      const newStep: IStep = {
+        step: {
+          ...stepToModify!.step,
+          fields: modifiedFields,
+        },
+      };
+
+      const newSteps = currentSteps.map((step) => {
+        if (step.step.slug === newStep.step.slug) {
+          return newStep;
+        }
+        return step;
+      });
+
+      return { ...state, steps: newSteps };
+    }
+
     case "EDIT_FIELD_STYLES": {
       const newCurrentSteps = currentSteps.map((step) => {
         if (step.step.slug === payload.step) {

@@ -44,6 +44,13 @@ export default function useStepFields() {
     return !nextField;
   }
 
+  function moveFieldUp(stepSlug: string, fieldSlug: string) {
+    dispatch({ type: "MOVE_FIELD_UP", payload: { stepSlug, fieldSlug } });
+  }
+  function moveFieldDown(stepSlug: string, fieldSlug: string) {
+    dispatch({ type: "MOVE_FIELD_DOWN", payload: { stepSlug, fieldSlug } });
+  }
+
   return {
     stepFields,
     checkHasFieldUp,
@@ -51,5 +58,7 @@ export default function useStepFields() {
     handleDeleteField,
     handleEditFieldStyle,
     checkHasFieldDown,
+    moveFieldUp,
+    moveFieldDown,
   };
 }
