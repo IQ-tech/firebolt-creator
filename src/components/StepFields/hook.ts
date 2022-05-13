@@ -1,19 +1,9 @@
-import { useState, useEffect } from "react";
 import { IField } from "@/types/fireboltJSON";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
-export default function useStepFields({ visibleStep }) {
-  const { currentJSON, dispatch } = useFireboltJSON();
-  const [stepFields, setStepFields] = useState<IField[]>(stepGenerateFields);
-
-  useEffect(() => {
-    setStepFields(stepGenerateFields());
-  }, [currentJSON, visibleStep]);
-
-  function stepGenerateFields() {
-    const stepFieldsArray = visibleStep.step.fields;
-    return stepFieldsArray;
-  }
+export default function useStepFields() {
+  const { dispatch, visibleStep } = useFireboltJSON();
+  const stepFields = visibleStep.step.fields;
 
   function handleAddField(step: string) {
     // const fieldToDelete = { step: step, field: {} }
@@ -35,15 +25,31 @@ export default function useStepFields({ visibleStep }) {
       : {};
 
     const fieldToEditStyles = { step: step, field: newField };
-
     dispatch({ type: "EDIT_FIELD_STYLES", payload: fieldToEditStyles });
+  }
+
+  function checkHasFieldUp(currentField: IField) {
+    const fieldIndex = stepFields.findIndex(
+      (field) => field.slug === currentField.slug
+    );
+    const previousField = stepFields[fieldIndex - 1];
+    return !previousField;
+  }
+
+  function checkHasFieldDown(currentField: IField) {
+    const fieldIndex = stepFields.findIndex(
+      (field) => field.slug === currentField.slug
+    );
+    const nextField = stepFields[fieldIndex + 1];
+    return !nextField;
   }
 
   return {
     stepFields,
-
+    checkHasFieldUp,
     handleAddField,
     handleDeleteField,
     handleEditFieldStyle,
+    checkHasFieldDown,
   };
 }

@@ -1,32 +1,45 @@
-import { Card, Collapse, Space, Input, Select, Switch, Button } from "antd";
-import { ZoomInOutlined, DeleteOutlined } from "@ant-design/icons";
-
+import {
+  Card,
+  Collapse,
+  Space,
+  Input,
+  Select,
+  Switch,
+  Button,
+  Tooltip,
+} from "antd";
+import { css } from "@emotion/react";
+import {
+  DeleteOutlined,
+  SwapOutlined,
+  ArrowUpOutlined,
+  ArrowDownOutlined,
+} from "@ant-design/icons";
 import ValidatorsModal from "../ValidatorsModal";
 import AddPropsModal from "../AddPropsModal";
 
 import useStepFields from "./hook";
 
-import * as S from "./styles";
-
 const { Panel } = Collapse;
 const { Option } = Select;
+const widthStyles = css({ width: "100%" });
 
 const widgetOptions = ["Text", "Select", "Radio", "Checkbox", "Email"];
-const presetsOptions = ["cep or br-addons:cep", "option 2"];
 
 const StepFields = ({ visibleStep }) => {
   const {
     stepFields,
-
+    checkHasFieldUp,
     handleAddField,
     handleDeleteField,
     handleEditFieldStyle,
-  } = useStepFields({ visibleStep });
+    checkHasFieldDown,
+  } = useStepFields();
 
   return (
     <Card
       title={`Step fields - ${visibleStep?.step?.friendlyname}`}
-      css={S.contentStyles}
+      css={{ width: "60%" }}
       extra={
         <Button
           type="primary"
@@ -36,37 +49,85 @@ const StepFields = ({ visibleStep }) => {
         </Button>
       }
     >
-      <Collapse defaultActiveKey={[]} css={S.widthStyles}>
+      <Collapse defaultActiveKey={[]} css={widthStyles}>
         {stepFields.map((field) => (
           <Panel
             header={field.slug}
             key={field.slug}
+            css={{ marginBottom: "8px" }}
             extra={
-              <button
-                css={S.deleteButton}
-                onClick={() =>
-                  handleDeleteField(visibleStep.step.slug, field.slug)
-                }
-              >
-                <DeleteOutlined />
-              </button>
+              <Space>
+                <Tooltip title="Move field up">
+                  <Button
+                    type="primary"
+                    disabled={checkHasFieldUp(field)}
+                    icon={<ArrowUpOutlined />}
+                    onClick={() =>
+                      handleDeleteField(visibleStep.step.slug, field.slug)
+                    }
+                  />
+                </Tooltip>
+                <Tooltip title="Move field down">
+                  <Button
+                    type="primary"
+                    disabled={checkHasFieldDown(field)}
+                    icon={<ArrowDownOutlined />}
+                    onClick={() =>
+                      handleDeleteField(visibleStep.step.slug, field.slug)
+                    }
+                  />
+                </Tooltip>
+                <Tooltip title="Move field to another step">
+                  <Button
+                    type="primary"
+                    icon={<SwapOutlined />}
+                    onClick={() =>
+                      handleDeleteField(visibleStep.step.slug, field.slug)
+                    }
+                  />
+                </Tooltip>
+                <Tooltip title="Delete field">
+                  <Button
+                    type="primary"
+                    danger
+                    icon={<DeleteOutlined />}
+                    onClick={() =>
+                      handleDeleteField(visibleStep.step.slug, field.slug)
+                    }
+                  />
+                </Tooltip>
+              </Space>
             }
           >
-            <Space size="large" direction="vertical" css={S.widthStyles}>
-              <div css={S.emailInputContent}>
-                <div css={S.emailInput}>
+            <Space size="large" direction="vertical" css={widthStyles}>
+              <div css={{ width: "100%", gap: "16px", display: "flex" }}>
+                <div
+                  css={{
+                    width: "49%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
                   <span>Slug</span>
                   <Input value={field.slug} />
                 </div>
-                <div css={S.emailInput}>
+                <div
+                  css={{
+                    width: "49%",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
                   <span>Conditional</span>
                   <Input placeholder="step.something === true" />
                 </div>
               </div>
-              <Space direction="vertical" css={S.widthStyles}>
+              <Space direction="vertical" css={widthStyles}>
                 <span>Widget</span>
                 <Select
-                  css={S.widthStyles}
+                  css={widthStyles}
                   placeholder="Please select"
                   value={field["ui:widget"]}
                 >
@@ -77,10 +138,10 @@ const StepFields = ({ visibleStep }) => {
                   ))}
                 </Select>
               </Space>
-              {/* <Space direction="vertical" css={S.widthStyles}>
+              {/* <Space direction="vertical" css={widthStyles}>
               <span>Props preset</span>
               <Select
-                css={S.widthStyles}
+                css={widthStyles}
                 placeholder={presetsOptions[0]}
               >
                 {presetsOptions.map((option, index) => 
