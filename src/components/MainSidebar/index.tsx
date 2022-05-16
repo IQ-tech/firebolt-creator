@@ -1,5 +1,9 @@
 import { Menu, Divider } from "antd";
-import { FormOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  FormOutlined,
+  PlusOutlined,
+  FormatPainterOutlined,
+} from "@ant-design/icons";
 import Tooltip from "../Tooltip";
 
 import useMainSidebar from "./hook";
@@ -17,7 +21,12 @@ const StepFields = ({
   });
 
   return (
-    <div css={{ paddingRight: "19px" }}>
+    <div css={{
+      display: "flex",
+      paddingRight: "19px",
+      flexDirection: "column",
+      alignItems: "stretch",
+    }}>
       <div
         css={(theme) => ({
           padding: "16px 24px",
@@ -41,13 +50,19 @@ const StepFields = ({
         activeKey={visibleStep?.step?.slug}
         css={{
           width: "240px",
-          height: `${document.body.clientHeight}px`,
+          flex: 1,
         }}
       >
         {steps.map((step) => (
           <SubMenu
             key={step.step.slug}
-            icon={<FormOutlined />}
+            icon={
+              step?.step?.type === "form" ? (
+                <FormOutlined />
+              ) : (
+                <FormatPainterOutlined />
+              )
+            }
             title={step.step.friendlyname}
             onTitleClick={() => handleVisibleStep(step.step.slug)}
           >

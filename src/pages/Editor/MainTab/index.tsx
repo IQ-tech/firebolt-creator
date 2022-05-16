@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import StepsSidebar from "@/components/MainSidebar";
+import MainSidebar from "@/components/MainSidebar";
 import StepFields from "@/components/StepFields";
 import MainPreview from "@/components/MainPreview";
 import StepModal from "@/components/StepModal";
@@ -15,6 +15,7 @@ const MainTab = () => {
     closeAddStepModal,
     openEditStepModal,
     editingStep,
+    isVisibleStepCustom,
   } = useMainTab();
   return (
     <Layout
@@ -23,14 +24,20 @@ const MainTab = () => {
         width: "100%",
       }}
     >
-      <StepsSidebar
+      <MainSidebar
         onOpenAddStep={openAddStepModal}
         openEditStep={openEditStepModal}
         visibleStep={visibleStep}
         setVisibleStep={setVisibleStep}
       />
-      <StepFields visibleStep={visibleStep} />
-      <MainPreview visibleStep={visibleStep} />
+      <StepFields
+        visibleStep={visibleStep}
+        isVisibleStepCustom={isVisibleStepCustom}
+      />
+      <MainPreview
+        visibleStep={visibleStep}
+        isVisibleStepCustom={isVisibleStepCustom}
+      />
       <StepModal
         isModalVisible={isAddStepModalOpen}
         onCloseModal={closeAddStepModal}

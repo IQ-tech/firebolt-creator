@@ -28,8 +28,20 @@ const EditorPage = () => {
     useEditor();
 
   return (
-    <div css={{ padding: "28px" }}>
-      <div css={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
+    <div css={{
+      display: "flex",
+      minHeight: "calc(100vh - 48px)",
+      padding: "28px",
+      alignItems: "stretch"
+    }}>
+      <div css={{
+        display: "flex",
+        maxWidth: "1600px",
+        width: "100%",
+        margin: "0 auto",
+        flexDirection: "column",
+        alignItems: "stretch"
+      }}>
         <BreadcrumbComponent />
         <PageHeader
           css={{ padding: "16px 24px 0", marginBottom: "27px" }}

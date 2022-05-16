@@ -137,9 +137,9 @@ const blankJSON: IFireboltJSON = {
 		},
 		{
 			"step": {
-				"slug": "personal_data_5",
-				"type": "form",
-				"friendlyname": "Dados pessoais 5",
+				"slug": "personal_custom",
+				"type": "custom",
+				"friendlyname": "Dados Custom",
 				"fields": [
 					{
 						"slug": "full_name",

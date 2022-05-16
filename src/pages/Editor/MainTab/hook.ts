@@ -6,13 +6,14 @@ export default function useMainTab() {
   const [isAddStepModalOpen, setIsAddModalOpen] = useState(false);
   const { visibleStep, setVisibleStep } = useFireboltJSON();
   const [editingStep, setEditingStep] = useState<IStep>();
+  const isVisibleStepCustom = visibleStep?.step?.type !== "form";
 
   function openAddStepModal() {
     setIsAddModalOpen(true);
   }
 
   function openEditStepModal(step: IStep) {
-    setEditingStep(step)
+    setEditingStep(step);
     setIsAddModalOpen(true);
   }
 
@@ -28,6 +29,7 @@ export default function useMainTab() {
     visibleStep,
     setVisibleStep,
     openEditStepModal,
-    editingStep
+    editingStep,
+    isVisibleStepCustom,
   };
 }

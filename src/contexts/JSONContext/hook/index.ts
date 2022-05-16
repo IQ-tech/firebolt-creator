@@ -1,12 +1,17 @@
 import { useState, useReducer, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { IStep } from "@/types/fireboltJSON";
 import blankJSON from "../blankJSONBoilerplate";
 
 import reducer from "./reducer";
 import useHistory from "./useHistory";
 
+import LocalStorageService from "@/services/LocalStorageService";
+
 export default function useJSONContext() {
+  const navigate = useNavigate();
   const [currentJSON, dispatch] = useReducer(reducer, blankJSON);
+  const [isLoadingJSON, setIsLoadingJSON] = useState(true)
   const [visibleStepState, setVisibleStepState] = useState<IStep>(
     currentJSON?.steps[0]
   );
@@ -23,9 +28,19 @@ export default function useJSONContext() {
     if (stepData) setVisibleStepState(stepData);
   }, [visibleStepSlug, currentJSON]);
 
+  // useEffect(() => {
+  //   LocalStorageService.setLocalJSON(currentJSON);
+  // }, [currentJSON]);
+
   useEffect(() => {
-    console.log(currentJSON);
-  }, [currentJSON]);
+    const jsonFromStorage = LocalStorageService.getLocalJSON();
+    if (jsonFromStorage) {
+      dispatch({ type: "START_WITH_JSON", payload: jsonFromStorage });
+      navigate("/app/editor/main");
+    } else {
+      navigate("/");
+    }
+  }, []);
 
   function setVisibleStep(step: IStep) {
     setVisibleStepSlug(step?.step?.slug);
@@ -37,5 +52,6 @@ export default function useJSONContext() {
     setVisibleStep,
     undoChange,
     redoChange,
+    isLoadingJSON
   };
 }
