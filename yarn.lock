@@ -568,54 +568,54 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@iq-firebolt/blueberry-theme@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@iq-firebolt/blueberry-theme/-/blueberry-theme-0.7.0.tgz#bfc9b269fd4e57eca37013153f30baf5b40f8bbe"
-  integrity sha512-yDqLeCZnXzgjcW0/fZLn6vjTp4TecL8RO2V0MB46HptUWgiI+Zh1GQvAmE2lPZpYdVdgqr2pccwUcHNAxLTUYg==
+"@iq-firebolt/blueberry-theme@^0.7.1-next.1":
+  version "0.7.1-next.1"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/blueberry-theme/-/blueberry-theme-0.7.1-next.1.tgz#fd6da2fc969399bebf015b13a7cecac664c101dc"
+  integrity sha512-oXIMk6GXyF41piOhcCJ3X97BZke5bOH7HixuCGfgqo38JOx+Q63kCes2Ohp0y4l2xaCpHyWBJEHT7qZS8AL6Fw==
 
-"@iq-firebolt/client-core@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@iq-firebolt/client-core/-/client-core-0.7.0.tgz#26fa628a34f28cc3c00fb6e4679f07ecb832bc50"
-  integrity sha512-xG3r1YUZCvuRxpTo1O8Cx/aNNJhDUjgVxGUKQmbhlClUOaqeRo+uAbflt4SmgOCNB4fEW6bie2ZxP7nvNXyGFQ==
+"@iq-firebolt/client-core@0.7.1-next.1+17e9e91", "@iq-firebolt/client-core@^0.7.1-next.1":
+  version "0.7.1-next.1"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/client-core/-/client-core-0.7.1-next.1.tgz#d933e2480f872f43dd8c6da42037b19af763853b"
+  integrity sha512-7Ls9T+Plh7yE8P08Nqel8v4c9xZ7lIXMbGX4mA1buXFOE8MgEjkPcm+u1UMcslBGo6R8ccwEQomksJPPvRS7sw==
   dependencies:
     axios "^0.21.4"
     simple-evaluate "^1.4.3"
     text-mask-addons "^3.8.0"
     text-mask-core "^5.1.2"
 
-"@iq-firebolt/client@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@iq-firebolt/client/-/client-0.7.0.tgz#8d647541b506a73bb490ac6dc8f82366202c7b2c"
-  integrity sha512-4ZYKVrQDDdfp3HabDC3VjhuYCKNnTGUavm/dQNA5esizS7A9qqMtPe00vS7ib+KVDMT4w4ZPkoe4lozHvYfZjg==
+"@iq-firebolt/client@^0.7.1-next.1":
+  version "0.7.1-next.1"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/client/-/client-0.7.1-next.1.tgz#aa010043be017405224ed67784e14b9f764e3adb"
+  integrity sha512-RO7wHYPVI1mVc2c+T58Snw8kkCCWX1a3iHDfalDtc5s1s6sLW7awGGoscb9UsFV9gL7SDmbYHbez0kOlrO1mfw==
   dependencies:
     "@babel/runtime" "^7.16.3"
-    "@iq-firebolt/client-core" "0.7.0"
-    "@iq-firebolt/validators" "0.7.0"
+    "@iq-firebolt/client-core" "0.7.1-next.1+17e9e91"
+    "@iq-firebolt/validators" "0.7.1-next.1+17e9e91"
     classnames "^2.3.1"
     fast-levenshtein "^3.0.0"
     simple-evaluate "^1.4.3"
 
-"@iq-firebolt/json-schema@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@iq-firebolt/json-schema/-/json-schema-0.7.0.tgz#7bfba3c109ba97567e862933f1b612a7a1f86ef4"
-  integrity sha512-paZhYJE69Nu8nprnYxkkicEO/oQp1CdEiU3LnzvYzkKYlnOR5I0r8LfIgoFxbQujLni49fAfiIafHo8Orq658g==
+"@iq-firebolt/json-schema@^0.7.1-next.1":
+  version "0.7.1-next.1"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/json-schema/-/json-schema-0.7.1-next.1.tgz#947c17bef3c825a272c614c18ce1df7f8ca90165"
+  integrity sha512-JU1W0pHZpnI8+8wJz/deFlMYfXtNxLQvGjqnqJ2D6Cl0oiPi/1aHwl8Vg0PVDYjULR4CsAOCZ1kka15/3Z4aNQ==
   dependencies:
     ajv "^8.8.2"
 
-"@iq-firebolt/material-theme@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@iq-firebolt/material-theme/-/material-theme-0.7.0.tgz#aa08d2d7bc6061dead64e3c4fc05c72eeaaafe74"
-  integrity sha512-XAiZZXkiqONIaMgiNUWRqCvvg0PUgNsnpCpPWYaRigWSY2xNF+cLQuOUI5KJKLloNvzOBjt1Zq4xkdL9fBab6A==
+"@iq-firebolt/material-theme@^0.7.1-next.1":
+  version "0.7.1-next.1"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/material-theme/-/material-theme-0.7.1-next.1.tgz#be35b9345477e84484eb8d2d66411345e297625b"
+  integrity sha512-SDViK0DTEjT5FCdpYvRYG+z/Gd2pojY8qHrLQte7VdD8thbZCPjrpZ9JLRmnwhHZOZZr9iKTHKtMLdiHA7aebw==
   dependencies:
     "@material-ui/core" "^4.12.3"
     "@material-ui/icons" "^4.11.2"
     "@material-ui/lab" "^4.0.0-alpha.60"
     "@viewstools/use-masked-input" "^2.0.1"
 
-"@iq-firebolt/validators@0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@iq-firebolt/validators/-/validators-0.7.0.tgz#2e8d0365a638608f002ba42586c8440dee00c036"
-  integrity sha512-QhEZq7q7Z2LZ4tspdh3leBeZBPpupQZ4dLMCStpkd9BNRyhpXdB7DUsNCuU/XMG/SIabqBb4gEsv78q91GqWNA==
+"@iq-firebolt/validators@0.7.1-next.1+17e9e91":
+  version "0.7.1-next.1"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/validators/-/validators-0.7.1-next.1.tgz#12daff0eb409fc0669134854d75c564b72ccecb1"
+  integrity sha512-ugGsBidwpx1+W/OY1wPLxDHFfiCj1gy9Mc3EYzwakkKyH9BCG/6LDzZybjopDHaI3gfOeO8FD++XegIYimpgZA==
   dependencies:
     cpf-cnpj-validator "^1.0.3"
     faker "^5.5.3"
