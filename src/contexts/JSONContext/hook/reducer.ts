@@ -3,7 +3,6 @@ import blankJSON from "../blankJSONBoilerplate";
 import { JSONAction } from "./reducer.types";
 
 function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
-  console.log("run")
   const { type, payload } = action;
   const currentSteps = [...state.steps];
 

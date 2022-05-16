@@ -1,6 +1,6 @@
 import { useState, useReducer, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { IStep } from "@/types/fireboltJSON";
+import { IFireboltJSON, IStep } from "@/types/fireboltJSON";
 import blankJSON from "../blankJSONBoilerplate";
 
 import reducer from "./reducer";
@@ -11,7 +11,7 @@ import LocalStorageService from "@/services/LocalStorageService";
 export default function useJSONContext() {
   const navigate = useNavigate();
   const [currentJSON, dispatch] = useReducer(reducer, blankJSON);
-  const [isLoadingJSON, setIsLoadingJSON] = useState(true)
+  const [loadedJSON, setLoadedJSON] = useState(false);
   const [visibleStepState, setVisibleStepState] = useState<IStep>(
     currentJSON?.steps[0]
   );
@@ -28,23 +28,46 @@ export default function useJSONContext() {
     if (stepData) setVisibleStepState(stepData);
   }, [visibleStepSlug, currentJSON]);
 
-  // useEffect(() => {
-  //   LocalStorageService.setLocalJSON(currentJSON);
-  // }, [currentJSON]);
+  useEffect(() => {
+    if (loadedJSON) {
+      LocalStorageService.setLocalJSON(currentJSON);
+    }
+  }, [currentJSON]);
 
   useEffect(() => {
-    const jsonFromStorage = LocalStorageService.getLocalJSON();
-    if (jsonFromStorage) {
-      dispatch({ type: "START_WITH_JSON", payload: jsonFromStorage });
-      navigate("/app/editor/main");
-    } else {
-      navigate("/");
+    if (!loadedJSON) {
+      const jsonFromStorage = LocalStorageService.getLocalJSON();
+      if (jsonFromStorage) {
+        dispatch({ type: "START_WITH_JSON", payload: jsonFromStorage });
+        setLoadedJSON(true);
+        navigate("/app/editor/main");
+      } else {
+        navigate("/");
+      }
     }
   }, []);
+
+  function loadBlankJSON() {
+    dispatch({ type: "START_BLANK" });
+    setLoadedJSON(true);
+  }
+
+  function loadUploadedJSON(newJSON: IFireboltJSON) {
+    dispatch({ type: "START_WITH_JSON", payload: newJSON });
+    setLoadedJSON(true);
+  }
 
   function setVisibleStep(step: IStep) {
     setVisibleStepSlug(step?.step?.slug);
   }
+
+  function startNewSession() {
+    setLoadedJSON(false);
+    dispatch({ type: "START_BLANK" });
+    LocalStorageService.clearLocalJSON();
+    navigate("/");
+  }
+
   return {
     currentJSON,
     dispatch,
@@ -52,6 +75,8 @@ export default function useJSONContext() {
     setVisibleStep,
     undoChange,
     redoChange,
-    isLoadingJSON
+    loadUploadedJSON,
+    loadBlankJSON,
+    startNewSession,
   };
 }

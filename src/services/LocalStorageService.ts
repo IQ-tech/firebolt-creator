@@ -14,6 +14,10 @@ const LocalStorageService = {
     const parsed = JSON.parse(stringfied);
     return parsed;
   },
+
+  clearLocalJSON() {
+    localStorage.removeItem(localJSONKey);
+  },
 };
 
 export default LocalStorageService;

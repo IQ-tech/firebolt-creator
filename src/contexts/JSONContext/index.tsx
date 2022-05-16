@@ -11,6 +11,9 @@ interface IJSONProviderValues {
   setVisibleStep(step: IStep): void;
   undoChange(): void;
   redoChange(): void;
+  loadUploadedJSON(newJSON: IFireboltJSON): void;
+  loadBlankJSON(): void;
+  startNewSession(): void;
 }
 
 export const JSONContext = createContext({} as IJSONProviderValues);
@@ -23,6 +26,9 @@ export function JSONProvider({ children }) {
     setVisibleStep,
     undoChange,
     redoChange,
+    loadUploadedJSON,
+    loadBlankJSON,
+    startNewSession,
   } = useJSONContext();
 
   return (
@@ -34,6 +40,9 @@ export function JSONProvider({ children }) {
         setVisibleStep,
         undoChange,
         redoChange,
+        loadUploadedJSON,
+        loadBlankJSON,
+        startNewSession,
       }}
     >
       {children}

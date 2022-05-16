@@ -5,17 +5,17 @@ import getCurrentYear from "@/helpers/getCurrentYear";
 import { useState } from "react";
 
 export default function useRegisterPage() {
-  const { dispatch } = useFireboltJSON();
+  const { loadBlankJSON, loadUploadedJSON } = useFireboltJSON();
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   function handleCreateForm() {
-    dispatch({ type: "START_BLANK" });
+    loadBlankJSON();
     navigate("/app/editor/main");
   }
 
   function handleUploadJSON(newJSON: IFireboltJSON) {
-    dispatch({ type: "START_WITH_JSON", payload: newJSON });
+    loadUploadedJSON(newJSON);
     navigate("/app/editor/main");
   }
 

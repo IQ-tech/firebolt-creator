@@ -8,6 +8,7 @@ import {
   MoreOutlined,
   UndoOutlined,
   RedoOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 
 import BreadcrumbComponent from "@/components/Breadcrumb";
@@ -24,24 +25,34 @@ const tabs = [
 ];
 
 const EditorPage = () => {
-  const { location, navigate, tabsCallback, currentJSON, dispatch } =
-    useEditor();
+  const {
+    location,
+    navigate,
+    tabsCallback,
+    currentJSON,
+    dispatch,
+    startNewSession,
+  } = useEditor();
 
   return (
-    <div css={{
-      display: "flex",
-      minHeight: "calc(100vh - 48px)",
-      padding: "28px",
-      alignItems: "stretch"
-    }}>
-      <div css={{
+    <div
+      css={{
         display: "flex",
-        maxWidth: "1600px",
-        width: "100%",
-        margin: "0 auto",
-        flexDirection: "column",
-        alignItems: "stretch"
-      }}>
+        minHeight: "calc(100vh - 48px)",
+        padding: "28px",
+        alignItems: "stretch",
+      }}
+    >
+      <div
+        css={{
+          display: "flex",
+          maxWidth: "1600px",
+          width: "100%",
+          margin: "0 auto",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
         <BreadcrumbComponent />
         <PageHeader
           css={{ padding: "16px 24px 0", marginBottom: "27px" }}
@@ -102,6 +113,13 @@ const EditorPage = () => {
                   </Menu.Item>
                   <Menu.Item icon={<RedoOutlined />} key={`redo-button`}>
                     Redo
+                  </Menu.Item>
+                  <Menu.Item
+                    onClick={startNewSession}
+                    icon={<LogoutOutlined />}
+                    key={`redo-button`}
+                  >
+                    Start new experience
                   </Menu.Item>
                 </Menu>
               }
