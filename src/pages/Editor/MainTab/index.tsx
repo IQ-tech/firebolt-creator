@@ -4,6 +4,7 @@ import StepFields from "@/components/StepFields";
 import MainPreview from "@/components/MainPreview";
 import StepModal from "@/components/StepModal";
 import MoveFieldModal from "@/components/MoveFieldModal";
+import AddFieldModal from "@/components/AddFieldModal";
 
 import useMainTab from "./hook";
 
@@ -22,6 +23,9 @@ const MainTab = () => {
     closeMoveField,
     movingField,
     currentJSON,
+    isAddFieldModalOpen,
+    closeAddField,
+    openAddField,
   } = useMainTab();
   return (
     <Layout
@@ -38,6 +42,7 @@ const MainTab = () => {
       />
       <StepFields
         visibleStep={visibleStep}
+        onOpenAddField={openAddField}
         onOpenMoveFields={openMoveField}
         isVisibleStepCustom={isVisibleStepCustom}
       />
@@ -56,6 +61,12 @@ const MainTab = () => {
         movingField={movingField}
         onClose={closeMoveField}
         isVisible={isMoveFieldModalVisible}
+      />
+
+      <AddFieldModal
+        visibleStep={visibleStep}
+        isOpen={isAddFieldModalOpen}
+        onClose={closeAddField}
       />
     </Layout>
   );

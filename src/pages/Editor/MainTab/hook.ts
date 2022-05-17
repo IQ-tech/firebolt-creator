@@ -4,6 +4,7 @@ import { IField, IStep } from "@/types/fireboltJSON";
 
 export default function useMainTab() {
   const [isAddStepModalOpen, setIsAddModalOpen] = useState(false);
+  const [isAddFieldModalOpen, setIsAddFieldModalOpen] = useState(false);
   const { visibleStep, setVisibleStep, currentJSON } = useFireboltJSON();
   const [editingStep, setEditingStep] = useState<IStep>();
   const [isMoveFieldModalVisible, setIsMoveFieldModalVisible] = useState(false);
@@ -22,6 +23,14 @@ export default function useMainTab() {
   function closeAddStepModal() {
     setEditingStep(undefined);
     setIsAddModalOpen(false);
+  }
+
+  function openAddField() {
+    setIsAddFieldModalOpen(true);
+  }
+
+  function closeAddField() {
+    setIsAddFieldModalOpen(false);
   }
 
   function openMoveField(field: IField) {
@@ -48,5 +57,8 @@ export default function useMainTab() {
     closeMoveField,
     movingField,
     currentJSON,
+    openAddField,
+    closeAddField,
+    isAddFieldModalOpen,
   };
 }

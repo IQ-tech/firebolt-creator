@@ -41,17 +41,18 @@ interface IStepFields {
   visibleStep: IStep;
   isVisibleStepCustom: boolean;
   onOpenMoveFields(field: IField): void;
+  onOpenAddField(...args: any): void;
 }
 
 const StepFields = ({
   visibleStep,
   isVisibleStepCustom,
   onOpenMoveFields,
+  onOpenAddField,
 }: IStepFields) => {
   const {
     stepFields,
     checkHasFieldUp,
-    handleAddField,
     handleDeleteField,
     handleEditFieldStyle,
     checkHasFieldDown,
@@ -94,7 +95,7 @@ const StepFields = ({
         <Button
           type="primary"
           disabled={isVisibleStepCustom}
-          onClick={() => handleAddField(visibleStep.step.slug)}
+          onClick={onOpenAddField}
         >
           Add Field
         </Button>

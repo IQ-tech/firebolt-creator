@@ -5,11 +5,6 @@ export default function useStepFields() {
   const { dispatch, visibleStep } = useFireboltJSON();
   const stepFields = visibleStep.step.fields;
 
-  function handleAddField(step: string) {
-    // const fieldToDelete = { step: step, field: {} }
-    // dispatch({ type: 'ADDFIELD', payload: fieldToDelete });
-  }
-
   function handleDeleteField(stepSlug: string, field: string) {
     const fieldToDelete = { stepSlug: stepSlug, field: field };
     dispatch({ type: "DELETE_FIELD", payload: fieldToDelete });
@@ -54,7 +49,6 @@ export default function useStepFields() {
   return {
     stepFields,
     checkHasFieldUp,
-    handleAddField,
     handleDeleteField,
     handleEditFieldStyle,
     checkHasFieldDown,
