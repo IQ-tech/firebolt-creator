@@ -35,8 +35,6 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
     setReactFlowInstance,
     onDrop,
     onDragOver,
-    onSave,
-    onRestore,
     onClean,
   } = useFlow({ visibleFlow, steps });
 
@@ -80,12 +78,6 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
                 fontSize: "12px",
               }}
             >
-              <button css={buttonsSRCStyle} onClick={onSave}>
-                Save
-              </button>
-              <button css={buttonsSRCStyle} onClick={onRestore}>
-                Restore
-              </button>
               <button css={buttonsSRCStyle} onClick={onClean}>
                 Clean
               </button>

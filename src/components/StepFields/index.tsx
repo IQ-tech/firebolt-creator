@@ -22,7 +22,7 @@ import ValidatorsModal from "../ValidatorsModal";
 import AddPropsModal from "../AddPropsModal";
 
 import useStepFields from "./hook";
-import { IStep } from "@/types/fireboltJSON";
+import { IField, IStep } from "@/types/fireboltJSON";
 
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -39,9 +39,14 @@ const headerReset = css`
 interface IStepFields {
   visibleStep: IStep;
   isVisibleStepCustom: boolean;
+  onOpenMoveFields(field: IField): void;
 }
 
-const StepFields = ({ visibleStep, isVisibleStepCustom }: IStepFields) => {
+const StepFields = ({
+  visibleStep,
+  isVisibleStepCustom,
+  onOpenMoveFields,
+}: IStepFields) => {
   const {
     stepFields,
     checkHasFieldUp,
@@ -53,11 +58,13 @@ const StepFields = ({ visibleStep, isVisibleStepCustom }: IStepFields) => {
     moveFieldDown,
   } = useStepFields();
 
-  const cardBodyPadding = isVisibleStepCustom ? {
-    display: "flex",
-    padding: "0",
-    flex: 1,
-  } : {};
+  const cardBodyPadding = isVisibleStepCustom
+    ? {
+        display: "flex",
+        padding: "0",
+        flex: 1,
+      }
+    : {};
 
   return (
     <Card
@@ -152,9 +159,7 @@ const StepFields = ({ visibleStep, isVisibleStepCustom }: IStepFields) => {
                     <Button
                       type="primary"
                       icon={<SwapOutlined />}
-                      onClick={stopPropagation(() =>
-                        handleDeleteField(visibleStep.step.slug, field.slug)
-                      )}
+                      onClick={stopPropagation(() => onOpenMoveFields(field))}
                     />
                   </AntdTooltip>
                   <AntdTooltip title="Delete field">

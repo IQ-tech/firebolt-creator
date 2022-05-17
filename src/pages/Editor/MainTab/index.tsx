@@ -3,6 +3,7 @@ import MainSidebar from "@/components/MainSidebar";
 import StepFields from "@/components/StepFields";
 import MainPreview from "@/components/MainPreview";
 import StepModal from "@/components/StepModal";
+import MoveFieldModal from "@/components/MoveFieldModal";
 
 import useMainTab from "./hook";
 
@@ -16,6 +17,11 @@ const MainTab = () => {
     openEditStepModal,
     editingStep,
     isVisibleStepCustom,
+    isMoveFieldModalVisible,
+    openMoveField,
+    closeMoveField,
+    movingField,
+    currentJSON,
   } = useMainTab();
   return (
     <Layout
@@ -32,6 +38,7 @@ const MainTab = () => {
       />
       <StepFields
         visibleStep={visibleStep}
+        onOpenMoveFields={openMoveField}
         isVisibleStepCustom={isVisibleStepCustom}
       />
       <MainPreview
@@ -42,6 +49,13 @@ const MainTab = () => {
         isModalVisible={isAddStepModalOpen}
         onCloseModal={closeAddStepModal}
         editingStep={editingStep}
+      />
+      <MoveFieldModal
+        visibleStep={visibleStep}
+        stepsList={currentJSON.steps}
+        movingField={movingField}
+        onClose={closeMoveField}
+        isVisible={isMoveFieldModalVisible}
       />
     </Layout>
   );

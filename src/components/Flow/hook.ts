@@ -27,8 +27,7 @@ export default function useFlow({
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [populated, setPopulated] = useState(false);
 
-  const [reactFlowInstance, setReactFlowInstance] =
-    useState<ReactFlowInstance>(); // TODO: ANY
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance>(); 
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
   const { setViewport } = useReactFlow();
   const { dispatch } = useFireboltJSON();
@@ -36,6 +35,7 @@ export default function useFlow({
 
   useEffect(populateEdgesAndNodes, [visibleFlow]);
   useEffect(setNewFlowSteps, [edges]); // problema
+  useEffect(() => {reactFlowInstance?.fitView()},[reactFlowInstance])
 
   function populateEdgesAndNodes() {
     const safeVisibleFlow = visibleFlow?.steps || [];
@@ -59,6 +59,7 @@ export default function useFlow({
 
     const newNodes: Node[] = safeVisibleFlow?.map((stepSlug, index) => {
       const stepData = getStep(stepSlug, steps);
+      
       return {
         key: index,
         id: stepSlug,
@@ -67,7 +68,7 @@ export default function useFlow({
         targetPosition: "left" as any,
         position: {
           x: 180 * index + 1,
-          y: 5,
+          y: 150
         },
       };
     });
@@ -135,18 +136,10 @@ export default function useFlow({
         sourcePosition: "right",
         targetPosition: "left",
       };
-
       setNodes((nds: any[]) => nds.concat(newNode)); // TODO: ANY
     },
     [reactFlowInstance]
   );
-
-  const onSave = useCallback(() => {
-    if (reactFlowInstance) {
-      const setFlow = reactFlowInstance.toObject();
-      localStorage.setItem(flowKey, JSON.stringify(setFlow));
-    }
-  }, [reactFlowInstance]);
 
   const onClean = useCallback(() => {
     if (reactFlowInstance) {
@@ -154,21 +147,6 @@ export default function useFlow({
       setEdges([]);
     }
   }, [reactFlowInstance]);
-
-  async function restoreFlow() {
-    const getflowFlows = JSON.parse(localStorage.getItem(flowKey) as string);
-
-    if (getflowFlows) {
-      const { x = 0, y = 0, zoom = 1 } = getflowFlows.viewport;
-      setNodes(getflowFlows.nodes || []);
-      setEdges(getflowFlows.edges || []);
-      setViewport({ x, y, zoom });
-    }
-  }
-
-  const onRestore = useCallback(() => {
-    restoreFlow();
-  }, [setNodes, setViewport]);
 
   return {
     nodes,
@@ -180,8 +158,7 @@ export default function useFlow({
     onConnect,
     onDragOver,
     onDrop,
-    onSave,
-    onRestore,
     onClean,
+ 
   };
 }

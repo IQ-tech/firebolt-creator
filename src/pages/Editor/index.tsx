@@ -108,10 +108,18 @@ const EditorPage = () => {
               key="more"
               overlay={
                 <Menu>
-                  <Menu.Item icon={<UndoOutlined />} key={`undo-button`}>
+                  <Menu.Item
+                    disabled
+                    icon={<UndoOutlined />}
+                    key={`undo-button`}
+                  >
                     Undo
                   </Menu.Item>
-                  <Menu.Item icon={<RedoOutlined />} key={`redo-button`}>
+                  <Menu.Item
+                    disabled
+                    icon={<RedoOutlined />}
+                    key={`redo-button`}
+                  >
                     Redo
                   </Menu.Item>
                   <Menu.Item

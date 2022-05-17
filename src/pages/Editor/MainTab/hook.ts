@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
-import { IStep } from "@/types/fireboltJSON";
+import { IField, IStep } from "@/types/fireboltJSON";
 
 export default function useMainTab() {
   const [isAddStepModalOpen, setIsAddModalOpen] = useState(false);
-  const { visibleStep, setVisibleStep } = useFireboltJSON();
+  const { visibleStep, setVisibleStep, currentJSON } = useFireboltJSON();
   const [editingStep, setEditingStep] = useState<IStep>();
+  const [isMoveFieldModalVisible, setIsMoveFieldModalVisible] = useState(false);
   const isVisibleStepCustom = visibleStep?.step?.type !== "form";
+  const [movingField, setMovingField] = useState<IField>();
 
   function openAddStepModal() {
     setIsAddModalOpen(true);
@@ -22,6 +24,16 @@ export default function useMainTab() {
     setIsAddModalOpen(false);
   }
 
+  function openMoveField(field: IField) {
+    setMovingField(field);
+    setIsMoveFieldModalVisible(true);
+  }
+
+  function closeMoveField() {
+    setMovingField(undefined);
+    setIsMoveFieldModalVisible(false);
+  }
+
   return {
     isAddStepModalOpen,
     openAddStepModal,
@@ -31,5 +43,10 @@ export default function useMainTab() {
     openEditStepModal,
     editingStep,
     isVisibleStepCustom,
+    isMoveFieldModalVisible,
+    openMoveField,
+    closeMoveField,
+    movingField,
+    currentJSON,
   };
 }
