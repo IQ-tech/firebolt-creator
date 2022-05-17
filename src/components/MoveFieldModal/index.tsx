@@ -23,13 +23,15 @@ const MoveFieldModal = ({
       stepsList,
       visibleStep,
       onClose,
+      movingField,
     });
   return (
     <Modal
       title={movingField ? `Move field - ${movingField.slug}` : ""}
       visible={isVisible}
       okButtonProps={{ disabled: !selectedStep }}
-      onCancel={onSubmit}
+      onCancel={onClose}
+      onOk={onSubmit}
     >
       <Table
         pagination={false}

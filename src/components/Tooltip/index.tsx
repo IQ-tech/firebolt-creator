@@ -5,13 +5,26 @@ import { darken } from "polished";
 
 interface ITooltip {
   title: React.ReactNode;
+  placement?:
+    | "top"
+    | "bottom"
+    | "left"
+    | "right"
+    | "topLeft"
+    | "topRight"
+    | "bottomLeft"
+    | "bottomRight"
+    | "leftTop"
+    | "leftBottom"
+    | "rightTop"
+    | "rightBottom";
   content: React.ReactNode;
-  css: any
+  css?: any
 }
 
-const Tooltip = ({ title, content, css }: ITooltip) => {
+const Tooltip = ({ title, placement, content, css }: ITooltip) => {
   return (
-    <Popover css={css} title={title} content={content}>
+    <Popover css={css} title={title} placement={placement} content={content} arrowPointAtCenter autoAdjustOverflow>
       <div
         css={{
           backgroundColor: "#69c0ff",

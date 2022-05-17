@@ -224,11 +224,46 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
     }
 
     case "MOVE_FIELD_TO_STEP": {
-      const stepToRemoveField = state.steps.find(step => step.step.slug === payload.fromStepSlug)
-      const stepToAddField = state.steps.find(step => step.step.slug === payload.toStepSlug)
-      
+      const stepToRemoveField = state.steps.find(
+        (step) => step.step.slug === payload.fromStepSlug
+      ) as IStep;
 
-      return {...state}
+      const field = stepToRemoveField?.step.fields.find(
+        (field) => field.slug === payload.fieldSlug
+      ) as IField;
+
+      const stepToAddField = state.steps.find(
+        (step) => step.step.slug === payload.toStepSlug
+      ) as IStep;
+
+      const filteredFields = stepToAddField.step.fields.filter(
+        (field) => field.slug !== payload.fieldSlug
+      );
+
+      const newStepToRemoveField: IStep = {
+        step: {
+          ...stepToRemoveField.step,
+          fields: filteredFields,
+        },
+      };
+
+      const newStepToAddField: IStep = {
+        step: {
+          ...stepToAddField.step,
+          fields: [...stepToAddField.step.fields, field],
+        },
+      };
+
+      const newSteps = state.steps.map((step) => {
+        if (step.step.slug === payload.fromStepSlug) {
+          return newStepToRemoveField;
+        } else if (step.step.slug === payload.toStepSlug) {
+          return newStepToAddField;
+        }
+        return step;
+      });
+
+      return { ...state, steps: newSteps };
     }
 
     case "EDIT_FIELD_STYLES": {

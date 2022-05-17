@@ -196,7 +196,11 @@ const StepFields = ({
                       gap: "8px",
                     }}
                   >
-                    <span>Conditional</span>
+                    <span>Conditional 
+                    <Tooltip
+                    title="Conditional"
+                    content="Conditional Conditional Conditional"
+                    /></span>
                     <Input placeholder="step.something === true" />
                   </div>
                 </div>
