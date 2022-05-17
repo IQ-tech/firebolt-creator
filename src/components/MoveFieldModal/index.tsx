@@ -18,7 +18,7 @@ const MoveFieldModal = ({
   stepsList,
   visibleStep,
 }: IMoveFieldModal) => {
-  const { filteredStepsList, selectedStep, selectStep, onSubmit } =
+  const { filteredStepsList, selectedStep, selectStep, showConfirm } =
     useMoveFieldModal({
       stepsList,
       visibleStep,
@@ -31,7 +31,7 @@ const MoveFieldModal = ({
       visible={isVisible}
       okButtonProps={{ disabled: !selectedStep }}
       onCancel={onClose}
-      onOk={onSubmit}
+      onOk={showConfirm}
     >
       <Table
         pagination={false}
@@ -71,7 +71,7 @@ const MoveFieldModal = ({
                       key={`step-list-field-${idx}`}
                       value={step.step.slug}
                     >
-                      {step.step.slug}
+                      {step.step.friendlyname}
                     </Select.Option>
                   ))}
                 </Select>

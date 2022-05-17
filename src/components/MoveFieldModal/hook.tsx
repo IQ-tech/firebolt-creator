@@ -1,3 +1,6 @@
+import { message } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { Modal } from "antd";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 import { IField, IStep } from "@/types/fireboltJSON";
 import { useState } from "react";
@@ -15,6 +18,9 @@ export default function useMoveFieldModal({
 }) {
   const [selectedStep, setSelectedStep] = useState<string>();
   const { dispatch } = useFireboltJSON();
+  const selectedStepData = stepsList.find(
+    (step) => step.step.slug === selectedStep
+  );
 
   function selectStep(stepId: string) {
     setSelectedStep(stepId);
@@ -31,14 +37,30 @@ export default function useMoveFieldModal({
         },
       });
       onClose();
+      message.success(
+        `Field ${movingField.slug} moved to step: ${selectedStepData?.step?.friendlyname}`
+      );
       setSelectedStep(undefined);
     }
+  }
+
+  const { confirm } = Modal;
+
+  function showConfirm() {
+    confirm({
+      title: `Do you really want to move the field to ${selectedStepData?.step?.friendlyname}`,
+      icon: <ExclamationCircleOutlined />,
+      content: "Some descriptions",
+      onOk() {
+        onSubmit();
+      },
+    });
   }
 
   return {
     selectedStep,
     selectStep,
-    onSubmit,
+    showConfirm,
     filteredStepsList: stepsList.filter((step) => step.step.type === "form"),
   };
 }

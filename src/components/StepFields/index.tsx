@@ -192,7 +192,10 @@ const StepFields = ({
                       gap: "8px",
                     }}
                   >
-                    <span>Slug</span>
+                    <span css={{ display: "flex" }}>
+                      Slug
+                      <Tooltip title="Slug" content="Rule ..... ... Slug" />
+                    </span>
                     <Input value={field.slug} />
                   </div>
                   <div

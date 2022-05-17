@@ -1,5 +1,9 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { Modal } from "antd";
+
+const { confirm } = Modal;
 
 export default function useEditor() {
   const { currentJSON, dispatch, startNewSession } = useFireboltJSON();
@@ -11,6 +15,17 @@ export default function useEditor() {
     navigate(path);
   };
 
+  function showConfirm() {
+    confirm({
+      title: "Do you want to start a new experience?",
+      icon: <ExclamationCircleOutlined />,
+      content: "This will permanently delete the current experience",
+      onOk() {
+        startNewSession();
+      },
+    });
+  }
+
   return {
     location,
     navigate,
@@ -18,5 +33,6 @@ export default function useEditor() {
     currentJSON,
     dispatch,
     startNewSession,
+    showConfirm,
   };
 }

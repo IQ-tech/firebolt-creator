@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { PageHeader, Button, Tabs, Dropdown, Menu, Tooltip } from "antd";
+import { PageHeader, Button, Tabs, Dropdown, Menu, Tooltip, Modal } from "antd";
 import {
   HomeOutlined,
   SisternodeOutlined,
@@ -31,7 +31,7 @@ const EditorPage = () => {
     tabsCallback,
     currentJSON,
     dispatch,
-    startNewSession,
+    showConfirm,
   } = useEditor();
 
   return (
@@ -119,7 +119,7 @@ const EditorPage = () => {
                     Redo
                   </Menu.Item>
                   <Menu.Item
-                    onClick={startNewSession}
+                    onClick={showConfirm}
                     icon={<LogoutOutlined />}
                     key="logout-button"
                   >
