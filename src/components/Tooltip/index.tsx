@@ -19,23 +19,31 @@ interface ITooltip {
     | "rightTop"
     | "rightBottom";
   content: React.ReactNode;
-  css?: any
+  css?: any;
 }
 
 const Tooltip = ({ title, placement, content, css }: ITooltip) => {
   return (
-    <Popover css={css} title={title} placement={placement} content={content} arrowPointAtCenter autoAdjustOverflow>
+    <Popover
+      css={css}
+      title={title}
+      placement={placement}
+      content={content}
+      arrowPointAtCenter
+      autoAdjustOverflow
+    >
       <div
         css={{
           backgroundColor: "#69c0ff",
           color: "white",
-          width: "15px",
-          height: "15px",
-          margin: "0 10px",
+          width: "16px",
+          height: "16px",
+          marginInline: "10px",
           display: "flex",
           borderRadius: "50%",
           alignItems: "center",
           justifyContent: "center",
+          fontSize: "10px",
           cursor: "pointer",
           transition: "background-color .2s",
           ":hover": {
@@ -43,14 +51,7 @@ const Tooltip = ({ title, placement, content, css }: ITooltip) => {
           },
         }}
       >
-        <QuestionOutlined
-          css={{
-            svg: {
-              width: "12px",
-              height: "12px",
-            },
-          }}
-        />
+        <QuestionOutlined />
       </div>
     </Popover>
   );

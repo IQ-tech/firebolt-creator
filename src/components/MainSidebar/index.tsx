@@ -51,6 +51,7 @@ const StepFields = ({
         activeKey={visibleStep?.step?.slug}
         css={{
           width: "240px",
+          borderRight: 0,
           flex: 1,
         }}
       >

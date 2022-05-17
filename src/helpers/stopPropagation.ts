@@ -1,6 +1,6 @@
-export default function stopPropagation(callback) {
+export default function stopPropagation(callback?: (...args: any[]) => void) {
   return (e) => {
     e.stopPropagation();
-    callback();
+    if (!!callback) callback();
   };
 }

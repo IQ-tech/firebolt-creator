@@ -7,6 +7,7 @@ import {
   Switch,
   Button,
   Tooltip as AntdTooltip,
+  Popconfirm,
 } from "antd";
 import { css } from "@emotion/react";
 import {
@@ -163,14 +164,20 @@ const StepFields = ({
                     />
                   </AntdTooltip>
                   <AntdTooltip title="Delete field">
-                    <Button
-                      type="primary"
-                      danger
-                      icon={<DeleteOutlined />}
-                      onClick={stopPropagation(() =>
+                    <Popconfirm
+                      title="Delete field?"
+                      placement="bottom"
+                      onConfirm={stopPropagation(() =>
                         handleDeleteField(visibleStep.step.slug, field.slug)
                       )}
-                    />
+                    >
+                      <Button
+                        type="primary"
+                        danger
+                        icon={<DeleteOutlined />}
+                        onClick={stopPropagation()}
+                      />
+                    </Popconfirm>
                   </AntdTooltip>
                 </Space>
               }
@@ -196,16 +203,24 @@ const StepFields = ({
                       gap: "8px",
                     }}
                   >
-                    <span>Conditional 
-                    <Tooltip
-                    title="Conditional"
-                    content="Conditional Conditional Conditional"
-                    /></span>
+                    <span css={{ display: "flex" }}>
+                      Conditional
+                      <Tooltip
+                        title="Conditional"
+                        content="Rule to define if a field should be rendered and validated or not"
+                      />
+                    </span>
                     <Input placeholder="step.something === true" />
                   </div>
                 </div>
                 <Space direction="vertical" css={widthStyles}>
-                  <span>Widget</span>
+                  <span css={{ display: "flex" }}>
+                    Widget
+                    <Tooltip
+                      title="Widget"
+                      content="Rule to set Field Widget"
+                    />
+                  </span>
                   <Select
                     css={widthStyles}
                     placeholder="Please select"
@@ -230,7 +245,13 @@ const StepFields = ({
               </Select>
             </Space> */}
                 <Space>
-                  <span>Half size</span>
+                  <span css={{ display: "flex" }}>
+                    Half size
+                    <Tooltip
+                      title="Half size"
+                      content="Rule to set field display size"
+                    />
+                  </span>
                   <Switch
                     onChange={(e) =>
                       handleEditFieldStyle(visibleStep.step.slug, field, e)
@@ -239,11 +260,23 @@ const StepFields = ({
                   />
                 </Space>
                 <Space>
-                  <span>UI props</span>
+                  <span css={{ display: "flex" }}>
+                    UI props
+                    <Tooltip
+                      title="UI props"
+                      content="Rule .... ... .. UI props"
+                    />
+                  </span>
                   <AddPropsModal field={field} visibleStep={visibleStep} />
                 </Space>
                 <Space>
-                  <span>Validators</span>
+                  <span css={{ display: "flex" }}>
+                    Validators
+                    <Tooltip
+                      title="Validators"
+                      content="Rule ... ... ... Validators"
+                    />
+                  </span>
                   <ValidatorsModal field={field.validators} />
                 </Space>
               </Space>
