@@ -6,11 +6,12 @@ import { darken } from "polished";
 interface ITooltip {
   title: React.ReactNode;
   content: React.ReactNode;
+  css: any
 }
 
-const Tooltip = ({ title, content }: ITooltip) => {
+const Tooltip = ({ title, content, css }: ITooltip) => {
   return (
-    <Popover title={title} content={content}>
+    <Popover css={css} title={title} content={content}>
       <div
         css={{
           backgroundColor: "#69c0ff",

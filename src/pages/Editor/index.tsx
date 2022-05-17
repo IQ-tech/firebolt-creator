@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { PageHeader, Button, Tabs, Dropdown, Menu } from "antd";
+import { PageHeader, Button, Tabs, Dropdown, Menu, Tooltip } from "antd";
 import {
   HomeOutlined,
   SisternodeOutlined,
@@ -59,42 +59,46 @@ const EditorPage = () => {
           ghost={false}
           onBack={() => navigate("/")}
           title={
-            <p
-              css={{
-                padding: "4px 8px",
-                border: "1px solid transparent",
-                ":hover": { border: "solid 1px #1890ff" },
-              }}
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => {
-                dispatch({
-                  type: "SET_EXPERIENCE_NAME",
-                  payload: { experienceName: e?.target?.innerText },
-                });
-              }}
-            >
-              {currentJSON?.name}
-            </p>
+            <Tooltip title="Rename">
+              <p
+                css={{
+                  padding: "4px 8px",
+                  border: "1px solid transparent",
+                  ":hover": { border: "solid 1px #1890ff" },
+                }}
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) => {
+                  dispatch({
+                    type: "SET_EXPERIENCE_NAME",
+                    payload: { experienceName: e?.target?.innerText },
+                  });
+                }}
+              >
+                {currentJSON?.name ? currentJSON?.name : "Untitled"}
+              </p>
+            </Tooltip>
           }
           subTitle={
-            <p
-              css={{
-                padding: "4px 8px",
-                border: "1px solid transparent",
-                ":hover": { border: "solid 1px #1890ff" },
-              }}
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => {
-                dispatch({
-                  type: "SET_EXPERIENCE_DESCRIPTION",
-                  payload: { newDescription: e?.target?.innerText },
-                });
-              }}
-            >
-              {currentJSON?.business}
-            </p>
+            <Tooltip title="Change description">
+              <p
+                css={{
+                  padding: "4px 8px",
+                  border: "1px solid transparent",
+                  ":hover": { border: "solid 1px #1890ff" },
+                }}
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) => {
+                  dispatch({
+                    type: "SET_EXPERIENCE_DESCRIPTION",
+                    payload: { newDescription: e?.target?.innerText },
+                  });
+                }}
+              >
+                {currentJSON?.business ? currentJSON?.business : "Untitled"}
+              </p>
+            </Tooltip>
           }
           extra={[
             <Button
@@ -108,24 +112,16 @@ const EditorPage = () => {
               key="more"
               overlay={
                 <Menu>
-                  <Menu.Item
-                    disabled
-                    icon={<UndoOutlined />}
-                    key={`undo-button`}
-                  >
+                  <Menu.Item disabled icon={<UndoOutlined />} key="undo-button">
                     Undo
                   </Menu.Item>
-                  <Menu.Item
-                    disabled
-                    icon={<RedoOutlined />}
-                    key={`redo-button`}
-                  >
+                  <Menu.Item disabled icon={<RedoOutlined />} key="redo-button">
                     Redo
                   </Menu.Item>
                   <Menu.Item
                     onClick={startNewSession}
                     icon={<LogoutOutlined />}
-                    key={`redo-button`}
+                    key="logout-button"
                   >
                     Start new experience
                   </Menu.Item>

@@ -223,6 +223,14 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
       return { ...state, steps: newSteps };
     }
 
+    case "MOVE_FIELD_TO_STEP": {
+      const stepToRemoveField = state.steps.find(step => step.step.slug === payload.fromStepSlug)
+      const stepToAddField = state.steps.find(step => step.step.slug === payload.toStepSlug)
+      
+
+      return {...state}
+    }
+
     case "EDIT_FIELD_STYLES": {
       const newCurrentSteps = currentSteps.map((step) => {
         if (step.step.slug === payload.step) {

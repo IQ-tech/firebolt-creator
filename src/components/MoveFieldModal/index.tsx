@@ -18,13 +18,18 @@ const MoveFieldModal = ({
   stepsList,
   visibleStep,
 }: IMoveFieldModal) => {
-  const { filteredStepsList, selectedStep } = useMoveFieldModal({ stepsList });
+  const { filteredStepsList, selectedStep, selectStep, onSubmit } =
+    useMoveFieldModal({
+      stepsList,
+      visibleStep,
+      onClose,
+    });
   return (
     <Modal
       title={movingField ? `Move field - ${movingField.slug}` : ""}
       visible={isVisible}
       okButtonProps={{ disabled: !selectedStep }}
-      onCancel={onClose}
+      onCancel={onSubmit}
     >
       <Table
         pagination={false}
@@ -57,6 +62,7 @@ const MoveFieldModal = ({
                 <Select
                   css={{ width: "100%" }}
                   defaultValue={visibleStep.step.slug}
+                  onChange={selectStep}
                 >
                   {filteredStepsList.map((step, idx) => (
                     <Select.Option

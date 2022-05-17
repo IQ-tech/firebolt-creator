@@ -40,6 +40,7 @@ const StepFields = ({
       >
         Available steps{" "}
         <Tooltip
+          css={{maxWidth: "100px"}}
           title="Steps"
           content="All available steps that can be used on the multistep experience"
         />
