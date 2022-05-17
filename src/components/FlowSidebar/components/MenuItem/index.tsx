@@ -3,9 +3,8 @@ import { useState } from "react";
 import { FormOutlined, DeleteOutlined, CheckOutlined } from "@ant-design/icons";
 import * as S from "../../styles";
 
-
-import { Modal, Button } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Modal, Button } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 type MenuItemProps = {
   title: string;
@@ -25,25 +24,23 @@ const MenuItem = ({
   const [isEditing, setIsEditing] = useState(false);
   const [inputData, setInputData] = useState(title);
 
+  const { confirm } = Modal;
 
-
-const { confirm } = Modal;
-
-function showConfirm(title) {
-  confirm({
-    title: `Do you want to delete this ${title}?`,
-    icon: <ExclamationCircleOutlined />,
-    content: `Are you sure you want to do this`,
-    onOk() {
-      removeFlow(title)
-    },
-  });
-}
+  function showConfirm(title) {
+    confirm({
+      title: `Do you want to delete this ${title}?`,
+      icon: <ExclamationCircleOutlined />,
+      content: `Are you sure you want to do this`,
+      onOk() {
+        removeFlow(title);
+      },
+    });
+  }
 
   const EditMode = () => {
     return (
       <form
-      css={{display: "flex"}}
+        css={{ display: "flex" }}
         onSubmit={(event) => {
           event.preventDefault();
           setIsEditing(false);
@@ -59,28 +56,12 @@ function showConfirm(title) {
         />
 
         <Button
-        css={{margin: "5px"}}
-        disabled={title === "default"}
-        type="primary" htmlType="submit"
-        icon={<CheckOutlined />}
+          css={{ margin: "5px" }}
+          disabled={title === "default"}
+          type="primary"
+          htmlType="submit"
+          icon={<CheckOutlined />}
         />
-
-        {/* <button
-          css={[
-            S.defaultBtn(isActive),
-            {
-              height: "35px",
-              width: "35px",
-              marginLeft: "3px",
-              ":hover": {
-                border: "solid 1px black",
-              },
-            },
-          ]}
-          type="submit"
-        >
-          <CheckOutlined />
-        </button> */}
       </form>
     );
   };
@@ -109,15 +90,16 @@ function showConfirm(title) {
             {title}
           </button>
           <Button
+            css={{ width: "44px", height: "33px", margin: "0px 2px" }}
             disabled={title === "default"}
             type="primary"
-            icon={ <FormOutlined />}
+            icon={<FormOutlined />}
             onClick={() => setIsEditing(true)}
           />
 
           <Button
+            css={{ width: "44px", height: "33px", margin: "0px 2px" }}
             disabled={title === "default"}
-            css={[S.defaultBtn(isActive)]}
             type="primary"
             danger
             icon={<DeleteOutlined />}

@@ -32,7 +32,7 @@ export const inputRename = (isActive: boolean) => {
         display: "flex",
         alignItems: "center",
         // justifyContent: "space-between",
-        paddingLeft: "5px",
+        padding: "0px 5px",
        margin: "5px 0px"
     };
   };
