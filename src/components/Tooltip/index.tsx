@@ -1,5 +1,5 @@
 import React from "react";
-import { QuestionOutlined } from "@ant-design/icons";
+import { QuestionOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 import { darken } from "polished";
 
@@ -34,24 +34,17 @@ const Tooltip = ({ title, placement, content, css }: ITooltip) => {
     >
       <div
         css={{
-          backgroundColor: "#69c0ff",
-          color: "white",
-          width: "16px",
-          height: "16px",
+          color: "#69c0ff",
           marginInline: "10px",
-          display: "flex",
-          borderRadius: "50%",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "10px",
+          fontSize: "12px",
           cursor: "pointer",
-          transition: "background-color .2s",
+          transition: "color .2s",
           ":hover": {
-            backgroundColor: darken(0.1, "#69c0ff"),
+            color: darken(0.1, "#69c0ff"),
           },
         }}
       >
-        <QuestionOutlined />
+        <QuestionCircleOutlined />
       </div>
     </Popover>
   );

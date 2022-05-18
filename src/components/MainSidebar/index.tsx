@@ -16,7 +16,7 @@ const StepFields = ({
   onOpenAddStep,
   openEditStep,
 }) => {
-  const { steps, handleVisibleStep, handleDeleteStep } = useMainSidebar({
+  const { steps, handleVisibleStep, showConfirm } = useMainSidebar({
     setVisibleStep,
   });
 
@@ -70,7 +70,7 @@ const StepFields = ({
           >
             <Menu.Item
               key={`${step.step.slug}-remove`}
-              onClick={() => handleDeleteStep(step.step.slug)}
+              onClick={() => showConfirm(step.step.slug)}
             >
               Remove
             </Menu.Item>

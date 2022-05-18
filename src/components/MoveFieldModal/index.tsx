@@ -1,4 +1,4 @@
-import { Modal, Table, Select } from "antd";
+import { Modal, Table, Select, Tooltip } from "antd";
 import { SwapRightOutlined } from "@ant-design/icons";
 import { IField, IStep } from "@/types/fireboltJSON";
 import useMoveFieldModal from "./hook";
@@ -18,19 +18,26 @@ const MoveFieldModal = ({
   stepsList,
   visibleStep,
 }: IMoveFieldModal) => {
-  const { filteredStepsList, selectedStep, selectStep, showConfirm } =
-    useMoveFieldModal({
-      stepsList,
-      visibleStep,
-      onClose,
-      movingField,
-    });
+  const {
+    filteredStepsList,
+    selectStep,
+    showConfirm,
+    isValid,
+    handleClose,
+    selectedStep,
+    error,
+  } = useMoveFieldModal({
+    stepsList,
+    visibleStep,
+    onClose,
+    movingField,
+  });
   return (
     <Modal
       title={movingField ? `Move field - ${movingField.slug}` : ""}
       visible={isVisible}
-      okButtonProps={{ disabled: !selectedStep }}
-      onCancel={onClose}
+      okButtonProps={{ disabled: !isValid }}
+      onCancel={handleClose}
       onOk={showConfirm}
     >
       <Table
@@ -40,7 +47,7 @@ const MoveFieldModal = ({
           {
             title: "To",
             dataIndex: "to",
-            width: "30%",
+            width: "25%",
             render: () => (
               <div
                 css={{
@@ -58,12 +65,26 @@ const MoveFieldModal = ({
           {
             title: "Step",
             dataIndex: "step",
-            width: "35%",
+            width: "40%",
             render: () => (
-              <div css={{ width: "100%", height: "100%" }}>
+              <div
+                css={{ width: "100%", height: "100%", position: "relative" }}
+              >
+                {error && (
+                  <Tooltip title={error} defaultVisible placement="rightTop">
+                    <div
+                      css={{
+                        inset: "0",
+                        position: "absolute",
+                        zIndex: "-1",
+                      }}
+                    />
+                  </Tooltip>
+                )}
                 <Select
                   css={{ width: "100%" }}
-                  defaultValue={visibleStep.step.slug}
+                  status={error ? "error" : undefined}
+                  value={selectedStep}
                   onChange={selectStep}
                 >
                   {filteredStepsList.map((step, idx) => (

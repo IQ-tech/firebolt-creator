@@ -195,7 +195,10 @@ const StepFields = ({
                   >
                     <span css={{ display: "flex" }}>
                       Slug
-                      <Tooltip title="Slug" content="Rule ..... ... Slug" />
+                      <Tooltip
+                        title="Slug"
+                        content="Unique identifier to the field"
+                      />
                     </span>
                     <Input value={field.slug} />
                   </div>
@@ -268,7 +271,7 @@ const StepFields = ({
                     UI props
                     <Tooltip
                       title="UI props"
-                      content="Rule .... ... .. UI props"
+                      content="Define props to be passed to widget component"
                     />
                   </span>
                   <AddPropsModal field={field} visibleStep={visibleStep} />
@@ -278,7 +281,7 @@ const StepFields = ({
                     Validators
                     <Tooltip
                       title="Validators"
-                      content="Rule ... ... ... Validators"
+                      content="Define validations to be applied to a field"
                     />
                   </span>
                   <ValidatorsModal field={field.validators} />

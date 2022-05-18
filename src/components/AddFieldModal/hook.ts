@@ -35,6 +35,11 @@ export default function useAddFieldModal({
     );
   }
 
+  function handleClose() {
+    resetField();
+    onClose();
+  }
+
   return {
     status,
     value: inputValue,
@@ -42,5 +47,6 @@ export default function useAddFieldModal({
     errorMessage,
     isValid,
     addStep,
+    handleClose
   };
 }

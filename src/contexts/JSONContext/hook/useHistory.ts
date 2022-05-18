@@ -1,6 +1,6 @@
 import { IFireboltJSON } from "@/types/fireboltJSON";
 import React, { useEffect } from "react";
-import { JSONAction } from "./reducer";
+import { JSONAction } from "./reducer.types";
 
 interface IUseHistory {
   currentJSON: IFireboltJSON;

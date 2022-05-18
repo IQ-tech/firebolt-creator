@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import slugify from "slugify";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
+import useSlugInput from "@/hooks/useSlugInput";
 
 import { IStep } from "@/types/fireboltJSON";
 
@@ -13,9 +14,33 @@ const emptyStep = {
   },
 };
 
-export default function useStepModal({ onCloseModal, editingStep }) {
+export default function useStepModal({
+  onCloseModal,
+  editingStep,
+}: {
+  editingStep?: IStep;
+  onCloseModal(...args: any[]): void;
+}) {
   const { dispatch } = useFireboltJSON();
   const [step, setStep] = useState<IStep>(emptyStep);
+
+  const existentFields = (editingStep?.step.fields || []).map(
+    (field) => field.slug
+  );
+
+  const {
+    status,
+    value: inputValue,
+    onChange,
+    errorMessage,
+    isValid: isSlugFieldValid,
+    resetField,
+  } = useSlugInput({
+    existentSlugs: existentFields,
+    defaultValue: editingStep?.step.slug,
+  });
+
+  const isValid = isSlugFieldValid && !!step.step.friendlyname;
 
   useEffect(() => {
     if (editingStep) {
@@ -28,6 +53,8 @@ export default function useStepModal({ onCloseModal, editingStep }) {
     : "Create step";
 
   function handleCancel() {
+    resetField();
+    setStep(emptyStep);
     onCloseModal();
   }
 
@@ -50,7 +77,8 @@ export default function useStepModal({ onCloseModal, editingStep }) {
     } else {
       dispatch({ type: "ADD_NEW_STEP", payload: { step: newStep } });
     }
-
+    resetField();
+    setStep(emptyStep);
     onCloseModal();
   }
 
@@ -67,6 +95,11 @@ export default function useStepModal({ onCloseModal, editingStep }) {
   }
 
   return {
+    status,
+    value: inputValue,
+    onChange,
+    errorMessage,
+    isValid,
     step,
     addNewStep,
     handleCancel,

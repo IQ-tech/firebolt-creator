@@ -1,6 +1,6 @@
 import { IStep } from "@/types/fireboltJSON";
 import { Modal, Input, Select } from "antd";
-
+import InputWithErrorMessage from "../InputWithErrorMessage";
 import useStepModal from "./hook";
 
 interface IModalStep {
@@ -11,31 +11,48 @@ interface IModalStep {
 
 function ModalStep({ onCloseModal, isModalVisible, editingStep }: IModalStep) {
   const { Option } = Select;
-  const { step, addNewStep, handleCancel, handleStepData, modalTitle } =
-    useStepModal({
-      onCloseModal,
-      editingStep,
-    });
+  const {
+    status,
+    value: inputValue,
+    onChange,
+    errorMessage,
+    isValid,
+
+    step,
+    addNewStep,
+    handleCancel,
+    handleStepData,
+    modalTitle,
+  } = useStepModal({
+    onCloseModal,
+    editingStep,
+  });
 
   return (
     <Modal
       title={modalTitle}
       visible={isModalVisible}
+      okButtonProps={{ disabled: !isValid }}
       onOk={addNewStep}
       onCancel={handleCancel}
     >
       <div className="flex">
         <div className="label__input">
-          <label>Slug</label>
-          <Input
+          <label><span css={{color: "red", fontWeight: 600,
+    fontSize: "14px",
+    lineHeight: "22px"}}>*</span> Slug</label>
+          <InputWithErrorMessage
+            errorMessage={errorMessage}
             placeholder="personal_data"
-            value={step.step.slug}
-            onChange={(e) => handleStepData("slug", e.currentTarget.value)}
+            status={status}
+            value={inputValue}
+            onChange={onChange}
           />
         </div>
 
         <div className="label__input">
           <label>Friendly Name</label>
+          
           <Input
             placeholder="Personal data"
             value={step.step.friendlyname}

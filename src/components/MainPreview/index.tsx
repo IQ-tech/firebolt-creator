@@ -50,20 +50,20 @@ const MainPreview = ({ visibleStep, isVisibleStepCustom }: IMainPreview) => {
           alignItems: "stretch",
           flex: 1,
         }}
-        title={ 
-        <div
-        css={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-       Preview
-        <Tooltip
-          title="Preview"
-          content="Rule  ..... Preview"
-        />
-      </div>
-      }
+        title={
+          <div
+            css={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            Preview
+            <Tooltip
+              title="Preview"
+              content="Partial rendering of the step, standalone themes can be used/developed by third party users"
+            />
+          </div>
+        }
         bodyStyle={cardBodyPadding}
         extra={
           <Select

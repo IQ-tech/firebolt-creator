@@ -17,12 +17,13 @@ const AddFieldModal = ({ isOpen, onClose, visibleStep }: IAddFieldModal) => {
     errorMessage,
     isValid,
     addStep,
+    handleClose,
   } = useAddFieldModal({ visibleStep, onClose });
 
   return (
     <Modal
       title={`Add new field to step: ${visibleStep?.step?.friendlyname}`}
-      onCancel={onClose}
+      onCancel={handleClose}
       okButtonProps={{ disabled: !isValid }}
       visible={isOpen}
       onOk={addStep}

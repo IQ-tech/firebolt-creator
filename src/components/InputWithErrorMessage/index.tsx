@@ -14,12 +14,16 @@ const InputWithErrorMessage = ({
   return (
     <div css={{ position: "relative" }}>
       {!!shouldShowMessage && (
-        <Tooltip title={errorMessage} defaultVisible placement="rightTop">
+        <Tooltip
+          title={errorMessage}
+          defaultVisible
+          placement="rightTop"
+          destroyTooltipOnHide
+        >
           <div
             css={{
               inset: "0",
               position: "absolute",
-              backgroundColor: "red",
               zIndex: "-1",
             }}
           />
