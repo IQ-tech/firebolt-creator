@@ -6,6 +6,7 @@ import { IFlow } from "@/types/fireboltJSON";
 import * as S from "./styles";
 
 import MenuItem from "./components/MenuItem";
+import Tooltip from "@/components/Tooltip";
 
 interface IFlowSidebar {
   flows: IFlow[];
@@ -42,6 +43,8 @@ const FlowSidebar = ({
     <div css={{ paddingRight: "19px" }}>
       <h2
         css={{
+          display: "flex",
+          alignItems: "center",
           padding: "16px 24px",
           margin: "0",
           backgroundColor: "#fff",
@@ -50,6 +53,7 @@ const FlowSidebar = ({
         }}
       >
         Flows list
+        <Tooltip title="Flows list" placement="topRight" content="Rule ..... ... Flows list" />
       </h2>
       <Divider css={{ margin: "0" }} />
       <Menu

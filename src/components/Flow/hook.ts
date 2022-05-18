@@ -29,9 +29,7 @@ export default function useFlow({
 
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance>(); 
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
-  const { setViewport } = useReactFlow();
   const { dispatch } = useFireboltJSON();
-  const flowKey = "currentFlows";
 
   useEffect(populateEdgesAndNodes, [visibleFlow]);
   useEffect(setNewFlowSteps, [edges]); // problema
@@ -75,6 +73,7 @@ export default function useFlow({
     setNodes(newNodes);
     setEdges(newEdges);
     setPopulated(true);
+    reactFlowInstance?.fitView()
   }
 
   function setNewFlowSteps() {

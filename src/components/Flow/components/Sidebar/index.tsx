@@ -1,6 +1,7 @@
 import * as S from "./styles";
 
 import { IStep } from "@/types/fireboltJSON";
+import Tooltip from "@/components/Tooltip";
 
 const onDragStart = (event, nodeType: string, valueStep: string) => {
   event.dataTransfer.setData("nodeType", nodeType);
@@ -12,7 +13,9 @@ const onDragStart = (event, nodeType: string, valueStep: string) => {
 const Sidebar = ({ steps }: {steps: IStep[]}) => {
   return (
     <aside css={S.containerSidebarFlow}>
-      <h2 css={S.titleSideBarFlow}>You can chose any of the available steps</h2>
+      <h2 css={S.titleSideBarFlow}>You can chose any of the available steps
+      <Tooltip title="Available steps" placement="topLeft" content="Rule ..... ... Available steps" />
+      </h2>
 
       {steps?.map(({step}) => (
         <div

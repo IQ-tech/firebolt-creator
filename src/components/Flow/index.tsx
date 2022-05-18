@@ -65,7 +65,18 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
             onDragOver={onDragOver}
             connectionLineComponent={CustomLineConnection}
           >
-            <Controls />
+            <Controls
+              css={{
+                width: "40px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                "button": {
+                  width: "40px",
+                  height: "35px"
+                }
+              }}
+            />
             <Background color="#aaa" gap={10} />
             <MiniMap />
 

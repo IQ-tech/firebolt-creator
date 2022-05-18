@@ -1,14 +1,20 @@
 import { css } from "@emotion/react"
 
 export const containerSidebarFlow = css({
-  maxWidth: "250px",
+  maxWidth: "300px",
   borderRight: "1px solid #eee",
   padding: "15px 10px",
   fontSize: "12px",
   background: "#fcfcfc",
 })
 
-export const titleSideBarFlow = css({ fontSize: "12px", fontWeight: 700 })
+export const titleSideBarFlow = css({ 
+  display: "flex",
+  alignItems: "center",
+  fontSize: "12px",
+  fontWeight: 700,
+  height: "20px" 
+})
 
 export const optionStepStyle = css({
   height: "28px",

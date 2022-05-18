@@ -5,17 +5,21 @@ export default function useSlugInput({
 }: {
   existentSlugs?: string[];
 } = {}) {
-  const [status, setStatus] = useState<string>();
+  const [status, setStatus] = useState<"error" | "warning" | undefined>();
   const [value, setValue] = useState("");
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
+  const isValid = !!value && !status;
 
   function validateValue(value: string) {
     const isValid = value.match(/^[a-zA-Z0-9-_]+$/);
     if (!isValid) {
       setStatus("error");
+      setErrorMessage(
+        "The name should not contain spaces and special characters"
+      );
     } else {
       setStatus(undefined);
-      setErrorMessage("")
+      setErrorMessage("");
     }
   }
 
@@ -26,5 +30,5 @@ export default function useSlugInput({
     validateValue(value);
   }
 
-  return { status, value, onChange };
+  return { status, value, onChange, errorMessage, isValid };
 }
