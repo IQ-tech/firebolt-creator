@@ -12,11 +12,15 @@ export default function useSlugInput({
 
   function validateValue(value: string) {
     const isValid = value.match(/^[a-zA-Z0-9-_]+$/);
+    const alreadyHasSlug = existentSlugs.includes(value);
     if (!isValid) {
       setStatus("error");
       setErrorMessage(
         "The name should not contain spaces and special characters"
       );
+    } else if (alreadyHasSlug) {
+      setStatus("error");
+      setErrorMessage(`the slug ${value} already exists`);
     } else {
       setStatus(undefined);
       setErrorMessage("");
@@ -25,10 +29,13 @@ export default function useSlugInput({
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    console.log(value);
     setValue(value);
     validateValue(value);
   }
 
-  return { status, value, onChange, errorMessage, isValid };
+  function resetField() {
+    setValue("");
+  }
+
+  return { status, value, onChange, errorMessage, isValid, resetField };
 }

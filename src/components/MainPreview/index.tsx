@@ -5,6 +5,7 @@ import MaterialTheme from "@iq-firebolt/material-theme";
 import { useState } from "react";
 import { IStep } from "@/types/fireboltJSON";
 import { IStepConfigField } from "@iq-firebolt/client-core";
+import Tooltip from "@/components/Tooltip";
 
 const { Option } = Select;
 
@@ -49,7 +50,20 @@ const MainPreview = ({ visibleStep, isVisibleStepCustom }: IMainPreview) => {
           alignItems: "stretch",
           flex: 1,
         }}
-        title="Preview"
+        title={ 
+        <div
+        css={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+       Preview
+        <Tooltip
+          title="Preview"
+          content="Rule  ..... Preview"
+        />
+      </div>
+      }
         bodyStyle={cardBodyPadding}
         extra={
           <Select

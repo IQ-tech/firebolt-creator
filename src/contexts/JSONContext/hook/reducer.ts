@@ -122,6 +122,44 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
       };
     }
 
+    case "ADD_FIELD": {
+      const templateField: IField = {
+        slug: payload.fieldSlug,
+        "ui:props": {},
+        "ui:widget": "Text",
+        "ui:styles": {
+          size: "full",
+        },
+      };
+
+      const stepToAddField = state.steps.find(
+        (step) => step.step.slug === payload.step
+      ) as IStep;
+
+      const newFieldsArray: IField[] = [
+        ...stepToAddField.step.fields,
+        templateField,
+      ];
+      const newStep: IStep = {
+        step: {
+          ...stepToAddField.step,
+          fields: newFieldsArray,
+        },
+      };
+
+      const newSteps = state.steps.map((step) => {
+        if (step.step.slug === stepToAddField.step.slug) {
+          return newStep;
+        }
+        return step;
+      });
+
+      return {
+        ...state,
+        steps: newSteps,
+      };
+    }
+
     case "DELETE_FIELD": {
       const currentSteps = state?.steps;
       const stepToModify = currentSteps.find(

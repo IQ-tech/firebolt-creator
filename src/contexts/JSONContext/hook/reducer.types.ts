@@ -24,7 +24,7 @@ export type JSONAction =
       type: "ADD_FIELD";
       payload: {
         step: string;
-        field: IField;
+        fieldSlug: string;
       };
     }
   | {
