@@ -17,7 +17,6 @@ function ModalStep({ onCloseModal, isModalVisible, editingStep }: IModalStep) {
     onChange,
     errorMessage,
     isValid,
-
     step,
     addNewStep,
     handleCancel,
@@ -38,9 +37,19 @@ function ModalStep({ onCloseModal, isModalVisible, editingStep }: IModalStep) {
     >
       <div className="flex">
         <div className="label__input">
-          <label><span css={{color: "red", fontWeight: 600,
-    fontSize: "14px",
-    lineHeight: "22px"}}>*</span> Slug</label>
+          <label>
+            <span
+              css={{
+                color: "red",
+                fontWeight: 600,
+                fontSize: "14px",
+                lineHeight: "22px",
+              }}
+            >
+              *
+            </span>{" "}
+            Slug
+          </label>
           <InputWithErrorMessage
             errorMessage={errorMessage}
             placeholder="personal_data"
@@ -52,7 +61,7 @@ function ModalStep({ onCloseModal, isModalVisible, editingStep }: IModalStep) {
 
         <div className="label__input">
           <label>Friendly Name</label>
-          
+
           <Input
             placeholder="Personal data"
             value={step.step.friendlyname}

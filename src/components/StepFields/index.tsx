@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Card,
   Collapse,
@@ -10,6 +11,7 @@ import {
   Popconfirm,
 } from "antd";
 import { css } from "@emotion/react";
+import { useDebounce } from "use-debounce";
 import {
   DeleteOutlined,
   SwapOutlined,
@@ -24,6 +26,7 @@ import AddPropsModal from "../AddPropsModal";
 
 import useStepFields from "./hook";
 import { IField, IStep } from "@/types/fireboltJSON";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -44,6 +47,12 @@ interface IStepFields {
   onOpenAddField(...args: any): void;
 }
 
+interface IStepFieldsValues {
+  [field: string]: {
+    [slug: string]: string 
+  }
+}
+
 const StepFields = ({
   visibleStep,
   isVisibleStepCustom,
@@ -56,9 +65,13 @@ const StepFields = ({
     handleDeleteField,
     handleEditFieldStyle,
     checkHasFieldDown,
+    handleEditFieldValue,
     moveFieldUp,
     moveFieldDown,
   } = useStepFields();
+
+  const [fieldValues, setFieldValues] = useState<IStepFieldsValues>({});
+  const [debouncedFieldValues] = useDebounce<IStepFieldsValues>(fieldValues, 500);
 
   const cardBodyPadding = isVisibleStepCustom
     ? {
@@ -67,6 +80,17 @@ const StepFields = ({
         flex: 1,
       }
     : {};
+
+  useEffect(() => {
+    Object.keys(debouncedFieldValues).forEach(slug => {
+      Object.keys(slug).forEach((field) => handleEditFieldValue(
+        field as keyof IField,
+        debouncedFieldValues[slug][field],
+        visibleStep.step.slug,
+        slug
+      ));
+    });
+  }, [fieldValues]);
 
   return (
     <Card
@@ -200,7 +224,16 @@ const StepFields = ({
                         content="Unique identifier to the field"
                       />
                     </span>
-                    <Input value={field.slug} />
+                    <Input
+                      value={fieldValues?.[field.slug]?.slug || field.slug}
+                      onChange={(event) => setFieldValues({
+                        ...fieldValues,
+                        [field.slug]: {
+                          ...fieldValues[field.slug],
+                          slug: event.target.value
+                        }
+                      })}
+                    />
                   </div>
                   <div
                     css={{
@@ -217,7 +250,17 @@ const StepFields = ({
                         content="Rule to define if a field should be rendered and validated or not"
                       />
                     </span>
-                    <Input placeholder="step.something === true" />
+                    <Input
+                      value={fieldValues?.[field.slug]?.conditional || field.conditional}
+                      placeholder="step.something === true"
+                      onChange={(event) => setFieldValues({
+                        ...fieldValues,
+                        [field.slug]: {
+                          ...fieldValues[field.slug],
+                          conditional: event.target.value
+                        }
+                      })}
+                    />
                   </div>
                 </div>
                 <Space direction="vertical" css={widthStyles}>

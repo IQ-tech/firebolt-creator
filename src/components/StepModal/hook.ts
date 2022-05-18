@@ -63,7 +63,7 @@ export default function useStepModal({
       slug: slugify(step.step.slug),
       type: step.step.type,
       friendlyname: step.step.friendlyname,
-      fields: [],
+      fields: step.step.fields || [],
     };
 
     if (editingStep) {

@@ -16,17 +16,19 @@ const StepFields = ({
   onOpenAddStep,
   openEditStep,
 }) => {
-  const { steps, handleVisibleStep, showConfirm } = useMainSidebar({
+  const { steps, handleVisibleStep, showConfirm, keyControl, setKeyControl } = useMainSidebar({
     setVisibleStep,
   });
 
   return (
-    <div css={{
-      display: "flex",
-      paddingRight: "19px",
-      flexDirection: "column",
-      alignItems: "stretch",
-    }}>
+    <div
+      css={{
+        display: "flex",
+        paddingRight: "19px",
+        flexDirection: "column",
+        alignItems: "stretch",
+      }}
+    >
       <div
         css={(theme) => ({
           padding: "16px 24px",
@@ -75,8 +77,11 @@ const StepFields = ({
               Remove
             </Menu.Item>
             <Menu.Item
-              key={`${step.step.slug}-edit`}
-              onClick={() => openEditStep(step)}
+              key={`${step.step.slug}-edit-${keyControl}`}
+              onClick={() => {
+                setKeyControl(keyControl + 1);
+                openEditStep(step);
+              }}
             >
               Edit
             </Menu.Item>

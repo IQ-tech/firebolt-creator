@@ -42,6 +42,15 @@ export type JSONAction =
       };
     }
   | {
+      type: "EDIT_FIELD_CONFIG";
+      payload: {
+        attribute: keyof IField;
+        value: any;
+        stepSlug: string;
+        fieldSlug: string;
+      };
+    }
+  | {
       type: "MOVE_FIELD_UP";
       payload: {
         stepSlug: string;

@@ -39,6 +39,11 @@ export default function useStepFields() {
     return !nextField;
   }
 
+  function handleEditFieldValue(attribute: keyof IField, value: any, stepSlug: string, fieldSlug: string) {
+    
+    dispatch({ type: "EDIT_FIELD_CONFIG", payload: { attribute, value, stepSlug, fieldSlug } });
+  }
+
   function moveFieldUp(stepSlug: string, fieldSlug: string) {
     dispatch({ type: "MOVE_FIELD_UP", payload: { stepSlug, fieldSlug } });
   }
@@ -52,6 +57,7 @@ export default function useStepFields() {
     handleDeleteField,
     handleEditFieldStyle,
     checkHasFieldDown,
+    handleEditFieldValue,
     moveFieldUp,
     moveFieldDown,
   };

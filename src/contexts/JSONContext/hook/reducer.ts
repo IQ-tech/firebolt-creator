@@ -125,7 +125,10 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
     case "ADD_FIELD": {
       const templateField: IField = {
         slug: payload.fieldSlug,
-        "ui:props": {},
+        "ui:props": {
+          label: "new field",
+          placeholder: "something",
+        },
         "ui:widget": "Text",
         "ui:styles": {
           size: "full",
@@ -274,7 +277,7 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
         (step) => step.step.slug === payload.toStepSlug
       ) as IStep;
 
-      const filteredFields = stepToAddField.step.fields.filter(
+      const filteredFields = stepToRemoveField.step.fields.filter(
         (field) => field.slug !== payload.fieldSlug
       );
 
@@ -347,6 +350,37 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
       return {
         ...state,
         steps: newCurrentSteps,
+      };
+    }
+    case "EDIT_FIELD_CONFIG": {
+      const configAttribute = payload.attribute;
+      const fieldStep = state.steps.find(
+        (step) => step.step.slug === payload.stepSlug
+      ) as IStep;
+      const newStepFields = fieldStep.step.fields.map((field) => {
+        if (field.slug === payload.fieldSlug) {
+          return { ...field, [configAttribute]: payload.value };
+        }
+        return field;
+      });
+
+      const newStep: IStep = {
+        step: {
+          ...fieldStep.step,
+          fields: newStepFields,
+        },
+      };
+
+      const newSteps = state.steps.map((step) => {
+        if (step.step.slug === payload.stepSlug) {
+          return newStep;
+        }
+        return step;
+      });
+
+      return {
+        ...state,
+        steps: newSteps,
       };
     }
     default:

@@ -23,7 +23,9 @@
     "react-flow-renderer": "10.0.8",
     "react-json-editor-ajrm": "2.5.13",
     "react-router-dom": "6.2.1",
-    "slugify": "^1.6.5"
+    "simple-evaluate": "^1.4.4",
+    "slugify": "^1.6.5",
+    "use-debounce": "^8.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "16.1.0",

@@ -7,6 +7,7 @@ import { ExclamationCircleOutlined } from "@ant-design/icons";
 export default function useMainSidebar({ setVisibleStep }) {
   const { currentJSON, dispatch } = useFireboltJSON();
   const [steps, setSteps] = useState(handleSteps);
+  const [keyControl, setKeyControl] = useState(0);
 
   const { confirm } = Modal;
 
@@ -45,5 +46,7 @@ export default function useMainSidebar({ setVisibleStep }) {
     steps,
     handleVisibleStep,
     showConfirm,
+    keyControl, 
+    setKeyControl
   };
 }
