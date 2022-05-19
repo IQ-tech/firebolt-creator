@@ -32,40 +32,31 @@ export default function useFlow({
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
   const { dispatch } = useFireboltJSON();
 
+  useEffect(() => {
+    // console.log({ nodes, edges });
+  }, [nodes, edges]);
+
   useEffect(populateEdgesAndNodes, [visibleFlow]);
-  useEffect(setNewFlowSteps, [edges, nodes]);
+  useEffect(setNewFlowSteps, [nodes, edges]);
   useEffect(() => {
     reactFlowInstance?.fitView();
   }, [reactFlowInstance]);
 
   const removeNodeToClick = (e) => {
-    
     e.target.addEventListener("contextmenu", (e) => e.preventDefault());
 
     if (e.buttons === 2) {
+      const deletingStepId = e.target.dataset.id;
 
-      // console.log( "äaa",e.target)
-      // e.target.focus()
+      const deleteNodeClick = nodes.filter((ns) => {
+        return ns.id !== e.target.dataset.id;
+      });
+      const filteredEdges = edges.filter((edge) => {
+        return edge.target !== deletingStepId && edge.source !== deletingStepId;
+      });
 
-      // e.currentTarget.dispatchEvent(new KeyboardEvent('keydown', {
-      //   "key": "Backspace",
-      //   "keyCode": 8,
-      //   "which": 8,
-      //   "code": "Backspace",
-      //   "location": 0,
-      //  } ));
-
-      const deleteNodeClick = nodes.filter(
-        (ns) => {return ns.id !== e.target.dataset.id}
-      );
-      const deleteEdgeClick = edges.filter(
-        (ed) =>{return ed.id !== `flow-${visibleFlow.slug}-edge-${e.target.dataset.id}`}
-      );
-
-      console.log({deleteNodeClick, deleteEdgeClick})
-
+      setEdges(filteredEdges);
       setNodes(deleteNodeClick);
-      setEdges(deleteEdgeClick);
     }
   };
 
@@ -79,7 +70,7 @@ export default function useFlow({
       }
       const newEdge: Edge = {
         animated: true,
-        id: `flow-${visibleFlow.slug}-edge-${stepSlug}`,
+        id: `flow-${visibleFlow.slug}-edge-${stepSlug}-to-${target}`,
         source: stepSlug,
         sourceHandle: null,
         style: { stroke: "black" },
@@ -119,6 +110,11 @@ export default function useFlow({
         if (!acc.includes(target)) newAcc.push(target); // remove o segundo e faz a ligação dos edges[BUG]
         return newAcc;
       }, [] as string[]);
+
+      console.log({
+        type: "CHANGE_FLOW_STEPS",
+        payload: { slug: visibleFlow.slug, newSteps: newFlowSteps, edges },
+      });
 
       dispatch({
         type: "CHANGE_FLOW_STEPS",
