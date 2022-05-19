@@ -27,13 +27,47 @@ export default function useFlow({
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [populated, setPopulated] = useState(false);
 
-  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance>(); 
+  const [reactFlowInstance, setReactFlowInstance] =
+    useState<ReactFlowInstance>();
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
   const { dispatch } = useFireboltJSON();
 
   useEffect(populateEdgesAndNodes, [visibleFlow]);
-  useEffect(setNewFlowSteps, [edges]); // problema
-  useEffect(() => {reactFlowInstance?.fitView()},[reactFlowInstance])
+  useEffect(setNewFlowSteps, [edges, nodes]);
+  useEffect(() => {
+    reactFlowInstance?.fitView();
+  }, [reactFlowInstance]);
+
+  const removeNodeToClick = (e) => {
+    
+    e.target.addEventListener("contextmenu", (e) => e.preventDefault());
+
+    if (e.buttons === 2) {
+
+      // console.log( "äaa",e.target)
+      // e.target.focus()
+
+      // e.currentTarget.dispatchEvent(new KeyboardEvent('keydown', {
+      //   "key": "Backspace",
+      //   "keyCode": 8,
+      //   "which": 8,
+      //   "code": "Backspace",
+      //   "location": 0,
+      //  } ));
+
+      const deleteNodeClick = nodes.filter(
+        (ns) => {return ns.id !== e.target.dataset.id}
+      );
+      const deleteEdgeClick = edges.filter(
+        (ed) =>{return ed.id !== `flow-${visibleFlow.slug}-edge-${e.target.dataset.id}`}
+      );
+
+      console.log({deleteNodeClick, deleteEdgeClick})
+
+      setNodes(deleteNodeClick);
+      setEdges(deleteEdgeClick);
+    }
+  };
 
   function populateEdgesAndNodes() {
     const safeVisibleFlow = visibleFlow?.steps || [];
@@ -45,7 +79,7 @@ export default function useFlow({
       }
       const newEdge: Edge = {
         animated: true,
-        id: `flow-${visibleFlow.slug}-edge-${stepSlug}-${target}`,
+        id: `flow-${visibleFlow.slug}-edge-${stepSlug}`,
         source: stepSlug,
         sourceHandle: null,
         style: { stroke: "black" },
@@ -57,7 +91,7 @@ export default function useFlow({
 
     const newNodes: Node[] = safeVisibleFlow?.map((stepSlug, index) => {
       const stepData = getStep(stepSlug, steps);
-      
+
       return {
         key: index,
         id: stepSlug,
@@ -66,14 +100,14 @@ export default function useFlow({
         targetPosition: "left" as any,
         position: {
           x: 180 * index + 1,
-          y: 150
+          y: 150,
         },
       };
     });
     setNodes(newNodes);
     setEdges(newEdges);
     setPopulated(true);
-    reactFlowInstance?.fitView()
+    reactFlowInstance?.fitView();
   }
 
   function setNewFlowSteps() {
@@ -158,6 +192,6 @@ export default function useFlow({
     onDragOver,
     onDrop,
     onClean,
- 
+    removeNodeToClick,
   };
 }

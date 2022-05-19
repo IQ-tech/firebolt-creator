@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 import { IField, IStep } from "@/types/fireboltJSON";
 
+type AvailableThemes = "blueberry" | "material" | "emptyTheme";
+
 export default function useMainTab() {
   const [isAddStepModalOpen, setIsAddModalOpen] = useState(false);
   const [isAddFieldModalOpen, setIsAddFieldModalOpen] = useState(false);
@@ -10,11 +12,12 @@ export default function useMainTab() {
   const [isMoveFieldModalVisible, setIsMoveFieldModalVisible] = useState(false);
   const isVisibleStepCustom = visibleStep?.step?.type !== "form";
   const [movingField, setMovingField] = useState<IField>();
+  const [selectedTheme, setSelectedTheme] =
+    useState<AvailableThemes>("blueberry");
 
   function openAddStepModal() {
     setIsAddModalOpen(true);
   }
-
   function openEditStepModal(step: IStep) {
     setEditingStep(step);
     setIsAddModalOpen(true);
@@ -60,5 +63,7 @@ export default function useMainTab() {
     openAddField,
     closeAddField,
     isAddFieldModalOpen,
+    selectedTheme,
+    setSelectedTheme,
   };
 }

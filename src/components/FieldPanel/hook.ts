@@ -1,18 +1,51 @@
-import { IField, IStep } from "@/types/fireboltJSON";
-import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 import fbtThemes, { AvailableThemes } from "@/constants/fbt-themes";
+import isValidExpression from "@/helpers/isValidExpression";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
+import { IField, IStep } from "@/types/fireboltJSON";
+import { useEffect, useState } from "react";
 
-export default function useStepFields({
+export default function useFieldPanel({
   selectedTheme = "blueberry",
   visibleStep,
+  field,
 }: {
   selectedTheme?: AvailableThemes;
   visibleStep: IStep;
+  field: IField;
 }) {
   const { dispatch } = useFireboltJSON();
   const stepFields = visibleStep.step.fields;
 
   const availableWidgets = Object.keys(fbtThemes[selectedTheme]);
+
+  const [conditional, setConditional] = useState("");
+  const [conditionalError, setConditionalError] = useState("");
+
+  useEffect(() => {
+    if (field.conditional) {
+      setConditional(field.conditional);
+    }
+  }, [field]);
+
+  useEffect(() => {
+    const isValidExpressionCheck = isValidExpression(conditional);
+    if (conditional !== '') {
+      if (isValidExpressionCheck) {
+        dispatch({
+          type: "EDIT_FIELD_CONFIG",
+          payload: {
+            fieldSlug: field.slug,
+            attribute: "conditional",
+            stepSlug: visibleStep.step.slug,
+            value: conditional,
+          },
+        });
+        setConditionalError("");
+      } else {
+        setConditionalError("condition is invalid");
+      }
+    }
+  }, [conditional]);
 
   function handleDeleteField(stepSlug: string, field: string) {
     const fieldToDelete = { stepSlug: stepSlug, field: field };
@@ -68,14 +101,16 @@ export default function useStepFields({
   }
 
   return {
-    stepFields,
-    checkHasFieldUp,
+    moveFieldDown,
+    moveFieldUp,
     handleDeleteField,
     handleEditFieldStyle,
-    checkHasFieldDown,
     handleEditFieldValue,
-    moveFieldUp,
-    moveFieldDown,
+    checkHasFieldDown,
+    checkHasFieldUp,
     availableWidgets,
+    conditional,
+    conditionalError,
+    setConditional,
   };
 }

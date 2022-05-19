@@ -26,6 +26,8 @@ const MainTab = () => {
     isAddFieldModalOpen,
     closeAddField,
     openAddField,
+    selectedTheme,
+    setSelectedTheme,
   } = useMainTab();
   return (
     <Layout
@@ -45,9 +47,13 @@ const MainTab = () => {
         onOpenAddField={openAddField}
         onOpenMoveFields={openMoveField}
         isVisibleStepCustom={isVisibleStepCustom}
+        stepsList={currentJSON.steps}
+        selectedTheme={selectedTheme}
       />
       <MainPreview
         visibleStep={visibleStep}
+        selectedTheme={selectedTheme}
+        onChangeTheme={setSelectedTheme}
         isVisibleStepCustom={isVisibleStepCustom}
       />
       <StepModal

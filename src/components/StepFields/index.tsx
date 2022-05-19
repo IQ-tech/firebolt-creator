@@ -9,9 +9,9 @@ import {
   Button,
   Tooltip as AntdTooltip,
   Popconfirm,
+  Tag,
 } from "antd";
 import { css } from "@emotion/react";
-import { useDebounce } from "use-debounce";
 import {
   DeleteOutlined,
   SwapOutlined,
@@ -21,17 +21,17 @@ import {
 } from "@ant-design/icons";
 import Tooltip from "@/components/Tooltip";
 import stopPropagation from "@/helpers/stopPropagation";
+import isValidExpression from "@/helpers/isValidExpression";
 import ValidatorsModal from "../ValidatorsModal";
 import AddPropsModal from "../AddPropsModal";
 
 import useStepFields from "./hook";
 import { IField, IStep } from "@/types/fireboltJSON";
-import { useFireboltJSON } from "@/hooks/useFireboltJSON";
+import { AvailableThemes } from "@/constants/fbt-themes";
+import FieldPanel from "../FieldPanel";
 
 const { Panel } = Collapse;
 const { Option } = Select;
-
-const widgetOptions = ["Text", "Select", "Radio", "Checkbox", "Email"];
 
 const widthStyles = css({ width: "100%" });
 const headerReset = css`
@@ -43,14 +43,19 @@ const headerReset = css`
 interface IStepFields {
   visibleStep: IStep;
   isVisibleStepCustom: boolean;
+  stepsList: IStep[];
+  selectedTheme: AvailableThemes;
   onOpenMoveFields(field: IField): void;
   onOpenAddField(...args: any): void;
 }
 
 interface IStepFieldsValues {
-  [field: string]: {
-    [slug: string]: string 
-  }
+  [step: string]: {
+    [field: string]: {
+      slug: string;
+      conditional: string;
+    };
+  };
 }
 
 const StepFields = ({
@@ -58,6 +63,8 @@ const StepFields = ({
   isVisibleStepCustom,
   onOpenMoveFields,
   onOpenAddField,
+  stepsList,
+  selectedTheme,
 }: IStepFields) => {
   const {
     stepFields,
@@ -68,10 +75,30 @@ const StepFields = ({
     handleEditFieldValue,
     moveFieldUp,
     moveFieldDown,
-  } = useStepFields();
+    availableWidgets,
+  } = useStepFields({ selectedTheme, visibleStep });
 
-  const [fieldValues, setFieldValues] = useState<IStepFieldsValues>({});
-  const [debouncedFieldValues] = useDebounce<IStepFieldsValues>(fieldValues, 500);
+  // const initialFieldValues: IStepFieldsValues = stepsList.reduce(
+  //   (current, { step: { slug, fields } }) => {
+  //     current[slug] = fields.reduce((field, next) => {
+  //       const currentStep = stepsList.find(
+  //         (step) => step.step.slug === slug
+  //       ) as IStep;
+  //       const currentField = currentStep.step.fields.find(
+  //         (field) => field.slug === next.slug
+  //       ) as IField;
+
+  //       field[next.slug] = currentStep[next.slug] || {
+  //         slug: currentField.slug || "",
+  //         conditional: currentField?.conditional || "",
+  //       };
+  //       return field;
+  //     }, {});
+  //     return current;
+  //   },
+  //   {}
+  // );
+  // const [fieldValues, setFieldValues] = useState(initialFieldValues);
 
   const cardBodyPadding = isVisibleStepCustom
     ? {
@@ -81,16 +108,21 @@ const StepFields = ({
       }
     : {};
 
-  useEffect(() => {
-    Object.keys(debouncedFieldValues).forEach(slug => {
-      Object.keys(slug).forEach((field) => handleEditFieldValue(
-        field as keyof IField,
-        debouncedFieldValues[slug][field],
-        visibleStep.step.slug,
-        slug
-      ));
-    });
-  }, [fieldValues]);
+  // useEffect(() => {
+  //   console.log("visibleStep.step.slug", fieldValues[visibleStep.step.slug]);
+  //   if (fieldValues[visibleStep.step.slug]) {
+  //     Object.keys(fieldValues).forEach((slug) => {
+  //       Object.keys(slug).forEach((field) =>
+  //         handleEditFieldValue(
+  //           field as keyof IField,
+  //           fieldValues[slug][field],
+  //           visibleStep.step.slug,
+  //           slug
+  //         )
+  //       );
+  //     });
+  //   }
+  // }, [fieldValues]);
 
   return (
     <Card
@@ -153,186 +185,19 @@ const StepFields = ({
           </p>
         </div>
       ) : (
-        <Collapse css={[widthStyles, headerReset]} defaultActiveKey={[]}>
-          {stepFields.map((field) => (
-            <Panel
-              header={field.slug}
-              key={field.slug}
-              css={{ marginBottom: "8px" }}
-              extra={
-                <Space>
-                  <AntdTooltip title="Move field up">
-                    <Button
-                      type="primary"
-                      disabled={checkHasFieldUp(field)}
-                      icon={<ArrowUpOutlined />}
-                      onClick={stopPropagation(() =>
-                        moveFieldUp(visibleStep.step.slug, field.slug)
-                      )}
-                    />
-                  </AntdTooltip>
-                  <AntdTooltip title="Move field down">
-                    <Button
-                      type="primary"
-                      disabled={checkHasFieldDown(field)}
-                      icon={<ArrowDownOutlined />}
-                      onClick={stopPropagation(() =>
-                        moveFieldDown(visibleStep.step.slug, field.slug)
-                      )}
-                    />
-                  </AntdTooltip>
-                  <AntdTooltip title="Move field to another step">
-                    <Button
-                      type="primary"
-                      icon={<SwapOutlined />}
-                      onClick={stopPropagation(() => onOpenMoveFields(field))}
-                    />
-                  </AntdTooltip>
-                  <AntdTooltip title="Delete field">
-                    <Popconfirm
-                      title="Delete field?"
-                      placement="bottom"
-                      onConfirm={stopPropagation(() =>
-                        handleDeleteField(visibleStep.step.slug, field.slug)
-                      )}
-                    >
-                      <Button
-                        type="primary"
-                        danger
-                        icon={<DeleteOutlined />}
-                        onClick={stopPropagation()}
-                      />
-                    </Popconfirm>
-                  </AntdTooltip>
-                </Space>
-              }
-            >
-              <Space size="large" direction="vertical" css={widthStyles}>
-                <div css={{ width: "100%", gap: "16px", display: "flex" }}>
-                  <div
-                    css={{
-                      width: "49%",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                    }}
-                  >
-                    <span css={{ display: "flex" }}>
-                      Slug
-                      <Tooltip
-                        title="Slug"
-                        content="Unique identifier to the field"
-                      />
-                    </span>
-                    <Input
-                      value={fieldValues?.[field.slug]?.slug || field.slug}
-                      onChange={(event) => setFieldValues({
-                        ...fieldValues,
-                        [field.slug]: {
-                          ...fieldValues[field.slug],
-                          slug: event.target.value
-                        }
-                      })}
-                    />
-                  </div>
-                  <div
-                    css={{
-                      width: "49%",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                    }}
-                  >
-                    <span css={{ display: "flex" }}>
-                      Conditional
-                      <Tooltip
-                        title="Conditional"
-                        content="Rule to define if a field should be rendered and validated or not"
-                      />
-                    </span>
-                    <Input
-                      value={fieldValues?.[field.slug]?.conditional || field.conditional}
-                      placeholder="step.something === true"
-                      onChange={(event) => setFieldValues({
-                        ...fieldValues,
-                        [field.slug]: {
-                          ...fieldValues[field.slug],
-                          conditional: event.target.value
-                        }
-                      })}
-                    />
-                  </div>
-                </div>
-                <Space direction="vertical" css={widthStyles}>
-                  <span css={{ display: "flex" }}>
-                    Widget
-                    <Tooltip
-                      title="Widget"
-                      content="Rule to set Field Widget"
-                    />
-                  </span>
-                  <Select
-                    css={widthStyles}
-                    placeholder="Please select"
-                    value={field["ui:widget"]}
-                  >
-                    {widgetOptions.map((option, index) => (
-                      <Option key={index} value={option}>
-                        {option}
-                      </Option>
-                    ))}
-                  </Select>
-                </Space>
-                {/* <Space direction="vertical" css={widthStyles}>
-              <span>Props preset</span>
-              <Select
-                css={widthStyles}
-                placeholder={presetsOptions[0]}
-              >
-                {presetsOptions.map((option, index) => 
-                  <Option key={index} value={option}>{option}</Option>
-                )}
-              </Select>
-            </Space> */}
-                <Space>
-                  <span css={{ display: "flex" }}>
-                    Half size
-                    <Tooltip
-                      title="Half size"
-                      content="Rule to set field display size"
-                    />
-                  </span>
-                  <Switch
-                    onChange={(e) =>
-                      handleEditFieldStyle(visibleStep.step.slug, field, e)
-                    }
-                    checked={field["ui:styles"]?.size === "half"}
-                  />
-                </Space>
-                <Space>
-                  <span css={{ display: "flex" }}>
-                    UI props
-                    <Tooltip
-                      title="UI props"
-                      content="Define props to be passed to widget component"
-                    />
-                  </span>
-                  <AddPropsModal field={field} visibleStep={visibleStep} />
-                </Space>
-                <Space>
-                  <span css={{ display: "flex" }}>
-                    Validators
-                    <Tooltip
-                      title="Validators"
-                      content="Define validations to be applied to a field"
-                    />
-                  </span>
-                  <ValidatorsModal field={field.validators} />
-                </Space>
-              </Space>
-            </Panel>
-          ))}
-        </Collapse>
+        <>
+          <Collapse css={[widthStyles, headerReset]} defaultActiveKey={[]}>
+            {stepFields.map((field, idx) => (
+              <FieldPanel
+                key={`step-field-${visibleStep.step.slug}-${field.slug}`}
+                onOpenMoveFields={onOpenMoveFields}
+                field={field}
+                visibleStep={visibleStep}
+                selectedTheme={selectedTheme}
+              />
+            ))}
+          </Collapse>
+        </>
       )}
     </Card>
   );

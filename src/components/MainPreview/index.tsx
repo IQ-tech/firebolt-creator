@@ -1,23 +1,17 @@
 import { Card, Select } from "antd";
 import { FireboltForm } from "@iq-firebolt/client";
-import BlueberryTheme from "@iq-firebolt/blueberry-theme";
-import MaterialTheme from "@iq-firebolt/material-theme";
-import { useState } from "react";
+import fbtThemes, { AvailableThemes } from "@/constants/fbt-themes";
 import { IStep } from "@/types/fireboltJSON";
 import { IStepConfigField } from "@iq-firebolt/client-core";
 import Tooltip from "@/components/Tooltip";
 
 const { Option } = Select;
 
-const themesMap = {
-  blueberry: BlueberryTheme,
-  material: MaterialTheme,
-  emptyTheme: {},
-};
-
 interface IMainPreview {
   visibleStep: IStep;
   isVisibleStepCustom: boolean;
+  selectedTheme: AvailableThemes;
+  onChangeTheme: (theme: AvailableThemes) => void;
 }
 
 const cardBodyPaddingStyle = {
@@ -28,9 +22,12 @@ const cardBodyPaddingStyle = {
   flex: "1",
 };
 
-const MainPreview = ({ visibleStep, isVisibleStepCustom }: IMainPreview) => {
-  const [usedTheme, setUsedTheme] = useState("blueberry");
-
+const MainPreview = ({
+  visibleStep,
+  isVisibleStepCustom,
+  onChangeTheme,
+  selectedTheme,
+}: IMainPreview) => {
   const cardBodyPadding = isVisibleStepCustom ? cardBodyPaddingStyle : {};
 
   return (
@@ -68,11 +65,11 @@ const MainPreview = ({ visibleStep, isVisibleStepCustom }: IMainPreview) => {
         extra={
           <Select
             placeholder="Theme"
-            value={usedTheme}
-            onChange={setUsedTheme}
+            value={selectedTheme}
+            onChange={onChangeTheme}
             disabled={isVisibleStepCustom}
           >
-            {Object.keys(themesMap).map((key) => (
+            {Object.keys(fbtThemes).map((key) => (
               <Option key={`theme-option-${key}`} value={key}>
                 {key}
               </Option>
@@ -95,7 +92,7 @@ const MainPreview = ({ visibleStep, isVisibleStepCustom }: IMainPreview) => {
         ) : (
           <FireboltForm
             customActionsChild={() => <></>}
-            theme={themesMap[usedTheme]}
+            theme={fbtThemes[selectedTheme]}
             schema={visibleStep.step.fields as IStepConfigField[]}
           />
         )}

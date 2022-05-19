@@ -36,6 +36,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
     onDrop,
     onDragOver,
     onClean,
+    removeNodeToClick
   } = useFlow({ visibleFlow, steps });
 
   return (
@@ -50,7 +51,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
           flexGrow: "1",
         }}
       >
-        <div css={{ flexGrow: "1" }} ref={reactFlowWrapper}>
+        <div css={{ flexGrow: "1" }} ref={reactFlowWrapper} onContextMenu={e => e.preventDefault()}>
           <ReactFlow
             defaultEdgeOptions={C!.edgeOptions}
             defaultZoom={1}
@@ -64,6 +65,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             connectionLineComponent={CustomLineConnection}
+            onMouseDown={removeNodeToClick}
           >
             <Controls
               css={{
