@@ -59,7 +59,9 @@ const FieldPanel = ({
     conditional,
     conditionalError,
     setConditional,
+    handleEditFieldValue,
   } = useFieldPanel({ selectedTheme, visibleStep, field });
+  console.log(field);
 
   return (
     <Panel
@@ -129,7 +131,17 @@ const FieldPanel = ({
               Slug
               <Tooltip title="Slug" content="Unique identifier to the field" />
             </span>
-            <Input value={"test"} onChange={() => {}} />
+            <Input
+              value={field.slug}
+              onChange={(e) =>
+                handleEditFieldValue(
+                  "slug",
+                  e.target.value,
+                  visibleStep.step.slug,
+                  field.slug
+                )
+              }
+            />
           </div>
           <div
             css={{

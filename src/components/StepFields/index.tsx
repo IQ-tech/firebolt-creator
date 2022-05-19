@@ -78,28 +78,6 @@ const StepFields = ({
     availableWidgets,
   } = useStepFields({ selectedTheme, visibleStep });
 
-  // const initialFieldValues: IStepFieldsValues = stepsList.reduce(
-  //   (current, { step: { slug, fields } }) => {
-  //     current[slug] = fields.reduce((field, next) => {
-  //       const currentStep = stepsList.find(
-  //         (step) => step.step.slug === slug
-  //       ) as IStep;
-  //       const currentField = currentStep.step.fields.find(
-  //         (field) => field.slug === next.slug
-  //       ) as IField;
-
-  //       field[next.slug] = currentStep[next.slug] || {
-  //         slug: currentField.slug || "",
-  //         conditional: currentField?.conditional || "",
-  //       };
-  //       return field;
-  //     }, {});
-  //     return current;
-  //   },
-  //   {}
-  // );
-  // const [fieldValues, setFieldValues] = useState(initialFieldValues);
-
   const cardBodyPadding = isVisibleStepCustom
     ? {
         display: "flex",
@@ -107,22 +85,6 @@ const StepFields = ({
         flex: 1,
       }
     : {};
-
-  // useEffect(() => {
-  //   console.log("visibleStep.step.slug", fieldValues[visibleStep.step.slug]);
-  //   if (fieldValues[visibleStep.step.slug]) {
-  //     Object.keys(fieldValues).forEach((slug) => {
-  //       Object.keys(slug).forEach((field) =>
-  //         handleEditFieldValue(
-  //           field as keyof IField,
-  //           fieldValues[slug][field],
-  //           visibleStep.step.slug,
-  //           slug
-  //         )
-  //       );
-  //     });
-  //   }
-  // }, [fieldValues]);
 
   return (
     <Card
