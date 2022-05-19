@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { PageHeader, Button, Tabs, Dropdown, Menu, Tooltip, Modal } from "antd";
+import { PageHeader, Button, Tabs, Dropdown, Menu, Tooltip } from "antd";
 import {
   HomeOutlined,
   SisternodeOutlined,
@@ -12,7 +12,6 @@ import {
 } from "@ant-design/icons";
 
 import BreadcrumbComponent from "@/components/Breadcrumb";
-import downloadJSONFile from "@/helpers/downloadJSON";
 
 import useEditor from "./hook";
 
@@ -32,6 +31,7 @@ const EditorPage = () => {
     currentJSON,
     dispatch,
     showConfirm,
+    handleFileDownload,
   } = useEditor();
 
   return (
@@ -101,11 +101,7 @@ const EditorPage = () => {
             </Tooltip>
           }
           extra={[
-            <Button
-              key="1"
-              type="primary"
-              onClick={() => downloadJSONFile(currentJSON, currentJSON?.name)}
-            >
+            <Button key="1" type="primary" onClick={handleFileDownload}>
               <DownloadOutlined /> Export form JSON
             </Button>,
             <Dropdown

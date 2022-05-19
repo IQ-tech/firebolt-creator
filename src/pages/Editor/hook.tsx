@@ -2,6 +2,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
+import downloadJSONFile from "@/helpers/downloadJSON";
+import slugify from "slugify";
 
 const { confirm } = Modal;
 
@@ -26,6 +28,13 @@ export default function useEditor() {
     });
   }
 
+  function handleFileDownload() {
+    const fileName = currentJSON.name || "firebolt-experience-json";
+    const slugfied = slugify(fileName).toLowerCase();
+
+    downloadJSONFile(currentJSON, slugfied);
+  }
+
   return {
     location,
     navigate,
@@ -34,5 +43,6 @@ export default function useEditor() {
     dispatch,
     startNewSession,
     showConfirm,
+    handleFileDownload,
   };
 }
