@@ -103,6 +103,13 @@ export type JSONAction =
       };
     }
   | {
+    type: "REMOVE_NODE";
+    payload: {
+      slug: string;
+      step: string;
+    };
+  }
+  | {
       type: "REMOVE_FLOW";
       payload: {
         slug: string;

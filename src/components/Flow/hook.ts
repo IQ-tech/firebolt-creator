@@ -30,7 +30,7 @@ export default function useFlow({
   const [reactFlowInstance, setReactFlowInstance] =
     useState<ReactFlowInstance>();
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
-  const { dispatch } = useFireboltJSON();
+  const { dispatch , currentJSON } = useFireboltJSON();
 
   useEffect(populateEdgesAndNodes, [visibleFlow]);
   useEffect(setNewFlowSteps, [edges, nodes]);
@@ -62,10 +62,12 @@ export default function useFlow({
         (ed) =>{return ed.id !== `flow-${visibleFlow.slug}-edge-${e.target.dataset.id}`}
       );
 
-      console.log({deleteNodeClick, deleteEdgeClick})
+      console.log({deleteNodeClick, deleteEdgeClick}, e.target.dataset.id)
 
-      setNodes(deleteNodeClick);
-      setEdges(deleteEdgeClick);
+     dispatch({ type: "REMOVE_NODE", payload: {slug: visibleFlow.slug , step: e.target.dataset.id  }});
+
+      // setNodes(deleteNodeClick);
+      // setEdges(deleteEdgeClick);
     }
   };
 
