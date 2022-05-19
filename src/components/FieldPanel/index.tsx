@@ -1,6 +1,4 @@
-import { useState, useEffect, isValidElement } from "react";
 import {
-  Card,
   Collapse,
   Space,
   Input,
@@ -10,7 +8,6 @@ import {
   Tooltip as AntdTooltip,
   Popconfirm,
   Tag,
-  CollapsePanelProps,
 } from "antd";
 import { css } from "@emotion/react";
 import {
@@ -176,6 +173,14 @@ const FieldPanel = ({
             placeholder="Please select"
             value={field["ui:widget"]}
             showSearch
+            onChange={(value) =>
+              handleEditFieldValue(
+                "ui:widget",
+                value,
+                visibleStep.step.slug,
+                field.slug
+              )
+            }
           >
             {availableWidgets.map((option, index) => (
               <Option key={index} value={option}>
@@ -185,6 +190,10 @@ const FieldPanel = ({
                 </Tag>
               </Option>
             ))}
+            <Option key={`hidden-widget-${field.slug}`} value="hidden">
+              {"hidden - "}
+              <Tag>default firebolt</Tag>
+            </Option>
           </Select>
         </Space>
         {/* <Space direction="vertical" css={widthStyles}>

@@ -29,7 +29,7 @@ export default function useFieldPanel({
 
   useEffect(() => {
     const isValidExpressionCheck = isValidExpression(conditional);
-    if (conditional !== '') {
+    if (conditional !== "") {
       if (isValidExpressionCheck) {
         dispatch({
           type: "EDIT_FIELD_CONFIG",

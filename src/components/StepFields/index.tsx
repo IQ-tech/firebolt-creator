@@ -1,37 +1,10 @@
-import { useState, useEffect } from "react";
-import {
-  Card,
-  Collapse,
-  Space,
-  Input,
-  Select,
-  Switch,
-  Button,
-  Tooltip as AntdTooltip,
-  Popconfirm,
-  Tag,
-} from "antd";
+import { Card, Collapse, Button } from "antd";
 import { css } from "@emotion/react";
-import {
-  DeleteOutlined,
-  SwapOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  FormatPainterOutlined,
-} from "@ant-design/icons";
+import { FormatPainterOutlined } from "@ant-design/icons";
 import Tooltip from "@/components/Tooltip";
-import stopPropagation from "@/helpers/stopPropagation";
-import isValidExpression from "@/helpers/isValidExpression";
-import ValidatorsModal from "../ValidatorsModal";
-import AddPropsModal from "../AddPropsModal";
-
-import useStepFields from "./hook";
 import { IField, IStep } from "@/types/fireboltJSON";
 import { AvailableThemes } from "@/constants/fbt-themes";
 import FieldPanel from "../FieldPanel";
-
-const { Panel } = Collapse;
-const { Option } = Select;
 
 const widthStyles = css({ width: "100%" });
 const headerReset = css`
@@ -49,34 +22,14 @@ interface IStepFields {
   onOpenAddField(...args: any): void;
 }
 
-interface IStepFieldsValues {
-  [step: string]: {
-    [field: string]: {
-      slug: string;
-      conditional: string;
-    };
-  };
-}
-
 const StepFields = ({
   visibleStep,
   isVisibleStepCustom,
   onOpenMoveFields,
   onOpenAddField,
-  stepsList,
   selectedTheme,
 }: IStepFields) => {
-  const {
-    stepFields,
-    checkHasFieldUp,
-    handleDeleteField,
-    handleEditFieldStyle,
-    checkHasFieldDown,
-    handleEditFieldValue,
-    moveFieldUp,
-    moveFieldDown,
-    availableWidgets,
-  } = useStepFields({ selectedTheme, visibleStep });
+  const stepFields = visibleStep.step.fields;
 
   const cardBodyPadding = isVisibleStepCustom
     ? {
