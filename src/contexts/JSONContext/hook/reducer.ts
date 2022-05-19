@@ -22,6 +22,19 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
       };
     }
 
+    case "REMOVE_NODE": {
+      const newSteps: any = state.tracks.map((track) => {
+        if (track.slug === payload.slug) {
+          return track.steps.filter((ns) => ns !== payload.step)
+        }
+      });
+
+      return {
+        ...state,
+        tracks: [...state.tracks, newSteps],
+      };
+    }
+
     case "SET_EXPERIENCE_FBT_VERSION": {
       return {
         ...state,
