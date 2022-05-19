@@ -92,7 +92,7 @@ const MainPreview = ({
         ) : (
           <FireboltForm
             customActionsChild={() => <></>}
-            theme={fbtThemes[selectedTheme]}
+            theme={fbtThemes[selectedTheme].theme}
             schema={visibleStep.step.fields as IStepConfigField[]}
           />
         )}

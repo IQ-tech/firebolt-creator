@@ -16,7 +16,7 @@ export default function useFieldPanel({
   const { dispatch } = useFireboltJSON();
   const stepFields = visibleStep.step.fields;
 
-  const availableWidgets = Object.keys(fbtThemes[selectedTheme]);
+  const availableWidgets = Object.keys(fbtThemes[selectedTheme].theme);
 
   const [conditional, setConditional] = useState("");
   const [conditionalError, setConditionalError] = useState("");

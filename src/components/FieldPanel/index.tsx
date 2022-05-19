@@ -26,7 +26,7 @@ import AddPropsModal from "../AddPropsModal";
 
 import { IField, IStep } from "@/types/fireboltJSON";
 import useFieldPanel from "./hook";
-import { AvailableThemes } from "@/constants/fbt-themes";
+import fbtThemes, { AvailableThemes } from "@/constants/fbt-themes";
 import InputWithErrorMessage from "../InputWithErrorMessage";
 
 const { Panel } = Collapse;
@@ -61,7 +61,6 @@ const FieldPanel = ({
     setConditional,
     handleEditFieldValue,
   } = useFieldPanel({ selectedTheme, visibleStep, field });
-  console.log(field);
 
   return (
     <Panel
@@ -180,9 +179,10 @@ const FieldPanel = ({
           >
             {availableWidgets.map((option, index) => (
               <Option key={index} value={option}>
-                {option}
-                {"  "}
-                <Tag color="geekblue">{selectedTheme}theme</Tag>
+                {`${option} - `}
+                <Tag color={fbtThemes[selectedTheme].color}>
+                  {selectedTheme} theme
+                </Tag>
               </Option>
             ))}
           </Select>
