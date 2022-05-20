@@ -97,7 +97,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
             </div>
           </ReactFlow>
         </div>
-        <Sidebar steps={steps} />
+        <Sidebar steps={steps} visibleFlow={visibleFlow} />
       </div>
     </Card>
   );

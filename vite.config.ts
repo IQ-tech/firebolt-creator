@@ -5,7 +5,7 @@ import path from "path";
 
 export default defineConfig({
   root: "./src",
-  base: "/firebolt-creator/",
+  // base: "/firebolt-creator/",
   publicDir: "public",
   plugins: [
     react({
