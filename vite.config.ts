@@ -5,8 +5,8 @@ import path from "path";
 
 export default defineConfig({
   root: "./src",
-  // base: "/firebolt-creator/",
-  publicDir: "public",
+  base: "/firebolt-creator/",
+  publicDir: "../public",
   plugins: [
     react({
       jsxImportSource: "@emotion/react",
@@ -15,7 +15,7 @@ export default defineConfig({
       },
     }),
     VitePWA({
-      manifest: { 
+      manifest: {
         name: "Name of your app",
         short_name: "Short name of your app",
         description: "Description of your app",
