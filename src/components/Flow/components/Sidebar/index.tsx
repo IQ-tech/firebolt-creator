@@ -1,14 +1,8 @@
 import * as S from "./styles";
 
 import { IFlow, IStep } from "@/types/fireboltJSON";
+import useSidebar from "./hook";
 import Tooltip from "@/components/Tooltip";
-
-import { useFireboltJSON } from "@/hooks/useFireboltJSON";
-
-interface ISla {
-  slug: string;
-  friendlyname: string;
-}
 
 const onDragStart = (event, nodeType: string, valueStep: string) => {
   event.dataTransfer.setData("nodeType", nodeType);
@@ -24,26 +18,7 @@ const Sidebar = ({
   steps: IStep[];
   visibleFlow: IFlow;
 }) => {
-  const { currentJSON } = useFireboltJSON();
-
-  const currentTrack = currentJSON?.tracks.find(
-    (track) => track.slug === visibleFlow.slug
-  );
-  const currentSteps = steps.filter((step) => step.step.slug);
-
-  const stepsAvailable = currentSteps.reduce((acc, step) => {
-    const isStepBeingUsed = currentTrack?.steps?.indexOf(step.step.slug) !== -1;
-    if (!isStepBeingUsed) {
-      const availableStep = {
-        slug: step.step.slug,
-        friendlyname: step.step.friendlyname,
-      };
-      return [...acc, availableStep];
-    }
-    return acc;
-  }, [] as ISla[]);
-
-  console.log({ currentSteps });
+  const { stepsAvailable } = useSidebar({ visibleFlow, steps })
 
   return (
     <aside css={S.containerSidebarFlow}>
