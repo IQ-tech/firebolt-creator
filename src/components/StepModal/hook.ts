@@ -1,43 +1,85 @@
-import { useState } from 'react'
+import { useEffect, useState } from "react";
+import slugify from "slugify";
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
+import useSlugInput from "@/hooks/useSlugInput";
 
-import { useFireboltJSON } from "@/hooks/useFireboltJSON"
+import { IStep } from "@/types/fireboltJSON";
 
-import { IStep } from '@/types/fireboltJSON'
+const emptyStep = {
+  step: {
+    slug: "",
+    friendlyname: "",
+    type: "form",
+    fields: [],
+  },
+};
 
-export default function useStepModal() {
-  const { currentJSON, dispatch } = useFireboltJSON()
+export default function useStepModal({
+  onCloseModal,
+  editingStep,
+}: {
+  editingStep?: IStep;
+  onCloseModal(...args: any[]): void;
+}) {
+  const { dispatch } = useFireboltJSON();
+  const [step, setStep] = useState<IStep>(emptyStep);
 
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [step, setStep] = useState<IStep>({
-    step: {
-      slug: "",
-      friendlyname: "",
-      type: "form",
-      fields: []
+  const existentFields = (editingStep?.step.fields || []).map(
+    (field) => field.slug
+  );
+
+  const {
+    status,
+    value: inputValue,
+    onChange,
+    errorMessage,
+    isValid: isSlugFieldValid,
+    resetField,
+  } = useSlugInput({
+    existentSlugs: existentFields,
+    defaultValue: editingStep?.step.slug,
+  });
+
+  const isValid = isSlugFieldValid && !!step.step.friendlyname;
+
+  useEffect(() => {
+    if (editingStep) {
+      setStep(editingStep);
     }
-  })
+  }, [editingStep]);
 
-  function showModal() {
-    setIsModalVisible(true)
-  };
+  const modalTitle = !!editingStep
+    ? `Edit step - ${editingStep.step.friendlyname}`
+    : "Create step";
 
   function handleCancel() {
-    setIsModalVisible(false)
-  };
+    resetField();
+    setStep(emptyStep);
+    onCloseModal();
+  }
 
   function addNewStep() {
     const newStep = {
-      "step": {
-				"slug": step.step.slug,
-				"type": step.step.type,
-				"friendlyname": step.step.friendlyname,
-				"fields": []
-			}
+      slug: slugify(step.step.slug),
+      type: step.step.type,
+      friendlyname: step.step.friendlyname,
+      fields: step.step.fields || [],
+    };
+
+    if (editingStep) {
+      dispatch({
+        type: "EDIT_STEP",
+        payload: {
+          slug: editingStep.step.slug,
+          step: newStep,
+        },
+      });
+    } else {
+      dispatch({ type: "ADD_NEW_STEP", payload: { step: newStep } });
     }
-
-    dispatch({ type: 'ADD_NEW_STEP', payload: newStep });
-
-    setIsModalVisible(false)
+    resetField();
+    setStep(emptyStep);
+    onCloseModal();
   }
 
   function handleStepData(name: string, value: string) {
@@ -46,20 +88,22 @@ export default function useStepModal() {
         ...prevState,
         step: {
           ...prevState.step,
-          [name]: value
-        }
-      }
-    })
+          [name]: value,
+        },
+      };
+    });
   }
 
   return {
-    isModalVisible,
-    step, 
-    
-    showModal,
+    status,
+    value: inputValue,
+    onChange,
+    errorMessage,
+    isValid,
+    step,
     addNewStep,
     handleCancel,
-    handleStepData
-  }
-
+    handleStepData,
+    modalTitle,
+  };
 }

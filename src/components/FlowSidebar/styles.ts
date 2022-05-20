@@ -1,8 +1,9 @@
 export const defaultBtn = (isActive?: boolean) => {
   return {
     background: isActive ? "#e6f7ff" : "unset",
-    height: "40px",
-    width: "40px",
+    height: "35px",
+    width: "35px",
+    margin: "0px 5px",
     border: "none",
     cursor: "pointer",
     ":hover": {
@@ -30,7 +31,8 @@ export const inputRename = (isActive: boolean) => {
         maxWidth: "240px",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
-        padding: "5px",
+        // justifyContent: "space-between",
+        padding: "0px 5px",
+       margin: "5px 0px"
     };
   };

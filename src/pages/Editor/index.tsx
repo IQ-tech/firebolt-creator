@@ -1,17 +1,19 @@
 import { Outlet } from "react-router-dom";
-import BreadcrumbComponent from "@/components/Breadcrumb";
-import { Layout, PageHeader, Button, Tabs } from "antd";
+import { PageHeader, Button, Tabs, Dropdown, Menu, Tooltip } from "antd";
 import {
   HomeOutlined,
   SisternodeOutlined,
   FileOutlined,
   DownloadOutlined,
+  MoreOutlined,
+  UndoOutlined,
+  RedoOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 
-import downloadJSONFile from "@/helpers/downloadJSON";
+import BreadcrumbComponent from "@/components/Breadcrumb";
 
 import useEditor from "./hook";
-import mockJSON from "./mockJson";
 
 const { TabPane } = Tabs;
 
@@ -22,64 +24,113 @@ const tabs = [
 ];
 
 const EditorPage = () => {
-  const { location, navigate, tabsCallback, currentJSON, dispatch } =
-    useEditor();
+  const {
+    location,
+    navigate,
+    tabsCallback,
+    currentJSON,
+    dispatch,
+    showConfirm,
+    handleFileDownload,
+  } = useEditor();
 
   return (
-    <div css={{ padding: "28px" }}>
-      <div css={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
+    <div
+      css={{
+        display: "flex",
+        minHeight: "calc(100vh - 48px)",
+        padding: "28px",
+        alignItems: "stretch",
+      }}
+    >
+      <div
+        css={{
+          display: "flex",
+          maxWidth: "1600px",
+          width: "100%",
+          margin: "0 auto",
+          flexDirection: "column",
+          alignItems: "stretch",
+        }}
+      >
         <BreadcrumbComponent />
         <PageHeader
           css={{ padding: "16px 24px 0", marginBottom: "27px" }}
           ghost={false}
           onBack={() => navigate("/")}
           title={
-            <p
-              css={{
-                padding: "4px 8px",
-                border: "1px solid transparent",
-                ":hover": { border: "solid 1px #1890ff" },
-              }}
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => {
-                dispatch({
-                  type: "SET_EXPERIENCE_NAME",
-                  payload: { experienceName: e?.target?.innerText },
-                });
-              }}
-            >
-              {currentJSON?.name}
-            </p>
+            <Tooltip title="Rename">
+              <p
+                css={{
+                  padding: "4px 8px",
+                  border: "1px solid transparent",
+                  ":hover": { border: "solid 1px #1890ff" },
+                }}
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) => {
+                  dispatch({
+                    type: "SET_EXPERIENCE_NAME",
+                    payload: { experienceName: e?.target?.innerText },
+                  });
+                }}
+              >
+                {currentJSON?.name ? currentJSON?.name : "Untitled"}
+              </p>
+            </Tooltip>
           }
           subTitle={
-            <p
-              css={{
-                padding: "4px 8px",
-                border:"1px solid transparent",
-                ":hover": { border: "solid 1px #1890ff" },
-              }}
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => {
-                dispatch({
-                  type: "SET_EXPERIENCE_DESCRIPTION",
-                  payload: { newDescription: e?.target?.innerText },
-                });
-              }}
-            >
-              {currentJSON?.business}
-            </p>
+            <Tooltip title="Change description">
+              <p
+                css={{
+                  padding: "4px 8px",
+                  border: "1px solid transparent",
+                  ":hover": { border: "solid 1px #1890ff" },
+                }}
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) => {
+                  dispatch({
+                    type: "SET_EXPERIENCE_DESCRIPTION",
+                    payload: { newDescription: e?.target?.innerText },
+                  });
+                }}
+              >
+                {currentJSON?.business ? currentJSON?.business : "Untitled"}
+              </p>
+            </Tooltip>
           }
-          extra={
-            <Button
-              key="1"
-              type="primary"
-              onClick={() => downloadJSONFile(currentJSON, currentJSON?.name)}
-            >
+          extra={[
+            <Button key="1" type="primary" onClick={handleFileDownload}>
               <DownloadOutlined /> Export form JSON
-            </Button>
-          }
+            </Button>,
+            <Dropdown
+              key="more"
+              overlay={
+                <Menu>
+                  <Menu.Item disabled icon={<UndoOutlined />} key="undo-button">
+                    Undo
+                  </Menu.Item>
+                  <Menu.Item disabled icon={<RedoOutlined />} key="redo-button">
+                    Redo
+                  </Menu.Item>
+                  <Menu.Item
+                    onClick={showConfirm}
+                    icon={<LogoutOutlined />}
+                    key="logout-button"
+                  >
+                    Start new experience
+                  </Menu.Item>
+                </Menu>
+              }
+              placement="bottomRight"
+            >
+              <Button
+                type="text"
+                icon={<MoreOutlined style={{ fontSize: 20 }} />}
+              />
+            </Dropdown>,
+          ]}
         >
           <Tabs activeKey={location.pathname} onTabClick={tabsCallback}>
             {tabs.map(({ path, Icon, label }) => (

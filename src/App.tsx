@@ -1,8 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
-
 import theme from "@/theme";
-import { JSONProvider } from "@/context/JSONContext";
+import { JSONProvider } from "@/contexts/JSONContext";
 import BaseStyles from "./components/BaseStyles";
 import InternalLayouts from "@/components/layout/InternalLayouts";
 import RegisterPage from "@/pages/RegisterPage";
@@ -13,6 +12,7 @@ import JsonSchema from "@/pages/Editor/JSONTab";
 
 import "antd/dist/antd.css";
 import "iq-blueberry/dist/styles.css";
+import '@iq-firebolt/client/dist/main.css'
 
 
 function App() {

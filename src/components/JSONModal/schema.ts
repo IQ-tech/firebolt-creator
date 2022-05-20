@@ -69,5 +69,5 @@ export const JSONSchema : object = {
 			}
 		}
 	},
-	"required": ["$schema-version", "category", "tracks", "steps"]
+	"required": ["$schema-version", "tracks", "steps"]
 }

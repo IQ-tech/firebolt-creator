@@ -15,7 +15,7 @@ function ValidatorsModal({ field }) {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Add validators
+        Config validators
       </Button>
 
       <Modal title="Create/Edit Step" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>

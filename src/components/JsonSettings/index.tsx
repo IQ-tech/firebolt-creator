@@ -1,5 +1,6 @@
 import { Space, Card, Input, Select, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import Tooltip from "@/components/Tooltip";
 
 const { Option } = Select;
 
@@ -76,7 +77,9 @@ const JsonSettings = ({ currentJSON, dispatch }) => {
       </Space> */}
 
         <Space>
-          <span>Webhook config</span>
+          <span css={{display: "flex", alignItems: "center"}}>Webhook config
+          <Tooltip title="Webhook config" content="Rule ..... ... Webhook config" />
+          </span>
           <Button type="primary" icon={<SearchOutlined />}>
             Open webhook configs
           </Button>

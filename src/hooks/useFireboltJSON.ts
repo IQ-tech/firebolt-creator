@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { JSONContext } from '@/context/JSONContext';
+import { JSONContext } from '@/contexts/JSONContext';
 
 
 export function useFireboltJSON() {

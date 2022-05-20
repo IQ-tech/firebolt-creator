@@ -35,9 +35,8 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
     setReactFlowInstance,
     onDrop,
     onDragOver,
-    onSave,
-    onRestore,
     onClean,
+    removeNodeToClick
   } = useFlow({ visibleFlow, steps });
 
   return (
@@ -52,7 +51,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
           flexGrow: "1",
         }}
       >
-        <div css={{ flexGrow: "1" }} ref={reactFlowWrapper}>
+        <div css={{ flexGrow: "1" }} ref={reactFlowWrapper} onContextMenu={e => e.preventDefault()}>
           <ReactFlow
             defaultEdgeOptions={C!.edgeOptions}
             defaultZoom={1}
@@ -66,8 +65,20 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             connectionLineComponent={CustomLineConnection}
+            onMouseDown={removeNodeToClick}
           >
-            <Controls />
+            <Controls
+              css={{
+                width: "40px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                "button": {
+                  width: "40px",
+                  height: "35px"
+                }
+              }}
+            />
             <Background color="#aaa" gap={10} />
             <MiniMap />
 
@@ -80,12 +91,6 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
                 fontSize: "12px",
               }}
             >
-              <button css={buttonsSRCStyle} onClick={onSave}>
-                Save
-              </button>
-              <button css={buttonsSRCStyle} onClick={onRestore}>
-                Restore
-              </button>
               <button css={buttonsSRCStyle} onClick={onClean}>
                 Clean
               </button>

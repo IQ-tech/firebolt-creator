@@ -31,6 +31,18 @@ export default function useAddPropsModal({ field, visibleStep }) {
       width: 200,
     },
     {
+      title: "conditional",
+      dataIndex: "conditional",
+      key: "conditional",
+      width: 300,
+    },
+    {
+      title: "type",
+      dataIndex: "type",
+      key: "type",
+      width: 300,
+    },
+    {
       title: "Value",
       dataIndex: "value",
       key: "value",
