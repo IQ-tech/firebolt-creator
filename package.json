@@ -10,6 +10,7 @@
   "dependencies": {
     "@emotion/react": "11.7.1",
     "@iq-firebolt/blueberry-theme": "^0.7.1-next.1",
+    "@iq-firebolt/br-addons": "^0.7.1-next.2",
     "@iq-firebolt/client": "^0.7.1-next.1",
     "@iq-firebolt/client-core": "^0.7.1-next.1",
     "@iq-firebolt/json-schema": "^0.7.1-next.1",

@@ -15,8 +15,8 @@ export default function useFieldPanel({
 }) {
   const { dispatch } = useFireboltJSON();
   const stepFields = visibleStep.step.fields;
-
   const availableWidgets = Object.keys(fbtThemes[selectedTheme].theme);
+  const [isPropsPresetModalOpen, setIsPropsPresetModalOpen] = useState(false)
 
   const [conditional, setConditional] = useState("");
   const [conditionalError, setConditionalError] = useState("");
@@ -100,6 +100,14 @@ export default function useFieldPanel({
     dispatch({ type: "MOVE_FIELD_DOWN", payload: { stepSlug, fieldSlug } });
   }
 
+  function handleOpenPropsPresets(){
+    setIsPropsPresetModalOpen(true)
+  }
+
+  function handleClosePropesPresets(){
+    setIsPropsPresetModalOpen(false)
+  }
+
   return {
     moveFieldDown,
     moveFieldUp,
@@ -112,5 +120,8 @@ export default function useFieldPanel({
     conditional,
     conditionalError,
     setConditional,
+    isPropsPresetModalOpen,
+    handleOpenPropsPresets,
+    handleClosePropesPresets
   };
 }

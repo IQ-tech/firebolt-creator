@@ -1360,6 +1360,13 @@
   resolved "https://registry.yarnpkg.com/@iq-firebolt/blueberry-theme/-/blueberry-theme-0.7.1-next.1.tgz#fd6da2fc969399bebf015b13a7cecac664c101dc"
   integrity sha512-oXIMk6GXyF41piOhcCJ3X97BZke5bOH7HixuCGfgqo38JOx+Q63kCes2Ohp0y4l2xaCpHyWBJEHT7qZS8AL6Fw==
 
+"@iq-firebolt/br-addons@^0.7.1-next.2":
+  version "0.7.1-next.2"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/br-addons/-/br-addons-0.7.1-next.2.tgz#99059d65f45461dde3e659d3d38c7a5c9def6e72"
+  integrity sha512-qrIXgGjZd60Ly/3CUSKntRZXj72AOYwK80YaAp+mIDAT8SOFkoh21F7XGy1BWdeCJNmLaxfVTUKolTqQd9flsg==
+  dependencies:
+    text-mask-addons "^3.8.0"
+
 "@iq-firebolt/client-core@0.7.1-next.1+17e9e91", "@iq-firebolt/client-core@^0.7.1-next.1":
   version "0.7.1-next.1"
   resolved "https://registry.yarnpkg.com/@iq-firebolt/client-core/-/client-core-0.7.1-next.1.tgz#d933e2480f872f43dd8c6da42037b19af763853b"
