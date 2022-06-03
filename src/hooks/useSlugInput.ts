@@ -13,7 +13,6 @@ export default function useSlugInput({
   const isValid = !!value && !status;
 
   useEffect(() => {
-    console.log(defaultValue)
     if (defaultValue) {
       setValue(defaultValue);
     }

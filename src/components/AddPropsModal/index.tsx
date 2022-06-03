@@ -1,13 +1,18 @@
 import useAddPropsModal from './hook'
 
 import { Modal, Button, Input, Table } from 'antd'
+import { IField, IStep } from '@/types/fireboltJSON';
 
-function AddPropsModal({ field, visibleStep }) {
+interface IAddPropsModal {
+  field: IField;
+  visibleStep: IStep
+}
+
+function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
   const {
     isModalVisible,
     fieldProps, 
     columns,
-    
     showModal,
     handleOk,
     handleCancel,

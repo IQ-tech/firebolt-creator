@@ -1,6 +1,7 @@
 import * as S from "./styles";
 
-import { IStep } from "@/types/fireboltJSON";
+import { IFlow, IStep } from "@/types/fireboltJSON";
+import useSidebar from "./hook";
 import Tooltip from "@/components/Tooltip";
 
 const onDragStart = (event, nodeType: string, valueStep: string) => {
@@ -10,14 +11,27 @@ const onDragStart = (event, nodeType: string, valueStep: string) => {
   event.dataTransfer.effectAllowed = "move";
 };
 
-const Sidebar = ({ steps }: {steps: IStep[]}) => {
+const Sidebar = ({
+  steps,
+  visibleFlow,
+}: {
+  steps: IStep[];
+  visibleFlow: IFlow;
+}) => {
+  const { stepsAvailable } = useSidebar({ visibleFlow, steps })
+
   return (
     <aside css={S.containerSidebarFlow}>
-      <h2 css={S.titleSideBarFlow}>You can chose any of the available steps
-      <Tooltip title="Available steps" placement="topLeft" content="Rule ..... ... Available steps" />
+      <h2 css={S.titleSideBarFlow}>
+        You can chose any of the available steps
+        <Tooltip
+          title="Available steps"
+          placement="topLeft"
+          content="Rule ..... ... Available steps"
+        />
       </h2>
 
-      {steps?.map(({step}) => (
+      {stepsAvailable?.map((step) => (
         <div
           key={`step-item-${step?.friendlyname}`}
           css={S.optionStepStyle}

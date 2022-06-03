@@ -31,15 +31,12 @@ export default function useFlow({
   const reactFlowWrapper = useRef<any>(null); // TODO: ANY
   const { dispatch } = useFireboltJSON();
 
-  useEffect(() => {
-    // console.log({ nodes, edges });
-  }, [nodes, edges]);
-
   useEffect(populateEdgesAndNodes, [visibleFlow]);
   useEffect(setNewFlowSteps, [nodes, edges]);
   useEffect(() => {
     reactFlowInstance?.fitView();
-  }, [reactFlowInstance]);
+    window.scrollTo({ top: 9999, behavior: "smooth" });
+  }, [reactFlowInstance, nodes]);
 
   const removeNodeToClick = (e) => {
     e.target.addEventListener("contextmenu", (e) => e.preventDefault());

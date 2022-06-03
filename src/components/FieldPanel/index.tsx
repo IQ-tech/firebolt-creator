@@ -25,6 +25,7 @@ import { IField, IStep } from "@/types/fireboltJSON";
 import useFieldPanel from "./hook";
 import fbtThemes, { AvailableThemes } from "@/constants/fbt-themes";
 import InputWithErrorMessage from "../InputWithErrorMessage";
+import PropsPresetModal from "../PropsPresetModal";
 
 const { Panel } = Collapse;
 const { Option } = Select;
@@ -57,6 +58,9 @@ const FieldPanel = ({
     conditionalError,
     setConditional,
     handleEditFieldValue,
+    handleClosePropesPresets,
+    handleOpenPropsPresets,
+    isPropsPresetModalOpen,
   } = useFieldPanel({ selectedTheme, visibleStep, field });
 
   return (
@@ -196,17 +200,6 @@ const FieldPanel = ({
             </Option>
           </Select>
         </Space>
-        {/* <Space direction="vertical" css={widthStyles}>
-  <span>Props preset</span>
-  <Select
-    css={widthStyles}
-    placeholder={presetsOptions[0]}
-  >
-    {presetsOptions.map((option, index) => 
-      <Option key={index} value={option}>{option}</Option>
-    )}
-  </Select>
-</Space> */}
         <Space>
           <span css={{ display: "flex" }}>
             Half size
@@ -243,6 +236,10 @@ const FieldPanel = ({
           <ValidatorsModal field={field.validators} />
         </Space>
       </Space>
+      <PropsPresetModal
+        visible={true}
+        onClose={handleClosePropesPresets}
+      />
     </Panel>
   );
 };
