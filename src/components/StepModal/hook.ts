@@ -55,7 +55,7 @@ export default function useStepModal({
   function handleCancel() {
     resetField();
     setStep(emptyStep);
-    onCloseModal();
+    onCloseModal(); //trigger
   }
 
   function addNewStep() {
