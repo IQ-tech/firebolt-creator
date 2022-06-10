@@ -4,6 +4,7 @@ import fbtThemes, { AvailableThemes } from "@/constants/fbt-themes";
 import { IStep } from "@/types/fireboltJSON";
 import { IStepConfigField } from "@iq-firebolt/client-core";
 import Tooltip from "@/components/Tooltip";
+import { propsPresets } from "@iq-firebolt/br-addons";
 
 const { Option } = Select;
 
@@ -94,6 +95,7 @@ const MainPreview = ({
             customActionsChild={() => <></>}
             theme={fbtThemes[selectedTheme].theme}
             schema={visibleStep.step.fields as IStepConfigField[]}
+            addons={{ uiPropsPresets: [propsPresets] }}
           />
         )}
       </Card>
