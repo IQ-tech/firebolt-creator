@@ -59,8 +59,9 @@ export default function useStepModal({
   }
 
   function addNewStep() {
+    const slug = editingStep ? step.step.slug : inputValue;
     const newStep = {
-      slug: slugify(step.step.slug),
+      slug: slugify(slug),
       type: step.step.type,
       friendlyname: step.step.friendlyname,
       fields: step.step.fields || [],

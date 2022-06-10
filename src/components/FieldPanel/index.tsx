@@ -237,7 +237,7 @@ const FieldPanel = ({
         </Space>
       </Space>
       <PropsPresetModal
-        visible={true}
+        visible={false}
         onClose={handleClosePropesPresets}
       />
     </Panel>
