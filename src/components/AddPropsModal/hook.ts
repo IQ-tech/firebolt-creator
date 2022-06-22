@@ -23,6 +23,7 @@ export default function useAddPropsModal({ field, visibleStep }) {
     }));
     return mappedProps;
   });
+
   const columns = [
     {
       title: "Prop Name",
@@ -31,13 +32,13 @@ export default function useAddPropsModal({ field, visibleStep }) {
       width: 155,
     },
     {
-      title: "conditional",
+      title: "Conditional",
       dataIndex: "conditional",
       key: "conditional",
       width: 155,
     },
     {
-      title: "type",
+      title: "Type",
       dataIndex: "type",
       key: "type",
       width: 155,
@@ -61,12 +62,15 @@ export default function useAddPropsModal({ field, visibleStep }) {
   }
 
   function handleOk() {
+    const convertFieldPropsInObject = fieldProps.reduce((prop, key) => {
+      prop[key.propName] = key.value;
+      return prop;
+    }, {});
+
     const newField = {
       ...field,
-      ["ui:props"]: fieldProps,
+      ["ui:props"]: convertFieldPropsInObject,
     };
-      console.log("🚀 ~ file: hook.ts ~ line 68 ~ handleOk ~ fieldProps", fieldProps)
-    console.log("🚀 ~ file: hook.ts ~ line 65 ~ handleOk ~ newField", newField)
 
     const fieldToEditProps = { step: visibleStep.step.slug, field: newField };
 
@@ -81,7 +85,6 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
   function handlePropsData(index: number, name: string, value: string) {
     const currentFields = [...fieldProps];
-
     currentFields[index][name as keyof IFieldProps] = value;
 
     setFieldProps(currentFields);
