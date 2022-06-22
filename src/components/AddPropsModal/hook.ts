@@ -62,6 +62,20 @@ export default function useAddPropsModal({ field, visibleStep }) {
   }
 
   function handleOk() {
+    setIsModalVisible(false);
+  }
+
+  function handleCancel() {
+    setIsModalVisible(false);
+  }
+
+  function handlePropsData(index: number, name: string, value: string) {
+    const currentFields = [...fieldProps];
+    currentFields[index][name as keyof IFieldProps] = value;
+
+    setFieldProps(currentFields);
+
+
     const convertFieldPropsInObject = fieldProps.reduce((prop, key) => {
       key.propName ? prop[key.propName] = key.value : null;
       return prop;
@@ -74,21 +88,7 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
     const fieldToEditProps = { step: visibleStep.step.slug, field: newField };
 
-    dispatch({ type: "EDIT_FIELD_PROPS", payload: fieldToEditProps });
-
-    setIsModalVisible(false);
-  }
-
-  function handleCancel() {
-    setIsModalVisible(false);
-  }
-
-  function handlePropsData(index: number, name: string, value: string) {
-    const currentFields = [...fieldProps];
-
-    currentFields[index][name as keyof IFieldProps] = value;
-
-    setFieldProps(currentFields);
+   return dispatch({ type: "EDIT_FIELD_PROPS", payload: fieldToEditProps });
   }
 
   function addNewProp() {
