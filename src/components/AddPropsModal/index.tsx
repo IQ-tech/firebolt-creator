@@ -1,6 +1,6 @@
 import useAddPropsModal from "./hook";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Modal, Button, Input, Table } from "antd";
+import { Modal, Button, Input, Table, Select } from "antd";
 import { IField, IStep } from "@/types/fireboltJSON";
 
 interface IAddPropsModal {
@@ -68,14 +68,14 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                 </div>
 
                 <div className="label__input">
-                  <Input
-                    // value={"field.type"}
-                    value={"working in progress"}
-                    disabled
-                    onChange={(e) =>
-                      handlePropsData(index, "type", e.currentTarget.value)
-                    }
-                  />
+                  <Select
+                    defaultValue="Text"
+                    style={{ width: 180 }}
+                    onChange={() => {}}
+                  >
+                    <Select.Option value="Text">Text</Select.Option>
+                    <Select.Option value="JSON">JSON</Select.Option>
+                  </Select>
                 </div>
 
                 <div className="label__input">
