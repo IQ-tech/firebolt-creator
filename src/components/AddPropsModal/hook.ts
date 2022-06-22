@@ -63,7 +63,7 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
   function handleOk() {
     const convertFieldPropsInObject = fieldProps.reduce((prop, key) => {
-      prop[key.propName] = key.value;
+      key.propName ? prop[key.propName] = key.value : null;
       return prop;
     }, {});
 
@@ -85,6 +85,7 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
   function handlePropsData(index: number, name: string, value: string) {
     const currentFields = [...fieldProps];
+
     currentFields[index][name as keyof IFieldProps] = value;
 
     setFieldProps(currentFields);

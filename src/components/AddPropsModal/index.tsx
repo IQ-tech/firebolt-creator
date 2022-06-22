@@ -67,7 +67,7 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                   />
                 </div>
 
-                <div>
+                <div className="label__input">
                   <Input
                     // value={"field.type"}
                     value={"working in progress"}
