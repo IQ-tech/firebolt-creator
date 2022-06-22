@@ -28,31 +28,31 @@ export default function useAddPropsModal({ field, visibleStep }) {
       title: "Prop Name",
       dataIndex: "propName",
       key: "propName",
-      width: 200,
+      width: 155,
     },
     {
       title: "conditional",
       dataIndex: "conditional",
       key: "conditional",
-      width: 300,
+      width: 155,
     },
     {
       title: "type",
       dataIndex: "type",
       key: "type",
-      width: 300,
+      width: 155,
     },
     {
       title: "Value",
       dataIndex: "value",
       key: "value",
-      width: 200,
+      width: 155,
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      width: 72,
+      width: 74,
     },
   ];
 
@@ -65,6 +65,8 @@ export default function useAddPropsModal({ field, visibleStep }) {
       ...field,
       ["ui:props"]: fieldProps,
     };
+      console.log("🚀 ~ file: hook.ts ~ line 68 ~ handleOk ~ fieldProps", fieldProps)
+    console.log("🚀 ~ file: hook.ts ~ line 65 ~ handleOk ~ newField", newField)
 
     const fieldToEditProps = { step: visibleStep.step.slug, field: newField };
 

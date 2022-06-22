@@ -20,6 +20,7 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
     addNewProp,
     deleteProp
   } = useAddPropsModal({ field, visibleStep })
+  console.log("🚀 ~ file: index.tsx ~ line 23 ~ AddPropsModal ~ visibleStep", visibleStep)
 
   let locale = {
     emptyText: '.',
@@ -31,17 +32,35 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
         Config Props
       </Button>
 
-      <Modal title="Email - UI Props" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={`${field.slug} - UI Props`} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={850}>
         <div className="table-container">
           <Table locale={locale} dataSource={[]} columns={columns} pagination={false} />
 
           <div className="flex column lines">
             { fieldProps.map((field, index) => (
-              <div className="table__line" key={index}>
+              
+              <div className="table__line" key={`${index}-table`}>
+
                 <div className="label__input">
                   <Input 
                     value={field.propName}
                     onChange={(e) => handlePropsData(index, "propName", e.currentTarget.value)}
+                  />
+                </div>
+                  
+                <div className="label__input">
+                  <Input 
+                    // value={"field?.conditional"}
+                    value={"working in progress"}
+                    disabled
+                   // onChange={(e) => handlePropsData(index, "conditional", e.currentTarget.value)}
+                  />
+                </div>
+
+                <div>
+                  <Input 
+                    value={'field.type'}
+                    onChange={(e) => handlePropsData(index, "type", e.currentTarget.value)}
                   />
                 </div>
                   
