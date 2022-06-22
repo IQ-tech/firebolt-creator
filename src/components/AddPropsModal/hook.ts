@@ -29,31 +29,31 @@ export default function useAddPropsModal({ field, visibleStep }) {
       title: "Prop Name",
       dataIndex: "propName",
       key: "propName",
-      width: 155,
+      width: 120,
     },
     {
       title: "Conditional",
       dataIndex: "conditional",
       key: "conditional",
-      width: 155,
+      width: 120,
     },
     {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      width: 155,
+      width: 30,
     },
     {
       title: "Value",
       dataIndex: "value",
       key: "value",
-      width: 155,
+      width: 160,
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      width: 74,
+      width: 15,
     },
   ];
 

@@ -7,9 +7,11 @@ import locale from "react-json-editor-ajrm/locale/pt";
 interface IJSONEditor {
   value?: object;
   onChange: Function;
+  height?: string;
+  width?: string
 }
 
-function JSONEditor({ value, onChange }: IJSONEditor) {
+function JSONEditor({ value, onChange, height = '400px', width }: IJSONEditor) {
   const theme = {
     default: "#D4D4D4",
     background: "#F9F9F9",
@@ -26,7 +28,8 @@ function JSONEditor({ value, onChange }: IJSONEditor) {
     <JSONInput
       id="a_unique_id"
       locale={locale}
-      height="400px"
+      height={height}
+      width={width}
       colors={theme}
       onChange={onChange}
     />

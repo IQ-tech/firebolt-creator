@@ -1,7 +1,8 @@
 import useAddPropsModal from "./hook";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Modal, Button, Input, Table, Select } from "antd";
+import { Modal, Button, Input, Table, Select, Tabs } from "antd";
 import { IField, IStep } from "@/types/fireboltJSON";
+import JSONEditor from "../JSONModal/components/JSONEditor";
 
 interface IAddPropsModal {
   field: IField;
@@ -48,7 +49,11 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
 
           <div className="flex column lines">
             {fieldProps.map((field, index) => (
-              <div className="table__line" key={`${index}-table`}>
+              <div
+                css={{ height: "auto" }}
+                className="table__line"
+                key={`${index}-table`}
+              >
                 <div className="label__input">
                   <Input
                     value={field.propName}
@@ -67,10 +72,15 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                   />
                 </div>
 
-                <div className="label__input">
+                <div className="label__input"  
+                css={{
+                    width: "80px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}>
                   <Select
                     defaultValue="Text"
-                    style={{ width: 180 }}
+                   // style={{ width: 180 }}
                     onChange={() => {}}
                   >
                     <Select.Option value="Text">Text</Select.Option>
@@ -78,14 +88,27 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                   </Select>
                 </div>
 
-                <div className="label__input">
+                <div
+                  css={{
+                    height: "100px",
+                    width: "250px",
+                    margin: "10px 0px",
+                  }}
+                >
+                  <JSONEditor height="100%" width="100%" onChange={(e) => {
+
+                    console.log(e)
+                  }} />
+                </div>
+
+                {/* <div className="label__input">
                   <Input
                     value={field.value}
                     onChange={(e) =>
                       handlePropsData(index, "value", e.currentTarget.value)
                     }
                   />
-                </div>
+                </div> */}
 
                 <div
                   css={{
