@@ -4,7 +4,7 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 interface IFieldProps {
   propName: string;
   value: any | unknown;
-  type: string
+  type: string;
 }
 
 export default function useAddPropsModal({ field, visibleStep }) {
@@ -13,23 +13,17 @@ export default function useAddPropsModal({ field, visibleStep }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const defaultField = {
     propName: "",
-    value: "{'default': 'default'}",
-    type: "Text"
+    value: null,
+    type: "Text",
   };
 
   const [fieldProps, setFieldProps] = useState<IFieldProps[]>(() => {
     const props = Object.entries(field["ui:props"]);
-    const mappedProps = props.map(([key, value]) =>{
-    console.log("🚀 ~ file: hook.ts ~ line 23 ~ mappedProps ~ value", JSON.stringify(value).includes("{" || "["))
-    console.log("🚀 ~ file: hook.ts ~ line 23 ~ mappedProps ~ key", key)
-      
-       return({
+    const mappedProps = props.map(([key, value]) => ({
       type: JSON.stringify(value).includes("{" || "[") ? "JSON" : "Text",
       propName: key,
       value,
-    })
-  }
-    );
+    }));
     return mappedProps;
   });
 
@@ -80,13 +74,12 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
   function handlePropsData(index: number, name: string, value: string) {
     const currentFields = [...fieldProps];
-    currentFields[index][name as keyof IFieldProps] = JSON.stringify(value);
+    currentFields[index][name as keyof IFieldProps] = value;
 
     setFieldProps(currentFields);
 
-
     const convertFieldPropsInObject = fieldProps.reduce((prop, key) => {
-      key.propName ? prop[key.propName] = key.value : null;
+      key.propName ? (prop[key.propName] = key.value) : null;
       return prop;
     }, {});
 
@@ -97,16 +90,14 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
     const fieldToEditProps = { step: visibleStep.step.slug, field: newField };
 
-   return dispatch({ type: "EDIT_FIELD_PROPS", payload: fieldToEditProps });
+    return dispatch({ type: "EDIT_FIELD_PROPS", payload: fieldToEditProps });
   }
 
   function addNewProp() {
     const currentFields = [...fieldProps];
 
-    // currentFields.push({...defaultField, value: " add"});
-    
     currentFields.push(defaultField);
-    
+
     setFieldProps(currentFields);
   }
 
