@@ -13,7 +13,7 @@ export default function useAddPropsModal({ field, visibleStep }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const defaultField = {
     propName: "",
-    value: null,
+    value: undefined,
     type: "Text",
   };
 
@@ -74,6 +74,10 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
   function handlePropsData(index: number, name: string, value: string) {
     const currentFields = [...fieldProps];
+
+    if (name === "type" && value === "JSON") {
+      currentFields[index]["value" as keyof IFieldProps] = { example: "example" }
+    }
     currentFields[index][name as keyof IFieldProps] = value;
 
     setFieldProps(currentFields);

@@ -85,7 +85,7 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                     onChange={(e) => handlePropsData(index, "type", e)}
                   >
                     <Select.Option value="Text">Text</Select.Option>
-                    <Select.Option value="JSON">JSON</Select.Option>
+                    <Select.Option value="JSON" disabled={field.propName === "label"}>JSON</Select.Option>
                   </Select>
                 </div>
 
