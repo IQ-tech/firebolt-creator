@@ -1415,6 +1415,15 @@
     faker "^5.5.3"
     simple-evaluate "^1.4.3"
 
+"@iq-firebolt/validators@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@iq-firebolt/validators/-/validators-0.8.0.tgz#e61dbdb974e69f197c4819b9234b601dcbc3275f"
+  integrity sha512-Y41D2KGQWqZyqhSq02HZ7ndxBQu15igu/NtPtDt5mwkTgRA0rXMLc3L53JSnfnYr1qTWtN1Z8n44t6U/9LpADA==
+  dependencies:
+    cpf-cnpj-validator "^1.0.3"
+    faker "^5.5.3"
+    simple-evaluate "^1.4.3"
+
 "@jridgewell/gen-mapping@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.1.tgz#cf92a983c83466b8c0ce9124fadeaf09f7c66ea9"

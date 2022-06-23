@@ -112,12 +112,12 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                       height="auto"
                       width="100%"
                       onChange={(e) => {
+                        console.log(field.value)
                         if (!e.error) {
                           handlePropsData(index, "value", e.jsObject);
                         }
                       }}
-                      // value={JSON.parse("{}")}
-                       value={field.value}
+                      value={ typeof field.value === "object" ? field.value : undefined }
                     />
                   </div>
                 )}
