@@ -77,7 +77,7 @@ const BaseStyles = () => {
           width: 100%;
           align-items: center;
           align-content: flex-start;
-          gap: 7px;
+          gap: 10px;
           
           height: 56px;
           border-bottom: 1px solid #ebeaea;

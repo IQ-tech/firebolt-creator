@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useAddPropsModal from "./hook";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Modal, Button, Input, Table, Select, Tabs } from "antd";
@@ -72,43 +73,56 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                   />
                 </div>
 
-                <div className="label__input"  
-                css={{
-                    width: "80px",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}>
+                <div
+                  className="label__input"
+                  css={{
+                    width: "82px",
+                  }}
+                >
                   <Select
-                    defaultValue="Text"
-                   // style={{ width: 180 }}
-                    onChange={() => {}}
+                    css={{ width: "100%" }}
+                    defaultValue={field.type}
+                    onChange={(e) => handlePropsData(index, "type", e)}
                   >
                     <Select.Option value="Text">Text</Select.Option>
                     <Select.Option value="JSON">JSON</Select.Option>
                   </Select>
                 </div>
 
-                <div
-                  css={{
-                    height: "100px",
-                    width: "250px",
-                    margin: "10px 0px",
-                  }}
-                >
-                  <JSONEditor height="100%" width="100%" onChange={(e) => {
-
-                    console.log(e)
-                  }} />
-                </div>
-
-                {/* <div className="label__input">
-                  <Input
-                    value={field.value}
-                    onChange={(e) =>
-                      handlePropsData(index, "value", e.currentTarget.value)
-                    }
-                  />
-                </div> */}
+                {field.type === "Text" ? (
+                  <div className="label__input">
+                    <Input
+                      css={{
+                        width: "230px",
+                      }}
+                      value={field.value}
+                      onChange={(e) =>
+                        handlePropsData(index, "value", e.currentTarget.value)
+                      }
+                    />
+                  </div>
+                ) : (
+                  <div
+                    css={{
+                      width: "230px",
+                      margin: "10px 0px",
+                    }}
+                  >
+                    <JSONEditor
+                      height="auto"
+                      width="100%"
+                      onChange={(e) => {
+                     
+                      // console.log("field >>>>",   JSON.parse(field.value)) 
+                     
+                          if(!e.error){
+                          handlePropsData(index, "value", e.json)
+                            }
+                      }}
+                    value={JSON.parse("{}")}
+                    />
+                  </div>
+                )}
 
                 <div
                   css={{

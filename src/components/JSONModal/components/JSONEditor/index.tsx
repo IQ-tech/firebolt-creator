@@ -32,6 +32,7 @@ function JSONEditor({ value, onChange, height = '400px', width }: IJSONEditor) {
       width={width}
       colors={theme}
       onChange={onChange}
+      placeholder={value}
     />
   );
 }

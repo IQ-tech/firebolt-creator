@@ -3,7 +3,8 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 interface IFieldProps {
   propName: string;
-  value: any;
+  value: any | unknown;
+  type: string
 }
 
 export default function useAddPropsModal({ field, visibleStep }) {
@@ -12,15 +13,23 @@ export default function useAddPropsModal({ field, visibleStep }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const defaultField = {
     propName: "",
-    value: "",
+    value: "{'default': 'default'}",
+    type: "Text"
   };
 
   const [fieldProps, setFieldProps] = useState<IFieldProps[]>(() => {
     const props = Object.entries(field["ui:props"]);
-    const mappedProps = props.map(([key, value]) => ({
+    const mappedProps = props.map(([key, value]) =>{
+    console.log("🚀 ~ file: hook.ts ~ line 23 ~ mappedProps ~ value", JSON.stringify(value).includes("{" || "["))
+    console.log("🚀 ~ file: hook.ts ~ line 23 ~ mappedProps ~ key", key)
+      
+       return({
+      type: JSON.stringify(value).includes("{" || "[") ? "JSON" : "Text",
       propName: key,
       value,
-    }));
+    })
+  }
+    );
     return mappedProps;
   });
 
@@ -71,7 +80,7 @@ export default function useAddPropsModal({ field, visibleStep }) {
 
   function handlePropsData(index: number, name: string, value: string) {
     const currentFields = [...fieldProps];
-    currentFields[index][name as keyof IFieldProps] = value;
+    currentFields[index][name as keyof IFieldProps] = JSON.stringify(value);
 
     setFieldProps(currentFields);
 
@@ -94,8 +103,10 @@ export default function useAddPropsModal({ field, visibleStep }) {
   function addNewProp() {
     const currentFields = [...fieldProps];
 
+    // currentFields.push({...defaultField, value: " add"});
+    
     currentFields.push(defaultField);
-
+    
     setFieldProps(currentFields);
   }
 
