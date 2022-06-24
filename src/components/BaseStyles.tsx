@@ -76,9 +76,12 @@ const BaseStyles = () => {
           display: flex;
           width: 100%;
           align-items: center;
-          justify-content: space-between;
+          align-content: flex-start;
+          gap: 10px;
+          
           height: 56px;
           border-bottom: 1px solid #ebeaea;
+
         }
 
         .lines {

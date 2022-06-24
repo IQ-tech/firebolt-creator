@@ -7,7 +7,7 @@ export const FormValidators = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    console.log('Received values of form:', values);
+   // console.log('Received values of form:', values);
   };
 
   return (
@@ -25,7 +25,7 @@ export const FormValidators = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              <Button css={{border: '1px solid #d9d9d9'}} type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                 Add validator
               </Button>
             </Form.Item>
