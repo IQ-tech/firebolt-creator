@@ -15,12 +15,8 @@ interface ICollapseProperties {
 }
 
 const CollapseProperties = ({ data, remove }: ICollapseProperties) => {
-  console.log(
-    "🚀 ~ file: index.tsx ~ line 19 ~ CollapseProperties ~ data",
-    data
-  );
   function handleChangeInput(value: any) {
-    console.log(`selected ${value}`);
+   // console.log(`selected ${value}`);
   }
 
   return (

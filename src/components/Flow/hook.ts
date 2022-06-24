@@ -107,11 +107,6 @@ export default function useFlow({
         return newAcc;
       }, [] as string[]);
 
-      console.log({
-        type: "CHANGE_FLOW_STEPS",
-        payload: { slug: visibleFlow.slug, newSteps: newFlowSteps, edges },
-      });
-
       dispatch({
         type: "CHANGE_FLOW_STEPS",
         payload: { slug: visibleFlow.slug, newSteps: newFlowSteps },
