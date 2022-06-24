@@ -85,7 +85,15 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                     onChange={(e) => handlePropsData(index, "type", e)}
                   >
                     <Select.Option value="Text">Text</Select.Option>
-                    <Select.Option value="JSON" disabled={field.propName === "label"}>JSON</Select.Option>
+                    <Select.Option
+                      value="JSON"
+                      disabled={
+                        field.propName.toLowerCase() === "label" ||
+                        field.propName.toLowerCase() === "placeholder"
+                      }
+                    >
+                      JSON
+                    </Select.Option>
                   </Select>
                 </div>
 
@@ -112,12 +120,16 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
                       height="auto"
                       width="100%"
                       onChange={(e) => {
-                        console.log(field.value)
+                        console.log(field.value);
                         if (!e.error) {
                           handlePropsData(index, "value", e.jsObject);
                         }
                       }}
-                      value={ typeof field.value === "object" ? field.value : undefined }
+                      value={
+                        typeof field.value === "object"
+                          ? field.value
+                          : undefined
+                      }
                     />
                   </div>
                 )}
