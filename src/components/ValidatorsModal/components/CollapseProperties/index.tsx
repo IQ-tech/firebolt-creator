@@ -58,7 +58,9 @@ const CollapseProperties = ({ data, remove }: ICollapseProperties) => {
             </Select>
           </div>
           <div css={S.inputGroupStyles}>
-            <p>Validator Properties</p>
+            <p css={{ width: "100%", textAlign: "center" }}>
+              Validator Properties
+            </p>
             <Properties name={field.name} index={field.key + 1} />
           </div>
         </Panel>

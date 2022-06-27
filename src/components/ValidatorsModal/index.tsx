@@ -20,7 +20,7 @@ function ValidatorsModal({ field }) {
         Config validators
       </Button>
 
-      <Modal title="Create/Edit Step" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Create/Edit Validator" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <FormValidators field={field}/>
       </Modal>
     </>
