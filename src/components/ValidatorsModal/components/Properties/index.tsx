@@ -17,7 +17,11 @@ const Properties = ( { name, index } : {name: string, index: number}) => {
 						{() => (
 							<>
 								<Form.Item name={[name, 'property']}>
-									<Table columns={columns} dataSource={fields} />
+									<Table 
+									columns={columns} 
+									dataSource={fields} 
+									pagination={false} 
+									/>
 									{fields.map((field, index) => {
 										{/* @ts-ignore */}
 										field.action = {fields, index, remove}
