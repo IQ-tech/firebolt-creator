@@ -3,7 +3,7 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 interface IFieldProps {
   propName: string;
-  value: any | unknown;
+  value: any;
   type: string;
 }
 
