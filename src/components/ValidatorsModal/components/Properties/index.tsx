@@ -7,6 +7,9 @@ const Properties = ( { name, index } : {name: string, index: number}) => {
 	return (
 		<Form.List name={`properties-${index}`}>
 			{(fields, { add, remove }) => {
+				{
+					console.log("aaaaaaaaaa",fields)
+				}
 				return (
 					<Form.Item
 						noStyle

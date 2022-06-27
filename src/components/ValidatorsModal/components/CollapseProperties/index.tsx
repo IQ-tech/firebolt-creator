@@ -6,6 +6,8 @@ import Properties from "../Properties";
 
 import * as S from "./styles";
 
+import { useState } from "react";
+
 const { Option } = Select;
 const { Panel } = Collapse;
 
@@ -16,30 +18,37 @@ interface ICollapseProperties {
 
 const CollapseProperties = ({ data, remove }: ICollapseProperties) => {
   function handleChangeInput(value: any) {
-   // console.log(`selected ${value}`);
+    // console.log("🚀 ~ file: index.tsx ~ line 18 ~ CollapseProperties ~ data", data)
+    console.log(`selected VALIDATOR ${value}`);
   }
 
   return (
-    <Collapse defaultActiveKey={["1"]} ghost >
+    <Collapse ghost>
       {data.map((field: any, index: number) => (
         <Panel
-		 css={{background: "#FAFAFA", border: '1px solid #d9d9d9'}}
+          css={{
+            background: "#FAFAFA",
+            border: "1px solid #d9d9d9",
+          }}
           header={
             <CollapseHeader
-			
-              name={`Validator ${field.key + 1}`}
+              name={
+                typeof field.name === "string"
+                  ? field.name
+                  : `New validator ${field.name}`
+              }
               action={() => remove(index)}
             />
           }
           key={field.key + 1}
         >
           <div>
-            <p>Validator Name</p>
+            {/* <p>Selected Validator</p> */}
             <Select
-              mode="tags"
               style={{ width: "100%" }}
-              placeholder="Validator Name"
+              placeholder="Select Validator"
               onChange={handleChangeInput}
+              defaultValue={typeof field.name === "string" ? field.name : null}
             >
               {Object.keys(validators).map((validator, index) => (
                 <Option key={index} value={validator}>
