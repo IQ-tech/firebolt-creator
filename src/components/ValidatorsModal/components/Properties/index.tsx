@@ -17,7 +17,7 @@ const Properties = ({ name, index }: { name: string; index: number }) => {
           >
             {() => (
               <>
-                <Form.Item name={name}>
+                <Form.Item name={[name, "property"]}>
                   <Table
                     columns={columns}
                     dataSource={fields}

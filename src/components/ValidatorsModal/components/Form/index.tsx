@@ -37,11 +37,6 @@ export const FormValidators = ({ field }) => {
       <Form.List name="validators">
         {(fields, { add, remove }) => (
           <>
-            {/* {console.log(
-              "🚀 ~ file: index.tsx ~ line 20 ~ FormValidators ~ fields",
-              fields
-            )} */}
-
             <Form.Item
               name="new"
               noStyle
