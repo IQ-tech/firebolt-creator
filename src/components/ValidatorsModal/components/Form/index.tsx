@@ -1,55 +1,19 @@
-import { validators } from "@iq-firebolt/validators";
-import { Form, Button, Select } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import { useFireboltJSON } from "@/hooks/useFireboltJSON";
+import { Form, Select } from "antd";
 import CollapseProperties from "../CollapseProperties";
 
+import useFormValidators from "./hook";
+
 export const FormValidators = ({ field, stepSlug }) => {
-  const { dispatch } = useFireboltJSON();
+  const {
+    allValidator,
+    existingValidator,
+    validatorAvailable,
+    fieldsInit,
 
-  const existingValidator = field?.validators?.reduce((acc, cur) => {
-    acc = [...acc, cur.type];
-    return acc;
-  }, []);
-
-  const validatorAvailable = Object.keys(validators)?.filter(
-    (validator) => !existingValidator?.includes(validator)
-  );
-
-  function handleChangeInput(value: string) {
-    dispatch({
-      type: "EDIT_OR_ADD_VALIDATOR",
-      payload: {
-        stepSlug: stepSlug,
-        fieldSlug: field.slug,
-        types: value,
-      },
-    });
-  }
-
-  const valueInit = field?.validators?.reduce((acc, cur, index) => {
-    acc = [
-      ...acc,
-      {
-        name: cur.type,
-        key: 100 + index,
-        isListField: true,
-        fieldKey: 100 + index,
-      },
-    ];
-
-    return acc;
-  }, []);
-  console.log(
-    "🚀 ~ file: index.tsx ~ line 50 ~ FormValidators ~ valueInit",
-    valueInit
-  );
-
-  const [form] = Form.useForm();
-
-  const onFinish = (values: any) => {
-    console.log("Received values of form:", values);
-  };
+    form,
+    handleChangeInput,
+    onFinish,
+  } = useFormValidators({ field, stepSlug });
 
   return (
     <Form
@@ -69,7 +33,7 @@ export const FormValidators = ({ field, stepSlug }) => {
               }}
             >
               <CollapseProperties
-                data={[...fields, ...valueInit]}
+                data={fieldsInit ? [...fields, ...fieldsInit] : fields}
                 remove={remove}
                 fieldSlug={field}
                 stepSlug={stepSlug}
@@ -91,7 +55,7 @@ export const FormValidators = ({ field, stepSlug }) => {
                 value={existingValidator}
                 onChange={handleChangeInput}
               >
-                {Object.keys(validators)?.map((validator, index) => (
+                {allValidator?.map((validator, index) => (
                   <Select.Option
                     key={`options-existing--Validator-${index}`}
                     value={validator}

@@ -46,7 +46,7 @@ export type JSONAction =
       payload: {
         stepSlug: string;
         fieldSlug: string;
-        types: string[]
+        types: any
       };
     }
   | {

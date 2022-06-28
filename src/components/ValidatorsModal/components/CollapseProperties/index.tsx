@@ -7,15 +7,15 @@ import Properties from "../Properties";
 import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 
 const { Option } = Select;
-const { Panel } = Collapse;
+
 
 interface ICollapseProperties {
   data: any[];
   remove: (index: number) => void;
-  fieldSlug: any;
+  fieldSlug: object | any;
   stepSlug: string;
   validatorAvailable: any;
-  existingValidator;
+  existingValidator: any;
 }
 
 const CollapseProperties = ({
@@ -26,28 +26,15 @@ const CollapseProperties = ({
   validatorAvailable,
   existingValidator,
 }: ICollapseProperties) => {
-  // const existingValidator = fieldSlug?.validators?.reduce((acc,cur) =>{
-  //   acc = [...acc, cur.type]
-  //   return acc
-  // },[])
-
-  // const validatorAvailable = Object.keys(validators)?.filter(validator => !existingValidator?.includes(validator))
-
-  //console.log("🚀 ~ file: index.tsx ~ line 25 ~ fieldSlug", validatorAvailable )
-
   const { dispatch } = useFireboltJSON();
 
   function handleChangeInput(value: string, valueCurrent: string) {
-    //console.log("🚀 ~ file: index.tsx ~ line 38 ~ handleChangeInput ~ value", value)
-    // console.log("🚀 ~ file: index.tsx ~ line 38 ~ handleChangeInput ~ valueCurrent", valueCurrent)
     const outroTest = existingValidator.map((type) => {
       if (type === valueCurrent) {
         type = value;
       }
       return type;
     });
-    // console.log("🚀 ~ file: index.tsx ~ line 51 ~ handleChangeInput ~ outroTest", outroTest)
-    // console.log("🚀 ~ file: index.tsx ~ line 45 ~ outroTest ~ existingValidator", existingValidator)
 
     dispatch({
       type: "EDIT_OR_ADD_VALIDATOR",
@@ -61,8 +48,8 @@ const CollapseProperties = ({
 
   return (
     <Collapse ghost>
-      {data.map((field: any, index: number) => (
-        <Panel
+      {data.map((field, index) => (
+        <Collapse.Panel
           css={{
             background: "#FAFAFA",
             border: "1px solid #d9d9d9",
@@ -75,12 +62,6 @@ const CollapseProperties = ({
                   : `New validator ${field?.name}`
               }
               action={() => {
-                console.log(
-                  existingValidator.filter((type) => {!type.includes(field.name)
-                  return type
-                  })
-                );
-                console.log(field.name);
                 remove(field.key);
 
                 dispatch({
@@ -88,16 +69,15 @@ const CollapseProperties = ({
                   payload: {
                     stepSlug: stepSlug,
                     fieldSlug: fieldSlug.slug,
-                    types: existingValidator.filter(
-                      (type) => {return !type.includes(field.name)}
-                    ),
+                    types: existingValidator.filter((type) => {
+                      return !type.includes(field.name);
+                    }),
                   },
                 });
-                //console.log("Function remove")
               }}
             />
           }
-          key={`properties---${field.key}`}
+          key={`properties---${field.key}${index}`}
         >
           <div>
             {/* <p>Selected Validator</p> */}
@@ -108,12 +88,12 @@ const CollapseProperties = ({
               value={field.name}
             >
               {validatorAvailable.map((validator, index) => (
-                <Option
+                <Select.Option
                   key={`options-change-validator-${index}`}
                   value={validator}
                 >
                   {validator}
-                </Option>
+                </Select.Option>
               ))}
             </Select>
           </div>
@@ -125,9 +105,9 @@ const CollapseProperties = ({
             <p css={{ width: "100%", textAlign: "center" }}>
               Validator Properties
             </p>
-            <Properties name={field.name} index={field.key + 989} />
+            <Properties name={field.name} index={index+900} />
           </div>
-        </Panel>
+        </Collapse.Panel>
       ))}
     </Collapse>
   );
