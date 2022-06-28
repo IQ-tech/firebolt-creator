@@ -34,7 +34,7 @@ function AddPropsModal({ field, visibleStep }: IAddPropsModal) {
       </Button>
 
       <Modal
-        title={`${field.slug} - UI Props`}
+        title={`UI Props - ${field.slug}`}
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}

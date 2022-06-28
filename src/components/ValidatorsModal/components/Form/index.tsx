@@ -43,7 +43,7 @@ export const FormValidators = ({ field, stepSlug }) => {
             </Form.Item>
 
             <Form.Item>
-              {/* <p>Validators</p>  */}
+               <p css={{marginTop: 15, textAlign: "center"}}>Quickly select validator</p>  
               <Select
                 mode="tags"
                 style={{
