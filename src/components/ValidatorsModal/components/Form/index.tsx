@@ -5,7 +5,7 @@ import useFormValidators from "./hook";
 
 export const FormValidators = ({ field, stepSlug }) => {
   const {
-    allValidator,
+    onlyGoodValidators, // TODO: temp
     existingValidator,
     validatorAvailable,
     fieldsInit,
@@ -55,7 +55,7 @@ export const FormValidators = ({ field, stepSlug }) => {
                 value={existingValidator}
                 onChange={handleChangeInput}
               >
-                {allValidator?.map((validator, index) => (
+                {onlyGoodValidators?.map((validator, index) => (
                   <Select.Option
                     key={`options-existing--Validator-${index}`}
                     value={validator}
