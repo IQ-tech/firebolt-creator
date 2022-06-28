@@ -5,7 +5,7 @@ import { columns } from "./constants";
 
 const Properties = ({ name, index }: { name: string; index: number }) => {
   return (
-    <Form.List name={`properties-${index}`}>
+    <Form.List name={`properties--${index}`}>
       {(fields, { add, remove }) => {
         return (
           <Form.Item

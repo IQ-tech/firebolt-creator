@@ -233,7 +233,7 @@ const FieldPanel = ({
               content="Define validations to be applied to a field"
             />
           </span>
-          <ValidatorsModal field={field.validators} />
+          <ValidatorsModal field={field} stepSlug={visibleStep?.step?.slug}/>
         </Space>
       </Space>
       <PropsPresetModal

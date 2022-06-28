@@ -1,11 +1,34 @@
-import { Form, Button } from "antd";
+import { validators } from "@iq-firebolt/validators";
+import { Form, Button, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-
+import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 import CollapseProperties from "../CollapseProperties";
 
-export const FormValidators = ({ field }) => {
-  const valueInit = field.reduce(
-    (acc, cur, index) => [
+export const FormValidators = ({ field, stepSlug }) => {
+  const { dispatch } = useFireboltJSON();
+
+  const existingValidator = field?.validators?.reduce((acc, cur) => {
+    acc = [...acc, cur.type];
+    return acc;
+  }, []);
+
+  const validatorAvailable = Object.keys(validators)?.filter(
+    (validator) => !existingValidator?.includes(validator)
+  );
+
+  function handleChangeInput(value: string) {
+    dispatch({
+      type: "EDIT_OR_ADD_VALIDATOR",
+      payload: {
+        stepSlug: stepSlug,
+        fieldSlug: field.slug,
+        types: value,
+      },
+    });
+  }
+
+  const valueInit = field?.validators?.reduce((acc, cur, index) => {
+    acc = [
       ...acc,
       {
         name: cur.type,
@@ -13,18 +36,19 @@ export const FormValidators = ({ field }) => {
         isListField: true,
         fieldKey: 100 + index,
       },
-    ],
-    []
+    ];
+
+    return acc;
+  }, []);
+  console.log(
+    "🚀 ~ file: index.tsx ~ line 50 ~ FormValidators ~ valueInit",
+    valueInit
   );
 
-  // console.log(
-  //   "🚀 ~ file: index.tsx ~ line 7 ~ FormValidators ~ field",
-  //   ...valueInit
-  // );
   const [form] = Form.useForm();
 
   const onFinish = (values: any) => {
-    //console.log('Received values of form:', values);
+    console.log("Received values of form:", values);
   };
 
   return (
@@ -44,23 +68,38 @@ export const FormValidators = ({ field }) => {
                 return prevValues.validators !== curValues.validators;
               }}
             >
-              
               <CollapseProperties
                 data={[...fields, ...valueInit]}
                 remove={remove}
+                fieldSlug={field}
+                stepSlug={stepSlug}
+                validatorAvailable={validatorAvailable}
+                existingValidator={existingValidator}
               />
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="dashed"
-                onClick={() => add()}
-                block
-                css={{ border: "1px solid #d9d9d9" }}
-                icon={<PlusOutlined />}
+              {/* <p>Validators</p>  */}
+              <Select
+                mode="tags"
+                style={{
+                  margin: "10px 0px",
+                  width: "100%",
+                  textAlign: "center",
+                }}
+                placeholder="Add validator"
+                value={existingValidator}
+                onChange={handleChangeInput}
               >
-                Add validator
-              </Button>
+                {Object.keys(validators)?.map((validator, index) => (
+                  <Select.Option
+                    key={`options-existing--Validator-${index}`}
+                    value={validator}
+                  >
+                    {validator}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </>
         )}

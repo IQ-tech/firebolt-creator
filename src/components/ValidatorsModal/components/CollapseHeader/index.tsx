@@ -1,8 +1,6 @@
 import { Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
-import * as S from "./styles";
-
 interface ICollapseHeader {
   name: string;
   action: () => void;

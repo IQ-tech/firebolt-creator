@@ -3,7 +3,8 @@ import FormValidators from './components/Form'
 
 import { Modal, Button } from 'antd'
 
-function ValidatorsModal({ field }) {
+function ValidatorsModal({ field, stepSlug }) {
+//console.log("🚀 ~ file: index.tsx ~ line 7 ~ ValidatorsModal ~ visibleStep", stepSlug)
 //console.log("🚀 ~ file: index.tsx ~ line 7 ~ ValidatorsModal ~ field", field)
   
   const { 
@@ -20,8 +21,8 @@ function ValidatorsModal({ field }) {
         Config validators
       </Button>
 
-      <Modal title="Create/Edit Validator" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <FormValidators field={field}/>
+      <Modal title={`Create/Edit Validator ${field.slug}`} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <FormValidators field={field} stepSlug={stepSlug}/>
       </Modal>
     </>
   )

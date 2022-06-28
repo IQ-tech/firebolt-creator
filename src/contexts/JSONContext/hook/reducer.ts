@@ -25,7 +25,7 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
     case "REMOVE_NODE": {
       const newSteps: any = state.tracks.map((track) => {
         if (track.slug === payload.slug) {
-          return track.steps.filter((ns) => ns !== payload.step)
+          return track.steps.filter((ns) => ns !== payload.step);
         }
       });
 
@@ -365,6 +365,35 @@ function reducer(state: IFireboltJSON, action: JSONAction): IFireboltJSON {
         steps: newCurrentSteps,
       };
     }
+
+    case "EDIT_OR_ADD_VALIDATOR": {
+      const newCurrentSteps = currentSteps.map((step) => {
+        if (step.step.slug === payload.stepSlug) {
+          const newCurrentFields = step.step.fields.map((field: any) => {
+            if (field.slug === payload.fieldSlug) {
+              const types = payload?.types?.reduce(
+                (acc, cur) => (acc = [...acc, { type: cur }]),
+                []
+              );
+
+              field.validators = types;
+            }
+
+            return field;
+          });
+
+          step.step.fields = newCurrentFields;
+        }
+
+        return step;
+      });
+
+      return {
+        ...state,
+        steps: newCurrentSteps,
+      };
+    }
+
     case "EDIT_FIELD_CONFIG": {
       const configAttribute = payload.attribute;
       const fieldStep = state.steps.find(
