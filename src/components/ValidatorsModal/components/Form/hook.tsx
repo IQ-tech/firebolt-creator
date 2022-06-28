@@ -5,9 +5,11 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 export default function useFormValidators({ field, stepSlug }) {
   const { dispatch } = useFireboltJSON();
 
-  const allValidator = Object.keys(validators)
+  const allValidator = Object.keys(validators);
 
   const existingValidator = field?.validators?.reduce((acc, cur) => {
+   // if (!allValidator.includes(cur.type)) allValidator.push(cur.type); TODO: firebolt(client) tem que aceitar validadores que não "existe" na lib.
+
     acc = [...acc, cur.type];
     return acc;
   }, []);
@@ -32,13 +34,15 @@ export default function useFormValidators({ field, stepSlug }) {
 
   const [form] = Form.useForm();
 
-  function handleChangeInput(value: string) {
+  function handleChangeInput(value: []) {
+    const validTypes = value.filter(type => allValidator.includes(type)) // TODO: Filtrando somente os validadores que o firebolt aceita(passa "value" direto para "types" quando o firebolt aceita qualquer "tipo")
+    
     dispatch({
       type: "EDIT_OR_ADD_VALIDATOR",
       payload: {
         stepSlug: stepSlug,
         fieldSlug: field.slug,
-        types: value,
+        types: validTypes,
       },
     });
   }
