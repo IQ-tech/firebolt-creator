@@ -42,6 +42,14 @@ export type JSONAction =
       };
     }
   | {
+      type: "EDIT_OR_ADD_VALIDATOR";
+      payload: {
+        stepSlug: string;
+        fieldSlug: string;
+        types: any
+      };
+    }
+  | {
       type: "EDIT_FIELD_CONFIG";
       payload: {
         attribute: keyof IField;
@@ -103,12 +111,12 @@ export type JSONAction =
       };
     }
   | {
-    type: "REMOVE_NODE";
-    payload: {
-      slug: string;
-      step: string;
-    };
-  }
+      type: "REMOVE_NODE";
+      payload: {
+        slug: string;
+        step: string;
+      };
+    }
   | {
       type: "REMOVE_FLOW";
       payload: {

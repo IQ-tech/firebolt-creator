@@ -1,45 +1,80 @@
-import { Form, Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Form, Select } from "antd";
+import CollapseProperties from "../CollapseProperties";
 
-import CollapseProperties from '../CollapseProperties';
+import useFormValidators from "./hook";
 
-export const FormValidators = () => {
-  const [form] = Form.useForm();
+export const FormValidators = ({ field, stepSlug }) => {
+  const {
+    allValidator,
+    existingValidator,
+    validatorAvailable,
+    fieldsInit,
 
-  const onFinish = (values: any) => {
-   // console.log('Received values of form:', values);
-  };
+    form,
+    handleChangeInput,
+    onFinish,
+  } = useFormValidators({ field, stepSlug });
 
   return (
-    <Form form={form} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+    <Form
+      form={form}
+      name="dynamic_form_nest_item"
+      onFinish={onFinish}
+      autoComplete="off"
+    >
       <Form.List name="validators">
-        {( fields, { add, remove } ) => (
-			    <>
+        {(fields, { add, remove }) => (
+          <>
             <Form.Item
+              name="new"
               noStyle
               shouldUpdate={(prevValues, curValues) => {
-                return prevValues.validators !== curValues.validators
+                return prevValues.validators !== curValues.validators;
               }}
             >
-              <CollapseProperties data={fields} remove={remove} />
+              <CollapseProperties
+                data={fieldsInit ? [...fields, ...fieldsInit] : fields}
+                remove={remove}
+                fieldSlug={field}
+                stepSlug={stepSlug}
+                validatorAvailable={validatorAvailable}
+                existingValidator={existingValidator}
+              />
             </Form.Item>
 
             <Form.Item>
-              <Button css={{border: '1px solid #d9d9d9'}} type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                Add validator
-              </Button>
+              {/* <p>Validators</p>  */}
+              <Select
+                mode="tags"
+                style={{
+                  margin: "10px 0px",
+                  width: "100%",
+                  textAlign: "center",
+                }}
+                placeholder="Add validator"
+                value={existingValidator}
+                onChange={handleChangeInput}
+              >
+                {allValidator?.map((validator, index) => (
+                  <Select.Option
+                    key={`options-existing--Validator-${index}`}
+                    value={validator}
+                  >
+                    {validator}
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </>
         )}
       </Form.List>
-      <Form.Item>
+      {/* <Form.Item>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
-      </Form.Item>
+      </Form.Item> */}
     </Form>
   );
 };
 
-export default FormValidators
-
+export default FormValidators;

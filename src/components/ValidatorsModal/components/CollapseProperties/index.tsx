@@ -1,58 +1,96 @@
-import { validators } from "@iq-firebolt/validators";
 import { Select, Collapse } from "antd";
 
 import CollapseHeader from "../CollapseHeader";
 import Properties from "../Properties";
 
-import * as S from "./styles";
-
-const { Option } = Select;
-const { Panel } = Collapse;
+import useCollapseProperties from "./hook";
 
 interface ICollapseProperties {
   data: any[];
   remove: (index: number) => void;
+  fieldSlug: object | any;
+  stepSlug: string;
+  validatorAvailable: string[];
+  existingValidator: string[];
 }
 
-const CollapseProperties = ({ data, remove }: ICollapseProperties) => {
-  function handleChangeInput(value: any) {
-   // console.log(`selected ${value}`);
-  }
+const CollapseProperties = ({
+  data,
+  remove,
+  fieldSlug,
+  stepSlug,
+  validatorAvailable,
+  existingValidator,
+}: ICollapseProperties) => {
+ 
+  const { dispatch, handleChangeInput } = useCollapseProperties({
+    fieldSlug,
+    stepSlug,
+    existingValidator,
+  });
 
   return (
-    <Collapse defaultActiveKey={["1"]} ghost >
-      {data.map((field: any, index: number) => (
-        <Panel
-		 css={{background: "#FAFAFA", border: '1px solid #d9d9d9'}}
+    <Collapse ghost>
+      {data.map((field, index) => (
+        <Collapse.Panel
+          css={{
+            background: "#FAFAFA",
+            border: "1px solid #d9d9d9",
+          }}
           header={
             <CollapseHeader
-			
-              name={`Validator ${field.key + 1}`}
-              action={() => remove(index)}
+              name={
+                typeof field.name === "string"
+                  ? field.name
+                  : `New validator ${field?.name}`
+              }
+              action={() => {
+                remove(field.key);
+
+                dispatch({
+                  type: "EDIT_OR_ADD_VALIDATOR",
+                  payload: {
+                    stepSlug: stepSlug,
+                    fieldSlug: fieldSlug.slug,
+                    types: existingValidator.filter((type) => {
+                      return !type.includes(field.name);
+                    }),
+                  },
+                });
+              }}
             />
           }
-          key={field.key + 1}
+          key={`properties---${field.key}${index}`}
         >
           <div>
-            <p>Validator Name</p>
+            {/* <p>Selected Validator</p> */}
             <Select
-              mode="tags"
               style={{ width: "100%" }}
-              placeholder="Validator Name"
-              onChange={handleChangeInput}
+              placeholder="Select Validator"
+              onChange={(e) => handleChangeInput(e, field.name)}
+              value={field.name}
             >
-              {Object.keys(validators).map((validator, index) => (
-                <Option key={index} value={validator}>
+              {validatorAvailable.map((validator, index) => (
+                <Select.Option
+                  key={`options-change-validator-${index}`}
+                  value={validator}
+                >
                   {validator}
-                </Option>
+                </Select.Option>
               ))}
             </Select>
           </div>
-          <div css={S.inputGroupStyles}>
-            <p>Validator Properties</p>
-            <Properties name={field.name} index={field.key + 1} />
+          <div
+            css={{
+              marginTop: "25px",
+            }}
+          >
+            <p css={{ width: "100%", textAlign: "center" }}>
+              Validator Properties
+            </p>
+            <Properties name={field.name} index={index + 900} />
           </div>
-        </Panel>
+        </Collapse.Panel>
       ))}
     </Collapse>
   );

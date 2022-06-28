@@ -1,22 +1,38 @@
-import { Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
-
-import * as S from './styles'
+import { Button } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 
 interface ICollapseHeader {
-	name: string;
-	action: () => void
+  name: string;
+  action: () => void;
 }
 
-const CollapseHeader = ({ name, action } : ICollapseHeader) => {
-	return (
-		<header css={S.headerStyles}>
-			<p css={S.textStyles}>{name}</p>
-			<Button css={S.buttonsStyles} type="link" size="large" onClick={action}>
-				<DeleteOutlined />
-			</Button>
-		</header>
-	)
-}
+const CollapseHeader = ({ name, action }: ICollapseHeader) => {
+  return (
+    <header
+      css={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+      }}
+    >
+      <p
+        css={{
+          margin: "0",
+        }}
+      >
+        {name}
+      </p>
 
-export default CollapseHeader
+      <Button
+        css={{ height: "fit-content" }}
+        type="primary"
+        danger
+        icon={<DeleteOutlined />}
+        onClick={action}
+      />
+    </header>
+  );
+};
+
+export default CollapseHeader;
