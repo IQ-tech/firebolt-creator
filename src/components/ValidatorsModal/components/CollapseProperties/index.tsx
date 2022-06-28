@@ -10,8 +10,8 @@ interface ICollapseProperties {
   remove: (index: number) => void;
   fieldSlug: object | any;
   stepSlug: string;
-  validatorAvailable: any;
-  existingValidator: any;
+  validatorAvailable: string[];
+  existingValidator: string[];
 }
 
 const CollapseProperties = ({
