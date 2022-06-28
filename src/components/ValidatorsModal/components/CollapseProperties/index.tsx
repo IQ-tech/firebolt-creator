@@ -3,7 +3,7 @@ import { Select, Collapse } from "antd";
 import CollapseHeader from "../CollapseHeader";
 import Properties from "../Properties";
 
-import useCollapseProperties from "./hooks";
+import useCollapseProperties from "./hook";
 
 interface ICollapseProperties {
   data: any[];
