@@ -5,7 +5,7 @@ import { useFireboltJSON } from "@/hooks/useFireboltJSON";
 export default function useFormValidators({ field, stepSlug }) {
   const { dispatch } = useFireboltJSON();
 
-  const allValidator = Object.keys(validators);
+  const allValidator = Object.keys(validators).sort();
 
   const existingValidator = field?.validators?.reduce((acc, cur) => {
    // if (!allValidator.includes(cur.type)) allValidator.push(cur.type); TODO: firebolt(client) tem que aceitar validadores que não "existe" na lib.
