@@ -63,7 +63,7 @@ const CollapseProperties = ({
           key={`properties---${field.key}${index}`}
         >
           <div>
-            {/* <p>Selected Validator</p> */}
+             <p css={{marginBottom: 10, textAlign: "center"}}>to change the validator</p> 
             <Select
               style={{ width: "100%" }}
               placeholder="Select Validator"

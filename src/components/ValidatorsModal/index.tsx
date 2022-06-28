@@ -18,7 +18,7 @@ function ValidatorsModal({ field, stepSlug }) {
         Config validators
       </Button>
 
-      <Modal title={`Create/Edit Validator ${field.slug}`} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={`Create/Edit Validator - ${field.slug}`} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <FormValidators field={field} stepSlug={stepSlug}/>
       </Modal>
     </>
