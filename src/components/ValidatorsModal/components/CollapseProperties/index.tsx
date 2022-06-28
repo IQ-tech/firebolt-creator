@@ -1,13 +1,9 @@
-//import { validators } from "@iq-firebolt/validators";
 import { Select, Collapse } from "antd";
 
 import CollapseHeader from "../CollapseHeader";
 import Properties from "../Properties";
 
-import { useFireboltJSON } from "@/hooks/useFireboltJSON";
-
-const { Option } = Select;
-
+import useCollapseProperties from "./hooks";
 
 interface ICollapseProperties {
   data: any[];
@@ -26,25 +22,12 @@ const CollapseProperties = ({
   validatorAvailable,
   existingValidator,
 }: ICollapseProperties) => {
-  const { dispatch } = useFireboltJSON();
-
-  function handleChangeInput(value: string, valueCurrent: string) {
-    const outroTest = existingValidator.map((type) => {
-      if (type === valueCurrent) {
-        type = value;
-      }
-      return type;
-    });
-
-    dispatch({
-      type: "EDIT_OR_ADD_VALIDATOR",
-      payload: {
-        stepSlug: stepSlug,
-        fieldSlug: fieldSlug.slug,
-        types: outroTest,
-      },
-    });
-  }
+ 
+  const { dispatch, handleChangeInput } = useCollapseProperties({
+    fieldSlug,
+    stepSlug,
+    existingValidator,
+  });
 
   return (
     <Collapse ghost>
@@ -105,7 +88,7 @@ const CollapseProperties = ({
             <p css={{ width: "100%", textAlign: "center" }}>
               Validator Properties
             </p>
-            <Properties name={field.name} index={index+900} />
+            <Properties name={field.name} index={index + 900} />
           </div>
         </Collapse.Panel>
       ))}
