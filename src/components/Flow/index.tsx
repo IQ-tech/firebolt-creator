@@ -65,7 +65,7 @@ const Flow = ({ visibleFlow, steps }: IFlowProps) => {
             onDrop={onDrop}
             onDragOver={onDragOver}
             connectionLineComponent={CustomLineConnection}
-            //onMouseDown={removeNodeToClick} TODO: bug second step
+            onMouseDown={removeNodeToClick} //TODO: bug second step
           >
             <Controls
               css={{
